@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -309,6 +308,7 @@
     </style>
     <style>
         /* ... (CSS styles remain unchanged) ... */
+        
         :root {
             --primary-color: #1a237e;
             --secondary-color: #283593;
@@ -1047,55 +1047,7 @@ body {
   transform: scale(1.1);
 }
 
-/* زر الصوتيات: نسخة طبق الأصل + فوق الدارك مود مباشرة */
-.sound-btn{
-  position: fixed;
-  right: var(--fab-right);
-  bottom: calc(var(--fab-bottom) + var(--fab-size) + var(--fab-gap)); /* فوقه بشوية */
-  width: var(--fab-size);
-  height: var(--fab-size);
-  border-radius: 50%;
-  background-color: var(--fab-bg);        /* نفس اللون */
-  color: #fff;
-  display: none;                           /* يظهر بعد تسجيل الدخول فقط */
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 9998;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: background .3s ease, transform .2s ease;
-}
-.sound-btn:hover{
-  background-color: var(--fab-hover);      /* نفس الهوفر */
-  transform: scale(1.1);
-}
 
-/* القائمة المنبثقة للصوتيات */
-.sound-btn .sound-menu{
-  display: none;
-  position: absolute;
-  bottom: calc(var(--fab-size) + 10px);
-  right: 0;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 8px;
-  box-shadow: 0 4px 10px rgba(248, 245, 245, 0.947);
-  z-index: 1001;
-  flex-direction: column;
-}
-.sound-btn.active .sound-menu{ display: flex; }
-.sound-btn .sound-menu button{
-  background: none;
-  border: none;
-  padding: 6px 10px;
-  font-size: 14px;
-  text-align: left;
-  cursor: pointer;
-  border-radius: 6px;
-}
-.sound-btn .sound-menu button:hover{ background: #f5f5f5; }
 /* تنسيق قسم البكالوريا */
 #bacExamsSection {
   padding: 2rem 0;
@@ -1927,151 +1879,177 @@ body.dark-mode .profile-section #goals-list .list-group-item:hover { background:
 .sound-btn.playing .sound-indicator {
   transform: scaleX(1);
 }
+.sound-btn { 
+  position: fixed; right: 20px; bottom: 80px;
+  width: 56px; height: 56px; border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  background: var(--fab-bg); color:#fff; cursor:pointer; z-index:9999;
+  transition: transform .18s ease, background .18s ease;
+}
+.sound-btn.playing { transform: scale(1.08); background: var(--fab-hover); }
+.sound-indicator { position:absolute; bottom:6px; left:6px; right:6px; height:3px; background:#4CAF50; transform:scaleX(0); transform-origin:left; transition:transform .25s;}
+.sound-btn.playing .sound-indicator { transform:scaleX(1); }
+/* === Mobile-only fixes for subject detail buttons === */
+@media (max-width: 576px) {
+  .side-buttons {
+    position: static;   /* بدلاً من absolute */
+    top: auto; right: auto; width: 100%;
+    z-index: 1;         
+    display: flex;
+    flex-direction: column; /* تحت بعض */
+    align-items: center;    /* في الوسط */
+    gap: 10px;              /* مسافة بينهم */
+    margin: 10px 0 15px;
+  }
+
+  .side-buttons .btn {
+    width: 90%;        /* ياخد عرض شبه كامل مع حواف يمين/يسار */
+    font-size: 1rem;   /* نفس الحجم الأصلي */
+    padding: 0.75rem;  /* نفس الحشوة تقريباً */
+  }
+
+  #subjectUnits { padding-top: 0 !important; }
+}
+/* === هاتف ≤576px: أزرار عائمة أسفل الشاشة وترتفع فوق الفوتر === */
+.lesson-link.locked{
+  opacity:.5;
+  cursor:not-allowed;
+  filter:grayscale(1);
+}
+
+
+.lessons-list .lesson-link.locked { opacity:.6; cursor:not-allowed; filter:grayscale(1); }
+.lessons-list .lesson-link.locked::after { content:" 🔒"; margin-inline-start:.4rem; opacity:.85; }
+/* --- Library styles (احترافي بسيط يناسب تصميمك العام) --- */
+#libraryGrid .book-card { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+#libraryGrid .book-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+
+.book-cover {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  background:#f3f4f6;
+}
+
+/* مودال الكتاب */
+.book-modal {
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.6); z-index:2000; padding:1rem;
+}
+.book-modal-content {
+  width:100%; max-width:920px; background:var(--card-bg); color:var(--text-color);
+  border-radius:12px; padding:1.25rem; position:relative; box-shadow:var(--shadow-medium);
+}
+.book-modal-close {
+  position:absolute; top:12px; left:12px; border:none; background:transparent; font-size:28px; cursor:pointer;
+}
+.book-meta { display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap; }
+.book-meta .meta-left { flex:0 0 220px; }
+.book-meta .meta-right { flex:1; }
+.book-badge { display:inline-block; padding:.25rem .5rem; border-radius:999px; font-weight:600; font-size:.85rem; }
+/* ✅ إصلاح ألوان النصوص في الملف الشخصي عند الدارك مود */
+body.dark-mode .profile-section,
+body.dark-mode .profile-section * {
+  color: #ffffff !important;  /* نصوص بيضاء */
+}
+
+body.dark-mode .progress-text {
+  color: #ffffff !important;
+}
+
+body.dark-mode .countdown-unit small {
+  color: #cccccc !important;
+}
+/* العد التنازلي في الدارك مود */
+body.dark-mode .profile-section .countdown-unit {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+}
+
+body.dark-mode .profile-section .countdown-unit span {
+  color: #ffffff !important;   /* الأرقام */
+}
+
+body.dark-mode .profile-section .countdown-unit small {
+  color: #cccccc !important;   /* النصوص الصغيرة (أيام - ساعات ...) */
+}
+
+body.dark-mode .profile-section .countdown-colon {
+  color: #ffffff !important;   /* النقطتين بين الأرقام */
+}
+/* حقل إدخال الأهداف في الدارك مود */
+body.dark-mode .profile-section .form-control {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;   /* النص أبيض */
+  border-color: #444 !important;
+}
+
+body.dark-mode .profile-section .form-control::placeholder {
+  color: #bbbbbb !important;   /* نص الـ placeholder رمادي فاتح */
+}
 
     </style>
   
 
 </head>
 <body>
-<!-- ===== زر الصوت (وحيد) - ضع هذا مرة واحدة فقط ===== -->
-<div id="soundContainer" class="sound-btn" aria-label="أصوات خلفية" title="التحكم بالأصوات">
-  <i class="bi bi-music-note-beamed"></i>
-  <div class="sound-menu" aria-hidden="true">
-    <button data-sound="rain">🌧️ مطر</button>
-    <button data-sound="water">💧 مياه</button>
-    <button data-sound="relax">🎶 مريح</button>
-    <hr style="margin:6px 0">
-    <button id="soundCycleBtn">🔁 تبديل تلقائي</button>
-    <button id="soundStopBtn">⏹️ إيقاف</button>
-  </div>
+<!-- زر صوت المطر (مبسط) -->
+<div id="soundContainer" class="sound-btn" title="تشغيل/إيقاف صوت المطر" aria-pressed="false">
+  <i class="bi bi-cloud-rain"></i>
+  <span class="sound-indicator" aria-hidden="true"></span>
 </div>
 
+<!-- ملف صوت المطر — ضعي rain.mp3 في نفس مجلد 11.html -->
+<audio id="rainSound" loop>
+  <source src="mlmsite\calming-rain-257596.mp3" type="audio/mpeg">
+  متصفّحك لا يدعم تشغيل الملفات الصوتية.
+</audio>
+
 <script>
-/* ===== Unified audio manager ===== */
-(() => {
-  // ضبط المسارات هنا (غيّر الروابط إلى ملفاتك إن لزم)
-  const soundTracks = {
-    rain:  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    water: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    relax: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+(function(){
+  const rain = document.getElementById('rainSound');
+  const btn = document.getElementById('soundContainer');
+
+  if(!rain || !btn) { console.warn('rainSound أو soundContainer غير موجود.'); return; }
+
+  // التشغيل/الإيقاف بالتبديل
+  btn.addEventListener('click', () => {
+    if (rain.paused) {
+      rain.play().then(() => {
+        btn.classList.add('playing');
+        btn.setAttribute('aria-pressed','true');
+      }).catch(err => {
+        console.warn('play() blocked', err);
+        showNotification?.('يجب النقر مرة أخرى لتشغيل الصوت.', 'warning');
+      });
+    } else {
+      rain.pause();
+      rain.currentTime = 0;
+      btn.classList.remove('playing');
+      btn.setAttribute('aria-pressed','false');
+    }
+  });
+
+  // دالة لإيقاف الصوت من أي مكان في التطبيق (مثلاً عند تسجيل الخروج)
+  window.stopAllSounds = function(){
+    try { rain.pause(); rain.currentTime = 0; } catch(e){}
+    btn.classList.remove('playing'); btn.setAttribute('aria-pressed','false');
   };
 
-  const container = document.getElementById('soundContainer');
-  const menu = container.querySelector('.sound-menu');
-  const cycleBtn = document.getElementById('soundCycleBtn');
-  const stopBtn = document.getElementById('soundStopBtn');
-
-  let audio = new Audio();
-  audio.loop = true;
-  audio.volume = 0.35; // قابل للتعديل
-  let isPlaying = false;
-  let cycleIndex = -1;
-  const keys = Object.keys(soundTracks);
-
-  // فتح/اغلاق القائمة (بـ click على الـ container)
-  container.addEventListener('click', (ev) => {
-    // إذا ضغطت على زر داخل القائمة، تعامل في المعالج الخاص بالقائمة (delegation)
-    if (ev.target.closest('.sound-menu')) return;
-    container.classList.toggle('active');
-    menu.setAttribute('aria-hidden', !container.classList.contains('active'));
-  });
-
-  // التعامل مع أزرار القائمة (delegation)
-  menu.addEventListener('click', (ev) => {
-    const btn = ev.target.closest('button');
-    if (!btn) return;
-    const soundId = btn.dataset.sound;
-    if (soundId) {
-      playSoundById(soundId);
-    } else if (btn.id === 'soundCycleBtn') {
-      toggleCycle();
-    } else if (btn.id === 'soundStopBtn') {
-      stopSound();
-    }
-  });
-
-  // تشغيل صوت بحسب الـ id
-  function playSoundById(id) {
-    const url = soundTracks[id];
-    if (!url) {
-      console.warn('Sound not found:', id);
-      showNotification('ملف الصوت غير موجود', 'warning');
-      return;
-    }
-    // هذا استدعاء يحدث نتيجة تفاعل المستخدم (لن تمنعه سياسات المتصفح)
-    audio.src = url;
-    audio.load();
-    audio.play().then(() => {
-      isPlaying = true;
-      container.classList.add('playing');
-      container.setAttribute('data-current-sound', id);
-      showNotification('تشغيل: ' + id, 'success');
-    }).catch(err => {
-      console.error('play error', err);
-      showNotification('تعذر تشغيل الصوت. افتح الكونسول لمزيد', 'error');
-    });
-  }
-
-  function stopSound() {
-    if (!audio) return;
-    audio.pause();
-    audio.currentTime = 0;
-    isPlaying = false;
-    container.classList.remove('playing');
-    container.setAttribute('data-current-sound', '');
-    showNotification('تم إيقاف الصوت', 'info');
-  }
-
-  // تبديل تلقائي بين المسارات
-  function toggleCycle() {
-    if (isPlaying && container.getAttribute('data-cycle') === 'on') {
-      // اغلق الدورة
-      container.removeAttribute('data-cycle');
-      stopSound();
-      showNotification('تم إيقاف التبديل التلقائي', 'info');
-      return;
-    }
-    container.setAttribute('data-cycle', 'on');
-    cycleIndex = (cycleIndex + 1) % keys.length;
-    playSoundById(keys[cycleIndex]);
-    // عند فشل التشغيل نوقف الدورة تلقائياً
-    audio.onended = () => {
-      if (container.getAttribute('data-cycle') === 'on') {
-        cycleIndex = (cycleIndex + 1) % keys.length;
-        playSoundById(keys[cycleIndex]);
-      }
-    };
-    showNotification('بدء التبديل التلقائي', 'success');
-  }
-
-  // اختصار رسالة للمستخدم (لو عندك دالة إشعارات استخدمها — هنا بسيطة)
-  function showNotification(msg, type='info') {
-    // إن كان عندك دالة showNotification في ملفك سيعمل هذا السطر بدل الكتلة
-    if (typeof window.showNotification === 'function') {
-      window.showNotification(msg, type);
-      return;
-    }
-    // بسيطة مؤقتة:
-    console.log('[sound-notif]', type, msg);
-  }
-
-  // عند التحميل إظهر الزر فقط إذا لزم (ملائم لسيناريوك)
+  // خفي/أظهِر الزر أثناء التطوير أو حسب حالة الدخول
   document.addEventListener('DOMContentLoaded', () => {
-    // تأكد أنه لا توجد نسخة مكررة قبل العرض
-    const all = document.querySelectorAll('#soundContainer');
-    if (all.length > 1) {
-      // إذا توجد نسخ عديدة، خفّض العرض للنسخة الأخيرة واطبع تحذير
-      all.forEach((el, i) => { if (i !== all.length - 1) el.remove(); });
-      console.warn('وجدت أكثر من #soundContainer — تم حذف النسخ الإضافية افتراضياً');
-    }
-    // إظهار الزر إذا المستخدم مسجل أو تريد عرضه دائماً
-    if (localStorage.getItem('isLoggedIn') === 'true' || true) {
-      container.style.display = 'flex';
+    // إظهار الزر دائماً أثناء التطوير:
+    const sc = document.getElementById('soundContainer');
+    if(sc) sc.style.display = 'flex';
+
+    // --- مهم جداً: دمج أجزاء القرآن (إذا لم تُستدع بعد) ---
+    if (typeof injectQuranJuzIntoDaily === 'function') {
+      try { injectQuranJuzIntoDaily(); console.log('injectQuranJuzIntoDaily() تم استدعاؤها'); }
+      catch(e){ console.warn('فشل استدعاء injectQuranJuzIntoDaily()', e); }
     }
   });
-
-  // إيقاف الصوت عند الخروج من الصفحة
-  window.addEventListener('beforeunload', stopSound);
 })();
 </script>
 
@@ -2415,14 +2393,16 @@ body.dark-mode .profile-section #goals-list .list-group-item:hover { background:
 </div>
 
 
-        <div class="col-md-4 mb-4">
-          <div class="card subject-card">
-              <div class="card-header"> 📂 ملفاتنا </div>
-              <div class="card-body">
-                  <p class="card-text"> مكتبة ملفات وموارد </p>
-              </div>
-          </div>
-        </div>
+        <!-- استبدال البطاقة القديمة -->
+<div class="col-md-4 mb-4">
+  <div class="card subject-card" onclick="showLibrary()" style="cursor:pointer;">
+    <div class="card-header"> 📂 مكتبتنا </div>
+    <div class="card-body">
+      <p class="card-text">مكتبة كتب وموارد — تصفح، معاينة، تحميل.</p>
+    </div>
+  </div>
+</div>
+
 
         <div class="col-md-4 mb-4">
           <div class="card subject-card">
@@ -2435,6 +2415,45 @@ body.dark-mode .profile-section #goals-list .list-group-item:hover { background:
 
     </div> <!-- إغلاق row -->
 </div> <!-- إغلاق subjectsSection -->
+<!-- ========== Library Section (اضيفي هذا) ========== -->
+<div id="librarySection" class="container" style="display:none; padding-top: 20px; padding-bottom: 50px;">
+  <div class="row align-items-center mb-3">
+    <div class="col-md-6">
+      <h2 class="section-title">مكتبتنا — متجر الكتب</h2>
+      <!-- زر الرجوع — ضعيه داخل #librarySection قرب الرأس -->
+<div class="row mb-2">
+  <div class="col-12">
+    <button id="libraryBackBtn" class="btn btn-outline-secondary" onclick="backFromLibrary()">
+      <i class="bi bi-arrow-left"></i> رجوع
+    </button>
+  </div>
+</div>
+
+      <p class="text-muted">كتب دراسية، ملخصات، ملفات PDF، ومعاينات سريعة.</p>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <input id="librarySearch" type="search" class="form-control" placeholder="ابحث عن كتاب أو مؤلف..." aria-label="بحث">
+        <button class="btn btn-outline-primary" type="button" onclick="renderLibrary()">بحث</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- فلترات بسيطة (حقل تُملأ ديناميكياً) -->
+  <div id="libraryFilters" class="mb-3 d-flex gap-2 flex-wrap"></div>
+
+  <!-- شبكة الكتب -->
+  <div id="libraryGrid" class="row g-3"></div>
+
+  <!-- مودال/نافذة تفاصيل الكتاب (مبسط) -->
+  <div id="bookModal" class="book-modal" style="display:none;">
+    <div class="book-modal-content">
+      <button class="book-modal-close" onclick="closeBookModal()">×</button>
+      <div id="bookDetails"></div>
+    </div>
+  </div>
+</div>
+<!-- ========== نهاية Library Section ========== -->
 
 
 
@@ -2538,9 +2557,6 @@ body.dark-mode .profile-section #goals-list .list-group-item:hover { background:
             <h3 class="mb-1">أهلًا <span id="welcomeUsername">الاسم</span></h3>
             <p class="text-muted mb-2">هذا ملخص تقدمك وتحصيلك في منصة جامعة العلوم.</p>
             <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
-              <span class="badge rounded-pill bg-success-subtle text-success fw-semibold px-3 py-2">
-                <i class="bi bi-mortarboard me-1"></i> الامتحانات التي فتحتها: <span id="openedExams">0</span>
-              </span>
             </div>
           </div>
 
@@ -2668,6 +2684,11 @@ body.dark-mode .profile-section #goals-list .list-group-item:hover { background:
             <div class="mt-3">
                 <a href="https://www.instagram.com/bac_with_mlm?igsh=MWR3ZHV5cmxwOXNlZw==" class="text-light mx-2"><i class="bi bi-instagram"></i></a>
                 <a href="https://t.me/Kiti2345w" class="text-light mx-2"><i class="bi bi-telegram"></i></a>
+                    <p>
+      <a href="#privacyPolicy" style="color: #fff; text-decoration: underline;">
+        سياسة الخصوصية
+      </a>
+    </p>
             </div>
         </div>
     </footer>
@@ -2689,6 +2710,180 @@ body.dark-mode .profile-section #goals-list .list-group-item:hover { background:
 
 </div>
 
+<!-- ===========================
+     Privacy "page-like" modal
+     Paste this block BEFORE </body> in 11.html
+     =========================== -->
+<style>
+/* privacy modal (scoped classes to avoid collisions) */
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: rgba(0,0,0,0.65);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease;
+}
+.privacy-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.privacy-modal .privacy-content {
+  background: #fff;
+  width: 100%;
+  max-width: 980px;
+  margin: 48px 20px;
+  border-radius: 10px;
+  padding: 28px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  direction: rtl;
+}
+.privacy-modal .privacy-close-btn {
+  position: absolute;
+  left: 20px; /* left because page is RTL; visually top-left of modal */
+  top: 12px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+}
+.privacy-modal h2 { margin-top: 0; color: #1a237e; }
+.privacy-modal p, .privacy-modal li { color: #333; line-height: 1.7; }
+.privacy-modal ul { padding-inline-start: 1rem; margin-top: .5rem; }
+@media (max-width: 576px) {
+  .privacy-modal .privacy-content { margin: 12px; padding: 18px; border-radius: 8px; max-height: calc(100vh - 40px); }
+  .privacy-modal .privacy-close-btn { font-size: 26px; left: 12px; top: 8px; }
+}
+</style>
+
+<div id="privacyPolicy" class="privacy-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-content" tabindex="0">
+    <button class="privacy-close-btn" aria-label="إغلاق نافذة سياسة الخصوصية">&times;</button>
+
+    <h2 id="privacyTitle" class="text-center">سياسة الخصوصية — منصة جامعة العلوم</h2>
+
+    <p>نرحب بكم في <strong>منصة جامعة العلوم</strong>. نحن نأخذ خصوصية زوارنا ومستخدميينا على محمل الجد. باستخدامك للموقع، فإنك توافق على بنود هذه السياسة.</p>
+
+    <h4>1. جمع المعلومات</h4>
+    <p>نقوم بجمع المعلومات التي تقدمها لنا طواعية عند التسجيل أو التواصل، مثل:</p>
+    <ul>
+      <li>الاسم الكامل</li>
+      <li>البريد الإلكتروني</li>
+      <li>الشعبة أو المعلومات الأكاديمية ذات الصلة</li>
+    </ul>
+    <p>كما قد نجمع بيانات تقنية تلقائيًا (مثل عنوان IP ونوع المتصفح وملفات تعريف الارتباط) لتحسين أداء الموقع.</p>
+
+    <h4>2. استخدام المعلومات</h4>
+    <p>نستخدم المعلومات لأغراض مثل:</p>
+    <ul>
+      <li>تقديم محتوى تعليمي مخصص حسب الشعبة.</li>
+      <li>تحسين أداء الموقع وتجربة المستخدم.</li>
+      <li>إرسال إشعارات أو تحديثات متعلقة بالمنصة عند الحاجة.</li>
+    </ul>
+
+    <h4>3. مشاركة المعلومات</h4>
+    <p>لا نبيع بيانات المستخدمين لأي جهة. قد نشارك البيانات فقط في الحالات التالية:</p>
+    <ul>
+      <li>إذا طلبها القانون أو الجهات المختصة.</li>
+      <li>لحماية حقوق المستخدمين أو حقوقنا في حالات نادرة ومحددة.</li>
+    </ul>
+
+    <h4>4. ملفات تعريف الارتباط (Cookies)</h4>
+    <p>نستخدم ملفات تعريف الارتباط لتحسين الأداء وتذكر تفضيلات المستخدم. يمكنك تعطيل الكوكيز من إعدادات المتصفح، مع ملاحظة أن بعض ميزات الموقع قد تتأثر.</p>
+
+    <h4>5. حماية البيانات</h4>
+    <p>نتخذ إجراءات تقنية وتنظيمية مناسبة لحماية بياناتك من الوصول غير المصرح به أو الضياع، لكن لا يمكن لأي نظام أن يضمن الأمان بنسبة 100%.</p>
+
+    <h4>6. التحديثات على السياسة</h4>
+    <p>قد نقوم بتحديث سياسة الخصوصية من وقت لآخر. سنقوم بإعلام المستخدمين المهمين بالتغييرات عبر الموقع أو البريد الإلكتروني عند الاقتضاء.</p>
+
+    <h4>7. التواصل</h4>
+    <p>للاستفسارات المتعلقة بالخصوصية، تواصل معنا عبر البريد: <a href="mailto:info@univ-science.com">info@univ-science.com</a></p>
+
+    <p style="margin-top: 18px; text-align:center;">
+      <button class="btn btn-outline-primary" onclick="document.querySelector('#privacyPolicy .privacy-close-btn').click();">حسناً، إغلاق</button>
+    </p>
+  </div>
+</div>
+
+<script>
+/* Script to open/close modal and support hash + back-button behavior */
+(function(){
+  const modal = document.getElementById('privacyPolicy');
+  if(!modal) return;
+  const openLinks = document.querySelectorAll('a[href="#privacyPolicy"]');
+  const closeBtn = modal.querySelector('.privacy-close-btn');
+  let pushedHistory = false;
+
+  function openModal(fromHashChange = false){
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    // lock page scroll
+    document.body.style.overflow = 'hidden';
+    // set focus for accessibility
+    const content = modal.querySelector('.privacy-content');
+    if (content) content.focus();
+    // push hash state so back button can close
+    if (!fromHashChange && location.hash !== '#privacyPolicy') {
+      history.pushState({privacy:true}, '', '#privacyPolicy');
+      pushedHistory = true;
+    }
+  }
+
+  function closeModal(fromHashChange = false){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // if we pushed a history entry earlier, go back to remove it
+    if (pushedHistory) {
+      pushedHistory = false;
+      history.back();
+    } else if (location.hash === '#privacyPolicy' && !fromHashChange) {
+      // remove hash without creating a new history entry
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }
+
+  // intercept footer (or any) links to #privacyPolicy
+  openLinks.forEach(a => a.addEventListener('click', function(e){
+    e.preventDefault();
+    openModal(false);
+  }));
+
+  // close button
+  if (closeBtn) closeBtn.addEventListener('click', function(){ closeModal(false); });
+
+  // click outside content closes modal
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) closeModal(false);
+  });
+
+  // open/close when hash changes (back/forward behavior)
+  window.addEventListener('hashchange', function(){
+    if (location.hash === '#privacyPolicy') openModal(true);
+    else if (modal.classList.contains('open')) closeModal(true);
+  });
+
+  // ESC key closes
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(false);
+  });
+
+  // open on page load if URL contains the hash already
+  if (location.hash === '#privacyPolicy') {
+    setTimeout(() => openModal(true), 50);
+  }
+})();
+</script>
+<!-- ========================= END privacy modal =========================== -->
 
 
 
@@ -2720,118 +2915,6 @@ function closeJuzModal(){
   if (window._currentJuzAudio) { window._currentJuzAudio.pause(); window._currentJuzAudio = null; }
 }
 </script>
-<script>
-/* ------------ دعم أصوات الخلفية (toggleSound) ------------ */
-const ambientAudio = {
-  rain: document.getElementById('rainSound'),   // تأكدي أن الـ <audio id="rainSound"> موجود
-  water: document.getElementById('waterSound'),
-  relax: document.getElementById('relaxSound')
-};
-
-// متغيرات لتعقب حالة الصوت
-let currentSoundIndex = -1;
-const soundKeys = ['rain', 'water', 'relax'];
-let isPlaying = false;
-
-// تهيئة عناصر الصوت (يجب استدعاء هذه الدالة عند تحميل الصفحة)
-function initAudioElements() {
-  window.ambientAudio = {
-    rain: document.getElementById('rainSound'),
-    water: document.getElementById('waterSound'),
-    relax: document.getElementById('relaxSound')
-  };
-  
-  // إعداد أحداث الانتهاء
-  Object.keys(ambientAudio).forEach(key => {
-    const audio = ambientAudio[key];
-    if (audio) {
-      audio.addEventListener('ended', () => {
-        if (audio === document.querySelector('audio[autoplay]')) {
-          stopAllSounds();
-        }
-      });
-    }
-  });
-}
-
-// دالة الدوران بين الأصوات (الحل الرئيسي)
-function toggleSoundCycle() {
-  const soundContainer = document.getElementById('soundContainer');
-  
-  // إذا لم تكن العناصر مهيأة، هيئها
-  if (!window.ambientAudio) {
-    initAudioElements();
-  }
-  
-  // إيقاف جميع الأصوات أولاً
-  stopAllSounds();
-  
-  // إذا كان هناك صوت قيد التشغيل، إيقافه
-  if (isPlaying) {
-    isPlaying = false;
-    soundContainer.classList.remove('playing');
-    return;
-  }
-  
-  // الانتقال للصوت التالي في القائمة
-  currentSoundIndex = (currentSoundIndex + 1) % soundKeys.length;
-  const key = soundKeys[currentSoundIndex];
-  const audio = ambientAudio[key];
-  
-  // التأكد من وجود العنصر الصوتي
-  if (!audio) {
-    console.warn('لم يتم العثور على ملف الصوت:', key);
-    return;
-  }
-  
-  // تشغيل الصوت المحدد
-  audio.play()
-    .then(() => {
-      isPlaying = true;
-      soundContainer.classList.add('playing');
-      soundContainer.setAttribute('data-current-sound', key);
-      
-      // تحديث الأيقونة لتعكس الصوت الحالي
-      const icons = {
-        rain: 'bi-cloud-rain',
-        water: 'bi-droplet',
-        relax: 'bi-peace'
-      };
-      
-      const iconEl = soundContainer.querySelector('i');
-      if (iconEl) {
-        iconEl.className = `bi ${icons[key]}`;
-      }
-    })
-    .catch(error => {
-      console.error('فشل تشغيل الصوت:', error);
-      showNotification('لم تتمكن من تشغيل الصوت. يرجى النقر مرة أخرى.', 'warning');
-    });
-}
-
-// وظيفة مساعدة لإيقاف جميع الأصوات
-function stopAllSounds() {
-  Object.keys(ambientAudio).forEach(key => {
-    if (ambientAudio[key]) {
-      ambientAudio[key].pause();
-      ambientAudio[key].currentTime = 0;
-    }
-  });
-  isPlaying = false;
-}
-
-// استدعاء وظيفة التهيئة عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', initAudioElements);
-
-/* اختياري: إظهار زر الصوت للجميع (إن أردتِ ألا يكون خاص بالمستخدم المسجّل) */
-const sc = document.getElementById('soundContainer');
-if (sc) sc.style.display = 'flex'; // أو 'block' حسب تصميمك
-</script>
-
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // --- ADDED: Track Separation Logic ---
@@ -2881,7 +2964,7 @@ function navHomeClicked(event) {
                                 lessons: [
   // دروس الجزء الأول
 
-{ title: "مكتسبات النهايات", url: "https://www.youtube.com/watch?v=6YIkbIJEvBE&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=1&t=3s&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "مكتسبات النهايات", url: "https://www.youtube.com/watch?v=6YIkbIJEvBE&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=1&t=3s&pp=iAQB", type: "فيديو",  },
 { title: "حساب النهايات", url: "https://www.youtube.com/watch?v=BIV1_Mm-eZI&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=2&pp=iAQB", type: "فيديو", part: "p1" },
 { title: "حالات عدم التعيين الجزء الأول", url: "https://www.youtube.com/watch?v=MXlflRdJe-g&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=3&pp=iAQB", type: "فيديو", part: "p1" },
 { title: "حالات عدم التعيين الجزء الثاني (خاص بشعبة رياضيات )", url: "https://www.youtube.com/watch?v=zojaxUms9p0&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=4&pp=iAQB", type: "فيديو", part: "p1" },
@@ -2944,7 +3027,7 @@ function navHomeClicked(event) {
                                     {
                                         title: ' تمارين تطبيقية على الدوال العددية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الدوال العددية ',
-                                        fileUrl: 'assets/exercises/math/unit1-exercises.pdf'
+                                        fileUrl: 'https://drive.google.com/file/d/1h8JvY5QGxr3VCbgaT2tE28tiLtKO8QNr/preview'
 // Placeholder for Math specialization
                                     },
                                     {
@@ -4245,7 +4328,8 @@ function navHomeClicked(event) {
                                 id: 'arabic-1',
                                 title: ' البناء الفكري ',
                                 completed: false,
-                                lessons: [],
+                                lessons: [{ title: "مكتسبات النهايات", url: "https://www.youtube.com/watch?v=6YIkbIJEvBE&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=1&t=3s&pp=iAQB", type: "فيديو",  },
+],
                                 exercises: [
                                     {
                                         title: ' تمارين تطبيقية على البناء الفكري ',
@@ -4477,12 +4561,12 @@ function navHomeClicked(event) {
                                     {
                                         title: ' تمارين تطبيقية على الدوال العددية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الدوال العددية ',
-                                        fileUrl: '/pdfs/math-stream/2025/french_exam.pdf' // Placeholder for Science specialization
+                                        fileUrl: '' // Placeholder for Science specialization
                                     },
-                                    {
-                                        title: ' مسائل متقدمة في الدوال ',
-                                        description: ' مسائل تحليلية متقدمة لفهم أعمق للدوال ',
-                                        fileUrl: '#Science_Math_Unit1_Exercises_Advanced' // Placeholder for Science specialization
+                                     {
+                                        title: ' تمارين تطبيقية على الدوال العددية ',
+                                        description: ' مجموعة تمارين لتطبيق مفاهيم الدوال العددية ',
+                                        fileUrl: '' // Placeholder for Science specialization
                                     }
                                 ],
                                 summaries: [
@@ -5461,7 +5545,8 @@ updateTotalProgress();
 
     subject.units.forEach((unit, idx) => {
         const isCompleted = progressData[unit.id]?.completed || false;
-        const isLocked = idx > currentIndex && subjectKey !== "daily"; // 🔒 القفل فقط لغير "وردك اليومي"
+        // ❌ ما عاد نستثني daily → نخلي القفل يشتغل عادي
+        const isLocked = idx > currentIndex;
 
         const unitItem = document.createElement('div');
         unitItem.className = 'unit-item' + (isLocked ? ' locked' : '');
@@ -5472,7 +5557,7 @@ updateTotalProgress();
         unitHeader.innerHTML = `
             <span>
               ${unit.title} 
-              ${isCompleted && subjectKey !== "daily" ? '<span class="completion-badge"> مكتملة </span>' : ''}
+              ${isCompleted ? '<span class="completion-badge"> مكتملة </span>' : ''}
               ${isLocked ? '<i class="bi bi-lock-fill ms-2"></i>' : ''}
             </span>
             <i class="bi bi-chevron-down"></i>
@@ -5568,7 +5653,7 @@ updateTotalProgress();
             lessonsSection.appendChild(lessonsContainer);
             renderBucket(buckets[0].id);
         } else {
-            // العرض العادي لباقي المواد كما هو
+            // العرض العادي لباقي المواد + daily
             if (unit.lessons && unit.lessons.length > 0) {
                 unit.lessons.forEach(lesson => {
                     const lessonLink = document.createElement('a');
@@ -5650,55 +5735,83 @@ updateTotalProgress();
         unitContent.appendChild(summariesSection);
 
         // ----- زر اكتمال -----
-        if (subjectKey !== "daily") {   // 🟢 لا تضيف زر اكتمال ولا رسالة إكمال في "وردك اليومي"
-            if (!isCompleted) {
-                const completeButton = document.createElement('button');
-                completeButton.className = 'btn complete-btn w-100';
-                completeButton.innerHTML = '<i class="bi bi-check-circle"></i>  أكملت هذه الوحدة ';
-                completeButton.onclick = function() {
-                    completeUnit(subjectKey, unit.id);
-                };
-                unitContent.appendChild(completeButton);
-            } else {
-                const completedMessage = document.createElement('div');
-                completedMessage.className = 'completion-message';
-                completedMessage.innerHTML = `
-                    <h4><i class="bi bi-check-circle"></i>  مبروك! لقد أكملت هذه الوحدة </h4>
-                    <p> استمر في التقدم لإكمال باقي الوحدات </p>
-                `;
-                unitContent.appendChild(completedMessage);
-            }
+        // 🟢 الآن نسمح بزر الاكتمال للورد أيضًا
+        if (!isCompleted) {
+            const completeButton = document.createElement('button');
+            completeButton.className = 'btn complete-btn w-100';
+            completeButton.innerHTML = '<i class="bi bi-check-circle"></i>  أكملت هذه الوحدة ';
+            completeButton.onclick = function() {
+                completeUnit(subjectKey, unit.id);
+            };
+            unitContent.appendChild(completeButton);
+        } else {
+            const completedMessage = document.createElement('div');
+            completedMessage.className = 'completion-message';
+            completedMessage.innerHTML = `
+                <h4><i class="bi bi-check-circle"></i>  مبروك! لقد أكملت هذه الوحدة </h4>
+                <p> استمر في التقدم لإكمال باقي الوحدات </p>
+            `;
+            unitContent.appendChild(completedMessage);
         }
 
         unitItem.appendChild(unitHeader);
         unitItem.appendChild(unitContent);
         subjectUnits.appendChild(unitItem);
 
-        // 🟢 افتح فقط الوحدة الحالية (غير المكتملة الأولى) في المواد العادية
-        if (subjectKey !== "daily" && idx === currentIndex && !isCompleted) {
+        // 🟢 افتح فقط الوحدة الجارية (غير المكتملة الأولى) 
+        if (idx === currentIndex && !isCompleted) {
             unitContent.style.display = 'block';
             unitHeader.querySelector('i.bi-chevron-down')?.classList.replace('bi-chevron-down','bi-chevron-up');
         }
     });
 
-    if (subjectKey !== "daily") {
-        const progress = updateSubjectProgress(subjectKey);
-        if (progress.progressPercentage === 100) {
-            document.getElementById('subjectCompletionMessage').style.display = 'block';
-        }
+    // 🟢 تحديث التقدم لجميع المواد بما فيها daily
+    const progress = updateSubjectProgress(subjectKey);
+    if (progress.progressPercentage === 100) {
+        document.getElementById('subjectCompletionMessage').style.display = 'block';
     }
-    
 }
 
-(function ensureDailySubjectInEveryBranch(){
+// ✅ انسخ "وردك اليومي" (القالب) إلى كل فروع التخصص إن كانت فارغة هناك
+(function mergeDailyIntoBranches(){
   if (!window.specializationData) return;
-  Object.values(specializationData).forEach(branch => {
+
+  // خُذ القالب المعرف أعلى الملف (الذي فيه 3 وحدات)
+  const template = window.specializationData.daily || {
+    title: '📿 وردك اليومي',
+    units: [
+      { id:'daily-1', title:'الوحدة الأولى: أذكار الصباح', lessons:[], exercises:[], summaries:[] },
+      { id:'daily-2', title:'الوحدة الثانية: أذكار المساء', lessons:[], exercises:[], summaries:[] },
+      { id:'daily-3', title:'الوحدة الثالثة: أذكار النوم', lessons:[], exercises:[], summaries:[] }
+    ]
+  };
+
+  Object.values(window.specializationData).forEach(branch => {
     if (!branch.subjects) branch.subjects = {};
-    if (!branch.subjects.daily) {
-      branch.subjects.daily = { title: '📿 وردك اليومي', units: [] };
+    const d = branch.subjects.daily;
+    const empty = !d || !Array.isArray(d.units) || d.units.length === 0;
+    if (empty) {
+      // ننسخ القالب كما هو (deep copy)
+      branch.subjects.daily = JSON.parse(JSON.stringify(template));
     }
   });
 })();
+function getSpecializedSubjectsData() {
+  const userBranch = localStorage.getItem('userBranch');
+  const data = (userBranch && specializationData[userBranch])
+    ? specializationData[userBranch].subjects
+    : specializationData.experimental.subjects;
+
+  // لو daily غير موجودة أو وحداتها فارغة داخل الفرع → خذ القالب العلوي
+  if (specializationData.daily) {
+    const needTemplate = !data.daily || !Array.isArray(data.daily.units) || data.daily.units.length === 0;
+    if (needTemplate) {
+      data.daily = JSON.parse(JSON.stringify(specializationData.daily)); // الـ 3 وحدات
+    }
+  }
+  return data;
+}
+
 
 
 
@@ -5806,13 +5919,18 @@ async function loadAllProgress() {
 async function loadUserData() {
     try {
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-        if (sessionError) throw sessionError;
+        if (sessionError) {
+            console.warn("Session error:", sessionError.message);
+            clearUserData();
+            showAuthSection();
+            return;
+        }
 
         if (session && session.user) {
             currentUser = session.user;
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userEmail', currentUser.email);
-            
+
             // استرجاع بيانات الملف الشخصي من Supabase
             const { data: profile, error: profileError } = await supabase
                 .from('profiles')
@@ -5820,7 +5938,7 @@ async function loadUserData() {
                 .eq('id', currentUser.id)
                 .single();
 
-            if (profileError && profileError.code !== 'PGRST116') { // PGRST116: no rows returned
+            if (profileError && profileError.code !== 'PGRST116') {
                 console.error('Error fetching profile:', profileError);
             }
 
@@ -5834,23 +5952,25 @@ async function loadUserData() {
                 localStorage.setItem('userName', currentUser.user_metadata?.full_name || currentUser.email);
             }
 
-            // توجيه المستخدم بناءً على وجود الشعبة
+            // التوجيه
             if (userBranch) {
                 showHome();
             } else {
                 showBranchSelection();
             }
         } else {
-            // لا يوجد مستخدم مسجل
+            // لا يوجد جلسة → نعرض واجهة الدخول فقط
             clearUserData();
             showAuthSection();
         }
     } catch (err) {
         console.error('Error loading user:', err.message);
-        showNotification('خطأ في تحميل بيانات المستخدم', 'error');
+        
+        clearUserData();
         showAuthSection();
     }
 }
+
 
 async function handleLogin(event) {
     event.preventDefault();
@@ -5903,6 +6023,10 @@ async function handleLogin(event) {
             // ✅ الآن فقط أظهر الواجهة الرئيسية
             showHome();
             await loadAllProgress();
+            // بعد set currentUser وload profile
+await syncLocalWatchedToServer();
+await loadWatchedVideos();
+
         }
     } catch (err) {
         console.error('Login error:', err);
@@ -6118,30 +6242,23 @@ function showSoundButton() {
   }
 }
 
-// دالة إخفاء زر الصوتيات عند تسجيل الخروج
+// --- CONSOLIDATED: hideSoundButton (one single definition) ---
 function hideSoundButton() {
   const btn = document.getElementById("soundContainer");
+  // تأكّد من إيقاف أي أصوات فعّالة
+  try { if (typeof stopAllSounds === 'function') stopAllSounds(); } catch(e){ console.warn('stopAllSounds() error', e); }
+
   if (btn) {
-    stopAllSounds(); // إيقاف جميع الأصوات قبل الإخفاء
-    btn.style.display = "none";
+    // reset state + hide
+    btn.classList.remove('playing');
+    btn.setAttribute('aria-pressed', 'false');
+    btn.style.display = 'none';
   }
+
+  // إن أردت إخفاء زر الـAI أيضاً عند الخروج:
+  const aiBtn = document.getElementById('chatbot-launcher');
+  if (aiBtn) aiBtn.style.display = 'none';
 }
-
-// دالة إخفاء زر الصوتيات عند تسجيل الخروج
-function hideSoundButton() {
-    const btn = document.getElementById("soundContainer");
-    if (btn) {
-        btn.style.display = "none"; // يختفي الزر
-    }
-}
-
-
-        // Select branch
-       // اختيار الشعبة
-                 // اختيار الشعبة
-
-
-
 
         // Back to subjects
         function backToSubjects() {
@@ -6179,60 +6296,68 @@ function hideSoundButton() {
 }      
 
         // Hide all sections
-      function hideAllSections() {
-    const sections = [
-        'authSection',
-        'branchSection',
-        'homeSection',
-        'subjectsSection',
-        'subjectDetailSection',
-        'bacExamsSection',
-        'profileSection',
-        'developerSection'
-    ];
+      // استبدلي دالتك الحالية بهذه النسخة
+function hideAllSections() {
+  const sections = [
+    'authSection',
+    'branchSection',
+    'homeSection',
+    'subjectsSection',
+    'subjectDetailSection',
+    'bacExamsSection',
+    'profileSection',
+    'developerSection',
+    'librarySection'   // <-- أضفتِ المكتبة هنا
+  ];
 
-    sections.forEach(sectionId => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.style.display = 'none';
-        }
-    });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
+  // إن أردتِ أيضاً إغلاق أية مودالات معروفة:
+  const overlays = ['bookModal','pdfOverlay','videoOverlay','privacyPolicy'];
+  overlays.forEach(id => {
+    const o = document.getElementById(id);
+    if (o) o.style.display = 'none';
+  });
+
+  // إعادة تفعيل تمرير الصفحة إذا كان معطلاً
+  document.body.style.overflow = '';
 }
+
 
 
 async function logout() {
   try {
-    await supabase.auth.signOut(); // تسجيل الخروج من Supabase
+    await supabase.auth.signOut();
   } catch (e) {
     console.warn('supabase signOut failed (continuing):', e?.message || e);
   }
 
-  // 🟢 امسح فقط بيانات تسجيل الدخول، واترك التقدم محفوظ
+  // امسح بيانات تسجيل الدخول فقط
   localStorage.removeItem('userEmail');
   localStorage.removeItem('userName');
   localStorage.removeItem('userBranch');
-  localStorage.removeItem('isLoggedIn');
+  localStorage.setItem('isLoggedIn', 'false');
   userBranch = null;
 
-  // ⚠️ لا نمسح progress-* ولا watchedLocal
-  // هذا الذي كان يسبب فقدان اللون الأخضر
-
   showNotification('تم تسجيل الخروج بنجاح');
- hideStudyTimer(); // إخفاء مؤقت الدراسة
-  // إعادة الواجهة إلى شاشة المصادقة
-  hideAllSections();
-  hideSoundButton();
 
+  hideStudyTimer();           // إخفاء المؤقت
+  try { stopAllSounds(); } catch(e){}  // تأكّد من إيقاف الصوت
+  hideSoundButton();          // إخفاء زر الصوت
+  hideAIButton && hideAIButton(); // إخفاء زر الـAI إن وُجد
+
+  // إظهار شاشة المصادقة فقط (لا تُظهر قسم المطوّر تحتها)
+  hideAllSections();
   const auth = document.getElementById('authSection');
   if (auth) auth.style.display = 'flex';
 
-  // إظهار قسم المطور بجانب المصادقة
-  const dev = document.getElementById('developerSection');
-  if (dev) dev.style.display = 'block';
-
-  // تحديث الواجهة العامة
+  // حدّث الواجهة العامة
   applyAuthUI();
 }
+
 
 // ربط زر تسجيل الخروج داخل الملف الشخصي
 document.addEventListener('click', (e) => {
@@ -6604,79 +6729,112 @@ function extractYouTubeID(url='') {
   const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{6,})/);
   return m ? m[1] : null;
 }
+async function markVideoWatched(videoId, linkEl) {
+  if (!videoId) return;
 
-// ضع الفيديو كمشاهد + يلوّن الرابط فورًا
-async function markVideoWatched(videoInput, linkEl) {
-  const id = (videoInput && videoInput.startsWith('http')) ? extractYouTubeID(videoInput) : videoInput;
-  if (!id) return;
+  // تلوين الرابط فوراً
+  if (linkEl) linkEl.classList.add('watched');
 
-  if (linkEl) linkEl.classList.add('watched'); // تلوين فوري
-
-  if (currentUser) {
+  if (currentUser && currentUser.id) {
+    // مستخدم مسجل → خزّن في Supabase
     await supabase.from('user_videos').upsert({
       user_id: currentUser.id,
-      video_id: id,
+      video_id: String(videoId),
       watched: true,
       watched_at: new Date().toISOString()
-    }, { onConflict: ['user_id','video_id'] });
+    }, { onConflict: ['user_id', 'video_id'] });
   } else {
-    // بدون تسجيل: احتفظ محليًا
-    const s = new Set(JSON.parse(localStorage.getItem('watchedLocal') || '[]'));
-    s.add(id);
-    localStorage.setItem('watchedLocal', JSON.stringify([...s]));
+    // زائر → خزّن محلياً
+    const local = JSON.parse(localStorage.getItem('watchedLocal') || '[]');
+    if (!local.includes(videoId)) {
+      local.push(videoId);
+      localStorage.setItem('watchedLocal', JSON.stringify(local));
+    }
   }
 }
 
 // افتح الفيديو داخل المودال ثم علّم كمشاهد
 function openVideo(url, opts = {}) {
+  const isMobile = window.matchMedia('(max-width: 576px)').matches;
+
+  // 📱 على الهاتف → افتح الرابط مباشرة في يوتيوب
+  if (isMobile) {
+    window.open(url, '_blank'); // أو window.location.href = url لو تريده في نفس النافذة
+    return;
+  }
+
+  // 💻 على الحاسوب → أبقِ السلوك الحالي (المودال)
   const id = extractYouTubeID(url);
   const container = document.getElementById('videoPlayerContainer');
   const titleEl = document.getElementById('videoTitle');
-  if (!id) { window.open(url, '_blank'); return; }
+
+  if (!id) { 
+    window.open(url, '_blank'); 
+    return; 
+  }
 
   const src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=1`;
   container.innerHTML = `<iframe src="${src}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
   if (titleEl) titleEl.textContent = opts.title || 'مشاهدة الفيديو';
   document.getElementById('videoOverlay').style.display = 'block';
 
   markVideoWatched(id, opts.linkEl || opts.link || null);
 }
 
-// استرجاع وتلوين الروابط المشاهَدة
+
+
 async function loadWatchedVideos() {
   const watchedSet = new Set();
 
-  if (currentUser) {
+  // لو مستخدم مسجل
+  if (currentUser && currentUser.id) {
     const { data, error } = await supabase
       .from('user_videos')
       .select('video_id')
       .eq('user_id', currentUser.id)
       .eq('watched', true);
 
-    if (!error && Array.isArray(data)) {
-      data.forEach(r => watchedSet.add(String(r.video_id)));
+    if (!error && data) {
+      data.forEach(r => watchedSet.add(r.video_id));
     }
   } else {
-    // زائر
-    (JSON.parse(localStorage.getItem('watchedLocal') || '[]')).forEach(id => watchedSet.add(String(id)));
+    // زائر: من localStorage
+    const local = JSON.parse(localStorage.getItem('watchedLocal') || '[]');
+    local.forEach(id => watchedSet.add(id));
   }
 
+  // إعادة تلوين الروابط
   document.querySelectorAll('.lesson-link').forEach(a => {
-    const id = a.dataset.videoId || extractYouTubeID(a.getAttribute('href') || '');
-    if (id && watchedSet.has(String(id))) a.classList.add('watched');
+    const vid = a.dataset.videoId || a.getAttribute('href');
+    if (vid && watchedSet.has(vid)) {
+      a.classList.add('watched');
+    } else {
+      a.classList.remove('watched');
+    }
   });
 }
 
 
-
-
-
-
-
-function closeVideo() {
-  document.getElementById('videoPlayerContainer').innerHTML = '';
-  document.getElementById('videoOverlay').style.display = 'none';
+async function syncLocalWatchedToServer() {
+  if (!currentUser || !currentUser.id) return;
+  try {
+    const local = JSON.parse(localStorage.getItem('watchedLocal') || '[]');
+    if (!Array.isArray(local) || local.length === 0) return;
+    const batch = local.map(id => ({
+      user_id: currentUser.id,
+      video_id: String(id),
+      watched: true,
+      watched_at: new Date().toISOString()
+    }));
+    await supabase.from('user_videos').upsert(batch, { onConflict: ['user_id','video_id'] });
+    // لو أردت، يمكنك تنظيف localStorage بعد المزامنة:
+    // localStorage.removeItem('watchedLocal');
+  } catch (e) {
+    console.warn('syncLocalWatchedToServer failed', e);
+  }
 }
+
 
 
 // إغلاق المودال وإيقاف الفيديو (نمسح الـ iframe)
@@ -6693,53 +6851,54 @@ document.addEventListener('click', function(e){
   const a = e.target.closest('a');
   if (!a) return;
   const href = a.getAttribute('href') || '';
-  // إذا كانت رابط يوتيوب — نفتح داخليًا
+
+  // يوتيوب
   if (href.includes('youtu.be') || href.includes('youtube.com')) {
     e.preventDefault();
     openVideo(href, { title: a.textContent.trim(), linkEl: a });
     return;
   }
-  // لو كانت رابط تمارين/ملخصات (class vorhand) — نستخدم openPdf لو كان ملف PDF أو path محلي
+
+  // Google Drive / Docs → افتح داخل الموقع
+  if (href.includes('drive.google.com') || href.includes('docs.google.com') || href.includes('drive.googleusercontent.com')) {
+    e.preventDefault();
+    const embed = convertDriveToEmbed(href);
+    openPdf(embed);
+    return;
+  }
+
+  // روابط الملخصات / التمارين
   if (a.classList.contains('exercise-link') || a.classList.contains('summary-link')) {
     e.preventDefault();
-    if (!href) { showNotification('هذا الملف لم يُرفع بعد', 'warning'); return; }
-    if (href.endsWith('.pdf') || href.startsWith('/')) {
-      // استخدم عارض الـPDF الموجود لديك
+    if (!href) {
+      showNotification('هذا الملف لم يُرفع بعد', 'warning');
+      return;
+    }
+
+    if (href.includes('drive.google.com') || href.includes('docs.google.com')) {
+      const embed = convertDriveToEmbed(href);
+      openPdf(embed);
+    } else if (href.endsWith('.pdf') || href.startsWith('/')) {
       openPdf(href);
-    } else if (href.startsWith('#')) {
-      showNotification('الملف مؤشّر (placeholder) — ارفعه إلى المسار الصحيح', 'warning');
     } else {
-      window.open(href, '_blank');
+      window.open(href, '_blank', 'noopener,noreferrer');
     }
     return;
   }
+
+  // باقي الروابط → السلوك العادي
 });
 
-async function loadWatchedVideos() {
-  if (!currentUser) return;
 
-  const { data, error } = await supabase
-    .from('user_videos')
-    .select('video_id')
-    .eq('user_id', currentUser.id)
-    .eq('watched', true);
 
-  if (!error && data) {
-    document.querySelectorAll('.lesson-link').forEach(link => {
-      const videoUrl = link.getAttribute("data-video-url");
-      if (data.some(row => row.video_id === videoUrl)) {
-        link.classList.add("watched");
-      }
-    });
-  }
-}
 function renderSubjectDetail(subjectKey) {
   const branch = localStorage.getItem("userBranch") || "experimental";
   const subject = subjectsData[branch][subjectKey];
   if (!subject) return;
 
   // العنوان
-  document.getElementById("subjectTitle").textContent = subject.icon + " " + subject.name;
+  document.getElementById("subjectTitle").textContent =
+    subject.icon + " " + subject.name;
 
   // ✅ أزرار الأساتذة
   const teacherButtons = document.getElementById("teacherButtons");
@@ -6750,15 +6909,17 @@ function renderSubjectDetail(subjectKey) {
   }
 
   // تحديد الأستاذ الحالي (إذا فيه)
-  let currentTeacher = teacherKeys.length > 0
-    ? (localStorage.getItem(`${branch}_${subjectKey}_teacher`) || teacherKeys[0])
-    : null;
+  let currentTeacher =
+    teacherKeys.length > 0
+      ? localStorage.getItem(`${branch}_${subjectKey}_teacher`) ||
+        teacherKeys[0]
+      : null;
 
   if (teacherKeys.length > 0) {
-    teacherKeys.forEach(tk => {
+    teacherKeys.forEach((tk) => {
       const btn = document.createElement("button");
       btn.textContent = subject.teachers[tk].name;
-      btn.className = (tk === currentTeacher) ? "active" : "";
+      btn.className = tk === currentTeacher ? "active" : "";
       btn.onclick = () => {
         localStorage.setItem(`${branch}_${subjectKey}_teacher`, tk);
         renderSubjectDetail(subjectKey); // 🟢 إعادة بناء مع الأستاذ الجديد
@@ -6779,20 +6940,80 @@ function renderSubjectDetail(subjectKey) {
     units = subject.units || [];
   }
 
-  units.forEach(unit => {
+  units.forEach((unit) => {
     const div = document.createElement("div");
     div.className = "unit-card";
-    div.innerHTML = `
+
+    // الدروس والتمارين والملخص (PDF)
+    let html = `
       <h4>${unit.title}</h4>
       <button class="btn btn-primary" onclick="openPdf('${unit.lesson}')">📘 الدرس</button>
       <button class="btn btn-secondary" onclick="openPdf('${unit.exercise}')">✏️ التمارين</button>
       <button class="btn btn-success" onclick="openPdf('${unit.summary}')">📄 الملخص</button>
     `;
+
+    // الفيديوهات (إذا فيه قائمة فيديوهات داخل الوحدة)
+    if (unit.videos && unit.videos.length > 0) {
+      html += `<div class="lessons-list">`;
+      unit.videos.forEach((video, idx) => {
+        const videoId = extractYouTubeID(video.url);
+        html += `
+          <a href="${video.url}" 
+             class="lesson-link" 
+             data-video-id="${videoId}" 
+             onclick="event.preventDefault(); openVideo('${video.url}', {title:'${video.title}', linkEl:this});">
+             ▶️ ${video.title}
+          </a>
+        `;
+      });
+      html += `</div>`;
+    }
+
+    div.innerHTML = html;
     container.appendChild(div);
   });
 
+  // بعد بناء الوحدات طبّق الأقفال
+  gateLessons(container);
+
   // ✅ إظهار القسم مع الأنيميشن
   showSection("subjectDetailSection");
+}
+
+
+function getVideoIdFromLink(a){
+  return a.dataset.videoId || extractYouTubeID(a.getAttribute('href') || '');
+}
+
+function getVideoIdFromLink(a) {
+  // ياخذ الـid من data-video-id أو من href مباشرة
+  return a.dataset.videoId || extractYouTubeID(a.getAttribute('href') || '');
+}
+
+function gateLessons(root = document) {
+  const lists = root.querySelectorAll('.lessons-list');
+  const watched = window._watchedSet || new Set();
+
+  lists.forEach(list => {
+    const links = Array.from(list.querySelectorAll('.lesson-link'));
+    links.forEach((a, i) => {
+      if (i === 0) {
+        // أول فيديو دايمًا مفتوح
+        a.classList.remove('locked');
+        return;
+      }
+
+      const prevId = getVideoIdFromLink(links[i - 1]);
+
+      if (prevId && watched.has(String(prevId))) {
+        // افتح الفيديو الحالي لأن اللي قبله مشاهد
+        a.classList.remove('locked');
+      } else {
+        // اقفلو إذا اللي قبله مازال ما تشافش
+        a.classList.add('locked');
+      }
+    });
+  });
 }
 
 
@@ -7102,7 +7323,7 @@ async function applyAuthUI() {
     const userInfo = document.querySelector('.user-info');
     if (userInfo) userInfo.classList.toggle('d-none', !logged);
 
-    // إخفاء/إظهار أزرار الصوتيات والذكاء الاصطناعي
+    // أزرار الصوت والـ AI
     const sound = document.getElementById('soundContainer');
     if (sound) sound.style.display = logged ? 'flex' : 'none';
     const aiBtn = document.getElementById('chatbot-launcher');
@@ -7110,119 +7331,24 @@ async function applyAuthUI() {
 
     // إدارة الأقسام
     hideAllSections();
+
     if (!logged) {
+        // عرض شاشة المصادقة فقط — لا نُظهر قسم المطوّر افتراضياً
         document.getElementById('authSection').style.display = 'flex';
-        document.getElementById('developerSection').style.display = 'block';
+        // إذا كنت تُريد إبقاء قسم المطوّر مرئياً ضع هنا شرطًا صريحًا
         return;
     }
 
-    // إذا كان المستخدم مسجلاً، عرض القسم المناسب
+    // لو المستخدم مسجّل: إظهار الشاشة المناسبة
     const userBranch = localStorage.getItem('userBranch');
     if (userBranch) {
         document.getElementById('subjectsSection').style.display = 'block';
-        // تحميل التقدم والفيديوهات المشاهدة
         await loadAllProgress();
         await loadWatchedVideos();
     } else {
         document.getElementById('branchSection').style.display = 'flex';
     }
-// 1. تعريف الأصوات (استخدم روابط مباشرة صالحة)
-const soundTracks = [
-  {
-    id: 'rain',
-    url: 'https://cdn.pixabay.com/audio/2022/03/14/audio_4c7a5d4c9d.mp3',
-    icon: 'bi-cloud-rain',
-    label: 'مطر'
-  },
-  {
-    id: 'water',
-    url: 'https://cdn.pixabay.com/audio/2022/05/31/audio_2c6d7e8f1a.mp3',
-    icon: 'bi-droplet',
-    label: 'مياه'
-  },
-  {
-    id: 'relax',
-    url: 'https://cdn.pixabay.com/audio/2022/04/18/audio_8b9c0d1e2f.mp3',
-    icon: 'bi-peace',
-    label: 'استرخاء'
-  }
-];
 
-// 2. تهيئة النظام
-let currentSoundIndex = -1;
-let audioElement = null;
-let isPlaying = false;
-
-function initAudioSystem() {
-  // إنشاء عنصر الصوت ديناميكيًا
-  if (!audioElement) {
-    audioElement = new Audio();
-    audioElement.loop = true;
-    audioElement.volume = 0.3; // مستوى الصوت المفضل
-    
-    // معالجة الأخطاء
-    audioElement.onerror = (e) => {
-      console.error("خطأ في تشغيل الصوت:", e);
-      showNotification("تعذر تشغيل الصوت. تأكد من الروابط.", "error");
-      stopSound();
-    };
-    
-    // إضافة إلى الجسم
-    document.body.appendChild(audioElement);
-  }
-}
-
-// 3. دالة الدوران بين الأصوات (الحل الرئيسي)
-function toggleSoundCycle() {
-  initAudioSystem();
-  const soundContainer = document.getElementById('soundContainer');
-  
-  // إذا كان الصوت قيد التشغيل، نوقفه ونعيده للحالة الافتراضية
-  if (isPlaying) {
-    stopSound();
-    soundContainer.classList.remove('playing');
-    return;
-  }
-  
-  // الانتقال للصوت التالي
-  currentSoundIndex = (currentSoundIndex + 1) % soundTracks.length;
-  const currentSound = soundTracks[currentSoundIndex];
-  
-  // تحديث واجهة المستخدم
-  const iconEl = soundContainer.querySelector('i');
-  if (iconEl) {
-    iconEl.className = `bi ${currentSound.icon}`;
-    iconEl.title = `الصوت الحالي: ${currentSound.label}`;
-  }
-  
-  // تشغيل الصوت الجديد
-  audioElement.src = currentSound.url;
-  audioElement.load();
-  
-  audioElement.play()
-    .then(() => {
-      isPlaying = true;
-      soundContainer.classList.add('playing');
-      soundContainer.setAttribute('data-sound', currentSound.id);
-      showNotification(`تم تشغيل: ${currentSound.label}`, "success");
-    })
-    .catch(error => {
-      console.error("فشل تشغيل الصوت:", error);
-      showNotification("فشل تشغيل الصوت. انقر مجددًا.", "warning");
-      currentSoundIndex--; // العودة للخلف إذا فشل التشغيل
-    });
-}
-
-// 4. دالة إيقاف الصوت
-function stopSound() {
-  if (audioElement && !audioElement.paused) {
-    audioElement.pause();
-    audioElement.currentTime = 0;
-  }
-  isPlaying = false;
-}
-
-// 5. دالة لإظهار إشعار (اختياري)
 function showNotification(message, type = "info") {
   let notif = document.getElementById('notification');
   if (!notif) {
@@ -7295,7 +7421,7 @@ const bacData = {
       math: {
         name: "الرياضيات", icon: "📘",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/math_exam.pdf", corr: "/pdfs/experimental/2025/math_corr.pdf" },
+          2025: { exam: "https://drive.google.com/file/d/1h8JvY5QGxr3VCbgaT2tE28tiLtKO8QNr/preview", corr: "/pdfs/experimental/2025/math_corr.pdf" },
           2024: { exam: "/pdfs/experimental/2024/math_exam.pdf", corr: "/pdfs/experimental/2024/math_corr.pdf" },
           2023: { exam: "/pdfs/experimental/2023/math_exam.pdf", corr: "/pdfs/experimental/2023/math_corr.pdf" },
           2022: { exam: "/pdfs/experimental/2022/math_exam.pdf", corr: "/pdfs/experimental/2022/math_corr.pdf" },
@@ -7399,7 +7525,7 @@ const bacData = {
       math: {
         name: "الرياضيات", icon:"📘",
         files:{
-          2025:{ exam:"/pdfs/math-stream/2025/math_exam.pdf", corr:"/pdfs/math-stream/2025/math_corr.pdf" },
+          2025:{ exam:"https://drive.google.com/file/d/1h8JvY5QGxr3VCbgaT2tE28tiLtKO8QNr/preview", corr:"/pdfs/math-stream/2025/math_corr.pdf" },
           2024:{ exam:"/pdfs/math-stream/2024/math_exam.pdf", corr:"/pdfs/math-stream/2024/math_corr.pdf" },
           2023:{ exam:"/pdfs/math-stream/2023/math_exam.pdf", corr:"/pdfs/math-stream/2023/math_corr.pdf" },
           2022:{ exam:"/pdfs/math-stream/2022/math_exam.pdf", corr:"/pdfs/math-stream/2022/math_corr.pdf" },
@@ -7869,133 +7995,287 @@ function hideStudyTimer() {
     }
   });
 </script>
+
+
 <script>
-  window.updateTotalProgress = function (percent) {
-    var p = Math.max(0, Math.min(100, Number(percent)||0));
-    var bar = document.getElementById('total-progress-bar');
-    var txt = document.getElementById('total-progress-text');
-    if (bar) { bar.style.width = p + '%'; bar.setAttribute('aria-valuenow', p); }
-    if (txt) { txt.textContent = p + '%'; }
-  };
+/* Dynamically push floating controls up so they never overlap footer.
+   Works with multiple floating elements: .side-buttons, .dark-mode-toggle, .sound-btn, .chatbot-launcher, #sessionTimer
+*/
+document.addEventListener('DOMContentLoaded', () => {
+  const selectors = ['.side-buttons', '.dark-mode-toggle', '.dark-mode-btn', '.sound-btn', '.chatbot-launcher', '#sessionTimer'];
+  const floats = selectors.flatMap(s => Array.from(document.querySelectorAll(s)));
+  const footer = document.querySelector('footer.footer');
+  if (!footer || floats.length === 0) return;
 
-/* استبدال دالة toggleJuz الحالية بدالة أكثر مرونة */
-function toggleJuz(idOrNum) {
-  // idOrNum قد يأتي كـ 'juz1' أو 'juz-1' أو رقم 1
-  const raw = String(idOrNum || '').trim();
-  // نخرج الرقم فقط: 'juz-1' -> '1', 'juz1' -> '1'
-  const num = Number(raw.replace(/^juz-?/, '') || raw);
-  if (!num) return;
+  // read base bottom from CSS variable if defined
+  const baseBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fab-bottom')) || 20;
 
-  // نحاول إيجاد عنصر التفاصيل (يدعم 'juz-1' و 'juz1')
-  const el = document.getElementById(`juz-${num}`) || document.getElementById(`juz${num}`) || document.getElementById(`juz_${num}`);
-  if (el && el.parentElement) {
-    el.parentElement.classList.toggle('active'); // يوسّع/يطوي داخل الصفحة (إذا استخدمت CSS لذلك)
-  }
-
-  // نحاول إيجاد كائن الجزء في المصفوفة ثم نفتح المودال
-  const juzObj = (window.quranJuz || []).find(j => Number(j.juz) === num);
-  if (juzObj && typeof openJuzModal === 'function') {
-    openJuzModal(juzObj);
-  } else {
-    // إذا لم يوجد كائن، نكوّن رابط quran.com سريع
-    openJuzModal({
-      juz: num,
-      title: `الجزء ${num}`,
-      range: '',
-      quranUrl: `https://quran.com/juz/${num}`,
-      audioUrl: ''
+  function update() {
+    const rect = footer.getBoundingClientRect();
+    // overlap = how many px footer extends into viewport from bottom
+    const overlap = Math.max(0, window.innerHeight - rect.top);
+    floats.forEach(el => {
+      // compute a safe extra offset (add small margin)
+      const extra = Math.min(overlap + 12, 400); // cap to avoid huge jumps
+      // set style.bottom so element moves up by 'extra' px
+      el.style.bottom = (baseBottom + extra) + 'px';
     });
   }
-}
 
-
-</script>
-<script>
-function openWirdSection() {
-  const s = document.getElementById('wird');
-  if (!s) return;
-  // نزّل الشاشة للورد ووسّع أول جزء لتحسين تجربة المستخدم
-  s.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  const first = s.querySelector('.subject-card');
-  if (first) first.classList.add('active');
-}
-</script>
-
-<script>
-/* ---------- بيانات أجزاء القرآن (Juz) 30 جزء ---------- */
-const quranJuz = [
-  { juz:1,  id:'juz-1',  title:'الجزء 1',  range:'الفاتحة (1:1) – البقرة (2:141)', quranUrl:'https://quran.com/juz/1', audioUrl:''},
-  { juz:2,  id:'juz-2',  title:'الجزء 2',  range:'البقرة (2:142) – البقرة (2:252)', quranUrl:'https://quran.com/juz/2', audioUrl:''},
-  { juz:3,  id:'juz-3',  title:'الجزء 3',  range:'البقرة (2:253) – آل عمران (3:92)', quranUrl:'https://quran.com/juz/3', audioUrl:''},
-  { juz:4,  id:'juz-4',  title:'الجزء 4',  range:'آل عمران (3:93) – النساء (4:23)', quranUrl:'https://quran.com/juz/4', audioUrl:''},
-  { juz:5,  id:'juz-5',  title:'الجزء 5',  range:'النساء (4:24) – النساء (4:147)', quranUrl:'https://quran.com/juz/5', audioUrl:''},
-  { juz:6,  id:'juz-6',  title:'الجزء 6',  range:'النساء (4:148) – المائدة (5:81)', quranUrl:'https://quran.com/juz/6', audioUrl:''},
-  { juz:7,  id:'juz-7',  title:'الجزء 7',  range:'المائدة (5:82) – الأنعام (6:110)', quranUrl:'https://quran.com/juz/7', audioUrl:''},
-  { juz:8,  id:'juz-8',  title:'الجزء 8',  range:'الأنعام (6:111) – الأعراف (7:87)', quranUrl:'https://quran.com/juz/8', audioUrl:''},
-  { juz:9,  id:'juz-9',  title:'الجزء 9',  range:'الأعراف (7:88) – الأنفال (8:40)', quranUrl:'https://quran.com/juz/9', audioUrl:''},
-  { juz:10, id:'juz-10', title:'الجزء 10', range:'الأنفال (8:41) – التوبة (9:92)', quranUrl:'https://quran.com/juz/10', audioUrl:''},
-  { juz:11, id:'juz-11', title:'الجزء 11', range:'التوبة (9:93) – هود (11:5)', quranUrl:'https://quran.com/juz/11', audioUrl:''},
-  { juz:12, id:'juz-12', title:'الجزء 12', range:'هود (11:6) – يوسف (12:52)', quranUrl:'https://quran.com/juz/12', audioUrl:''},
-  { juz:13, id:'juz-13', title:'الجزء 13', range:'يوسف (12:53) – الرعد (13:18?)', quranUrl:'https://quran.com/juz/13', audioUrl:''},
-  { juz:14, id:'juz-14', title:'الجزء 14', range:'الرعد – النحل (حتى 16:128)', quranUrl:'https://quran.com/juz/14', audioUrl:''},
-  { juz:15, id:'juz-15', title:'الجزء 15', range:'الإسراء (17:1) – الكهف (18:74)', quranUrl:'https://quran.com/juz/15', audioUrl:''},
-  { juz:16, id:'juz-16', title:'الجزء 16', range:'الكهف (18:75) – طه/يونس/يونس؟ (حتى 20:135)', quranUrl:'https://quran.com/juz/16', audioUrl:''},
-  { juz:17, id:'juz-17', title:'الجزء 17', range:'الأنبياء/الحج (21:1) – الحجة (22:78)', quranUrl:'https://quran.com/juz/17', audioUrl:''},
-  { juz:18, id:'juz-18', title:'الجزء 18', range:'المؤمنون (23:1) – الفرقان (25:20)', quranUrl:'https://quran.com/juz/18', audioUrl:''},
-  { juz:19, id:'juz-19', title:'الجزء 19', range:'الشعراء (26:1?) – النمل/المرسلات (حتى 27:55)', quranUrl:'https://quran.com/juz/19', audioUrl:''},
-  { juz:20, id:'juz-20', title:'الجزء 20', range:'الأنبياء/النبأ (27:56) – العنكبوت/القلم (29:45)', quranUrl:'https://quran.com/juz/20', audioUrl:''},
-  { juz:21, id:'juz-21', title:'الجزء 21', range:'السجدة – الأحزاب (29:46) – السجدة/الأحزاب (33:30)', quranUrl:'https://quran.com/juz/21', audioUrl:''},
-  { juz:22, id:'juz-22', title:'الجزء 22', range:'سبأ (33:31) – يس (36:27)', quranUrl:'https://quran.com/juz/22', audioUrl:''},
-  { juz:23, id:'juz-23', title:'الجزء 23', range:'يس (36:28) – الزمر/فصلت (39:31)', quranUrl:'https://quran.com/juz/23', audioUrl:''},
-  { juz:24, id:'juz-24', title:'الجزء 24', range:'الزمر (39:32) – فصلت/الشعراء (41:46)', quranUrl:'https://quran.com/juz/24', audioUrl:''},
-  { juz:25, id:'juz-25', title:'الجزء 25', range:'الحم (41:47) – الفرقان (45:37)', quranUrl:'https://quran.com/juz/25', audioUrl:''},
-  { juz:26, id:'juz-26', title:'الجزء 26', range:'الأنبياء/الحج (46:1) – الذاريات (51:30)', quranUrl:'https://quran.com/juz/26', audioUrl:''},
-  { juz:27, id:'juz-27', title:'الجزء 27', range:'الذاريات (51:31) – الممتحنة/الحديد (57:29)', quranUrl:'https://quran.com/juz/27', audioUrl:''},
-  { juz:28, id:'juz-28', title:'الجزء 28', range:'الحديد (58:1) – التحريم (66:12)', quranUrl:'https://quran.com/juz/28', audioUrl:''},
-  { juz:29, id:'juz-29', title:'الجزء 29', range:'الطلاق (65:1?) – النبأ/النازعات (67:1?) حتى 77:50', quranUrl:'https://quran.com/juz/29', audioUrl:''},
-  { juz:30, id:'juz-30', title:'الجزء 30', range:'النبأ (78:1) – الناس (114:6)', quranUrl:'https://quran.com/juz/30', audioUrl:''}
-];
-
-/* ------------- دمج الأجزاء داخل بيانات المواد (subject data) ------------- */
-function injectQuranJuzIntoDaily() {
-  try {
-    if (!window.quranJuz || !Array.isArray(quranJuz)) {
-      console.warn('quranJuz غير موجودة');
-      return;
-    }
-    if (!window.specializationData) return;
-
-    Object.values(specializationData).forEach(branch => {
-      if (!branch.subjects) branch.subjects = {};
-      const daily = branch.subjects.daily || (branch.subjects.daily = { title: '📿 وردك اليومي', units: [] });
-
-      quranJuz.forEach(j => {
-        const unit = {
-          id: `juz-${j.juz}`,
-          title: `الجزء ${j.juz} — ${j.range}`,
-          lessons: [
-            { title: `الآيات: ${j.range}`, type: 'quran', juz: j.juz, quranUrl: j.quranUrl, audioUrl: j.audioUrl }
-          ]
-        };
-        if (!daily.units.some(u => u.id === unit.id)) {
-          daily.units.push(unit);
-        }
-      });
-
-      // تحديث subjectsData ليعكس التغيير
-      if (window.subjectsData) {
-        window.subjectsData[branch.branch].subjects.daily = daily;
+  // use IntersectionObserver to avoid running on every scroll if footer not visible
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        update();
+        window.addEventListener('scroll', update, {passive: true});
+        window.addEventListener('resize', update);
+      } else {
+        // reset inline bottom once footer is out of view
+        floats.forEach(el => el.style.bottom = '');
+        window.removeEventListener('scroll', update);
+        window.removeEventListener('resize', update);
       }
     });
-    console.log('✅ تم إدراج أجزاء القرآن في "وردك اليومي" وتحديث subjectsData.');
-  } catch (err) {
-    console.error('خطأ أثناء إدراج الأجزاء:', err);
+  }, {threshold: 0});
+
+  io.observe(footer);
+});
+// ---------- بيانات تجريبية (استبدليها لاحقًا من Supabase أو JSON خارجي) ----------
+const libraryBooks = [
+  {
+    id: 'b1',
+    title: 'رياضيات البكالوريا - الجزء 1',
+    author: 'أ. محمد علي',
+    cover: 'assets/books/math1.jpg', // ضع الصورة في هذا المسار
+    description: 'شرح مبسط للوحدات الأساسية مع أمثلة محلولة.',
+    fileUrl: 'assets/books/math1.pdf',
+    category: 'رياضيات',
+    price: 'مجاني'
+  },
+  {
+    id: 'b2',
+    title: 'فيزياء شاملة',
+    author: 'د. فاطمة خليل',
+    cover: 'assets/books/physics1.jpg',
+    description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
+    fileUrl: '#', // placeholder
+    category: 'فيزياء',
+    price: 'مجاني'
+  },
+  // أضف مزيدًا من العناصر هنا...
+];
+
+// ---------- showLibrary ----------
+function showLibrary() {
+  hideAllSections(); // دالتك موجودة في ملفك
+  const sec = document.getElementById('librarySection');
+  if (!sec) { console.error('librarySection غير موجود'); return; }
+  sec.style.display = 'block';
+  // بناء الفلاتر (مثال: فئات)
+  renderFilters();
+  // عرض الشبكة
+  renderLibrary();
+  // scroll top
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+// ---------- renderFilters ----------
+function renderFilters() {
+  const filtersEl = document.getElementById('libraryFilters');
+  if (!filtersEl) return;
+  const cats = [...new Set(libraryBooks.map(b => b.category || 'عام'))];
+  filtersEl.innerHTML = '<button class="btn btn-outline-secondary btn-sm" onclick="applyFilter(null)">الكل</button>';
+  cats.forEach(cat => {
+    filtersEl.innerHTML += `<button class="btn btn-outline-primary btn-sm" style="font-weight:600" onclick="applyFilter('${cat}')">${cat}</button>`;
+  });
+}
+
+let currentFilter = null;
+function applyFilter(cat) {
+  currentFilter = cat;
+  renderLibrary();
+}
+
+// ---------- renderLibrary ----------
+function renderLibrary() {
+  const grid = document.getElementById('libraryGrid');
+  if (!grid) return;
+  const q = (document.getElementById('librarySearch').value || '').trim().toLowerCase();
+  let items = libraryBooks.slice();
+
+  if (currentFilter) {
+    items = items.filter(i => (i.category || '').toLowerCase() === currentFilter.toLowerCase());
+  }
+  if (q) {
+    items = items.filter(i => (i.title + ' ' + (i.author||'') + ' ' + (i.description||'')).toLowerCase().includes(q));
+  }
+
+  if (items.length === 0) {
+    grid.innerHTML = `<div class="col-12"><div class="alert alert-warning">لم يتم العثور على كتب تتطابق مع بحثك.</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = '';
+  items.forEach(book => {
+    const col = document.createElement('div');
+    col.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
+    col.innerHTML = `
+      <div class="card book-card p-2" role="button" onclick="openBookModal('${book.id}')">
+        <img src="" alt="${book.title}" class="book-cover" loading="lazy">
+        <div class="card-body p-2">
+          <h6 style="font-weight:700; margin-bottom:.25rem;">${book.title}</h6>
+          <p class="text-muted mb-2" style="font-size:.85rem;">${book.author}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="book-badge">${book.price || 'مجاني'}</span>
+            <button class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation(); openPreviewOrPdf('${book.fileUrl}')">معاينة</button>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(col);
+  });
+}
+
+// ---------- openPreviewOrPdf ----------
+function openPreviewOrPdf(url) {
+  if (!url || url === '#') { showNotification('المعاينة غير متوفرة حالياً', 'warning'); return; }
+  // إذا كان ملف PDF استخدمي الدالة الموجودة openPdf (يوجد في ملفك). وإلا افتحي في نافذة جديدة.
+  if (typeof openPdf === 'function' && url.endsWith('.pdf')) {
+    openPdf(url);
+  } else {
+    window.open(url, '_blank');
   }
 }
 
+// ---------- مودال الكتاب ----------
+// فتح المودال (تحسينات: منع التمرير، وضع التركيز)
+function openBookModal(bookId) {
+  const book = libraryBooks.find(b => b.id === bookId);
+  if (!book) return showNotification('الكتاب غير موجود', 'error');
+  const modal = document.getElementById('bookModal');
+  const details = document.getElementById('bookDetails');
+
+  details.innerHTML = `
+    <div class="book-meta">
+      <div class="meta-left"><img src="${book.cover}" alt="${book.title}" style="width:100%; border-radius:8px; max-height:360px; object-fit:cover;"></div>
+      <div class="meta-right">
+        <h3>${book.title}</h3>
+        <p class="text-muted">بواسطة ${book.author}</p>
+        <p>${book.description || 'لا توجد وصف إضافي.'}</p>
+        <div class="mt-3 d-flex gap-2">
+          ${book.fileUrl && book.fileUrl.endsWith('.pdf') ? `<button class="btn btn-primary" onclick="openPdf('${book.fileUrl}')">افتح PDF</button>` : ''}
+          <button class="btn btn-outline-primary" onclick="downloadBook('${book.fileUrl}')">تحميل</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  modal.style.display = 'flex';
+  // منع تمرير الخلفية
+  document.body.style.overflow = 'hidden';
+
+  // ضع التركيز على زر الإغلاق لتحسين الوصول
+  setTimeout(()=> modal.querySelector('.book-modal-close')?.focus(), 40);
+}
+
+// إغلاق المودال (تحرير التمرير)
+function closeBookModal() {
+  const modal = document.getElementById('bookModal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
 
 
+function downloadBook(url) {
+  if (!url || url === '#') return showNotification('الملف غير متوفر', 'warning');
+  // لو هو PDF استخدمي openPdf أو افتحي الرابط
+  if (url.endsWith('.pdf')) {
+    openPdf(url);
+  } else {
+    window.open(url, '_blank');
+  }
+}
+// اغلاق المودال عند النقر على الخلفية (الـ overlay)
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('bookModal');
+  if (!modal || modal.style.display !== 'flex') return;
+  if (e.target === modal) closeBookModal();
+});
 
+// اغلاق المودال بمفتاح Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('bookModal');
+    if (modal && modal.style.display === 'flex') closeBookModal();
+  }
+});
+
+// ---------- أضف librarySection إلى hideAllSections (تأكدي من تعديل دالتك) ----------
+// في ملفك الحالي: عدّلي المصفوفة داخل hideAllSections() لتشمل 'librarySection'.
+// مثال (تحديث): 
+/*
+const sections = [
+  'authSection','branchSection','homeSection','subjectsSection',
+  'subjectDetailSection','bacExamsSection','profileSection','developerSection','librarySection'
+];
+*/
+// وظيفة الرجوع من المكتبة (تعود إلى قائمة المواد أو الرئيسية)
+function backFromLibrary() {
+  hideAllSections();
+  const subjects = document.getElementById('subjectsSection');
+  const home = document.getElementById('homeSection');
+
+  if (subjects) {
+    subjects.style.display = 'block';
+  } else if (home) {
+    home.style.display = 'block';
+  } else {
+    // كـاحتياط: إظهار الصفحة الشخصية إن لم توجد الأقسام الأخرى
+    const profile = document.getElementById('profileSection');
+    if (profile) profile.style.display = 'block';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+  const navbarCollapse = document.getElementById('navbarNav');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navbarCollapse.classList.contains('show')) {
+        // استدعاء collapse من Bootstrap لإخفاء القائمة
+        const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: true });
+        bsCollapse.hide();
+      }
+    });
+  });
+});
+function convertDriveToEmbed(url) {
+  try {
+    let m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (m && m[1]) return `https://drive.google.com/file/d/${m[1]}/preview`;
+
+    m = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m && m[1]) return `https://drive.google.com/file/d/${m[1]}/preview`;
+
+    m = url.match(/\/document\/d\/([a-zA-Z0-9_-]+)/);
+    if (m && m[1]) return `https://docs.google.com/document/d/${m[1]}/export?format=pdf`;
+
+    m = url.match(/\/presentation\/d\/([a-zA-Z0-9_-]+)/);
+    if (m && m[1]) return `https://docs.google.com/presentation/d/${m[1]}/preview`;
+
+    if (url.includes('/view')) return url.replace('/view', '/preview');
+
+    return url;
+  } catch (err) {
+    return url;
+  }
+}
 
 </script>
 
