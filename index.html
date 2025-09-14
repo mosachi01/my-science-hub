@@ -2003,7 +2003,7 @@ body.dark-mode .profile-section .form-control::placeholder {
 
 <!-- ملف صوت المطر — ضعي rain.mp3 في نفس مجلد 11.html -->
 <audio id="rainSound" loop>
-  <source src="real-rain-sound-379215.mp3" type="audio/mpeg">
+  <source src="file.mp3" type="audio/mpeg">
   متصفّحك لا يدعم تشغيل الملفات الصوتية.
 </audio>
 
@@ -2823,34 +2823,31 @@ body.dark-mode .profile-section .form-control::placeholder {
   const closeBtn = modal.querySelector('.privacy-close-btn');
   let pushedHistory = false;
 
-  function openModal(fromHashChange = false){
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-    // lock page scroll
-    document.body.style.overflow = 'hidden';
-    // set focus for accessibility
-    const content = modal.querySelector('.privacy-content');
-    if (content) content.focus();
-    // push hash state so back button can close
-    if (!fromHashChange && location.hash !== '#privacyPolicy') {
-      history.pushState({privacy:true}, '', '#privacyPolicy');
-      pushedHistory = true;
-    }
+function openModal(fromHashChange = false){
+  modal.style.display = 'block';                // <<< أضفت هذا
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  const content = modal.querySelector('.privacy-content');
+  if (content) content.focus();
+  if (!fromHashChange && location.hash !== '#privacyPolicy') {
+    history.pushState({privacy:true}, '', '#privacyPolicy');
+    pushedHistory = true;
   }
+}
 
-  function closeModal(fromHashChange = false){
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    // if we pushed a history entry earlier, go back to remove it
-    if (pushedHistory) {
-      pushedHistory = false;
-      history.back();
-    } else if (location.hash === '#privacyPolicy' && !fromHashChange) {
-      // remove hash without creating a new history entry
-      history.replaceState(null, '', window.location.pathname + window.location.search);
-    }
+function closeModal(fromHashChange = false){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.style.display = 'none';                 // <<< أضفت هذا
+  document.body.style.overflow = '';
+  if (pushedHistory) {
+    pushedHistory = false;
+    history.back();
+  } else if (location.hash === '#privacyPolicy' && !fromHashChange) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
   }
+}
 
   // intercept footer (or any) links to #privacyPolicy
   openLinks.forEach(a => a.addEventListener('click', function(e){
@@ -3523,43 +3520,6 @@ function navHomeClicked(event) {
   // دروس الجزء الأول
 
 
-  { title: "المتابعة الزمنية لتحول كيميائي | طرق المتابعة الزمنية", url: "https://www.youtube.com/watch?v=B8fmXN56KAw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=1&pp=iAQB", type: "فيديو", part: "p4" },
-  { title: "الدرس (01): المدة المستغرقة لتحول كيميائي", url: "https://www.youtube.com/watch?v=xRL0-z0bvDY&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=2&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "الدرس (02): المعايرة اللونية", url: "https://www.youtube.com/watch?v=UNB0PCXJcVM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=3&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تطبيق (01): المتابعة الزمنية بالمعايرة اللونية", url: "https://www.youtube.com/watch?v=9e9m0LxdIvQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=4&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "الدرس (03): قياس الناقلية", url: "https://www.youtube.com/watch?v=erVTEu441KI&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=5&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تطبيق (02): المتابعة الزمنية بقياس الناقلية", url: "https://www.youtube.com/watch?v=K1s99aKucCQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=6&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
-  { title: "الدرس (04): المتابعة بقياس حجم أو ضغط غاز", url: "https://www.youtube.com/watch?v=ElX7H7Km4z8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=7&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تطبيق (03): المتابعة الزمنية عبر ضغط غاز", url: "https://www.youtube.com/watch?v=kZ1vBa1iMM0&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=8&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "البرهان على العلاقات في الوحدة 01", url: "https://www.youtube.com/watch?v=8VZ9XRIUI_g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=9&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "الدرس (06): مفهوم سرعة التفاعل", url: "https://www.youtube.com/watch?v=Td24vTWHM5o&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=10&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "اشتقاق عبارة السرعة", url: "https://www.youtube.com/watch?v=qYBcnXAUeLY&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=11&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "استخراج علاقة سرعة التفاعل من بيانات", url: "https://www.youtube.com/watch?v=5Ng63-XZw9A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=12&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "ملخص شامل حول السرعات", url: "https://www.youtube.com/watch?v=FmYHAYX3g6A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=13&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمرين شامل حول سرعة التفاعل", url: "https://www.youtube.com/watch?v=5IQoOQW_MTc&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=14&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمرين تطبيقي شامل سرعة التفاعل", url: "https://www.youtube.com/watch?v=agUL4h9ijAs&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=15&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "زمن نصف التفاعل | البرهان على العلاقات", url: "https://www.youtube.com/watch?v=9pvOmOfNSLM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=16&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "العوامل الحركية", url: "https://www.youtube.com/watch?v=bx15yWTm87g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=17&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمارين | التمرين 1", url: "https://www.youtube.com/watch?v=_nxnQZQaYDo&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=18&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمارين | التمرين 2", url: "https://www.youtube.com/watch?v=2IeeFLFY4Rw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=19&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمارين | باك 2022 | التمرين 3", url: "https://www.youtube.com/watch?v=doTIdx-udqw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=20&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمارين | التمرين 4", url: "https://www.youtube.com/watch?v=uEwVtf2531U&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=21&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمارين | التمرين 5", url: "https://www.youtube.com/watch?v=U6KHUu7DeJ8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=22&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "أصعب تمرين في الوحدة الأولى | باك 2017", url: "https://www.youtube.com/watch?v=ziigBR0bD-A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=23&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "باك 2016 | تمرين شامل", url: "https://www.youtube.com/watch?v=fnVDFn4eWao&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=24&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تمارين | الدرجة الكلورومترية", url: "https://www.youtube.com/watch?v=UyWR1RyXXqQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=25&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "حل تمرين شامل (1)", url: "https://www.youtube.com/watch?v=tyM7vQ4Lt7Y&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=26&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
-  { title: "حل تمرين شامل (2)", url: "https://www.youtube.com/watch?v=51LDWK-IaCU&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=27&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "سلسلة أفكار | التقدم الأعظمي والنهائي", url: "https://www.youtube.com/watch?v=fSKhKl_KE1g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=28&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "سلسلة أفكار | تركيز الشاردة المتفرجة", url: "https://www.youtube.com/watch?v=HBjuUi0FuJw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=29&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "سلسلة أفكار | ضغط و حجم غاز", url: "https://www.youtube.com/watch?v=XOpiihdQbeM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=30&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "سلسلة أفكار | الدرجة الكلورومترية", url: "https://www.youtube.com/watch?v=8W2zDmVBQC8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=31&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
-  { title: "سلسلة أفكار | الماء الأكسجيني", url: "https://www.youtube.com/watch?v=Uoui6TT83Ds&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=32&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "سلسلة أفكار | علاقات الناقلية", url: "https://www.youtube.com/watch?v=QmBmxIAfbRI&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=33&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "تحضير صمغ النشاء", url: "https://www.youtube.com/watch?v=8OaoJBuBk80&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=34&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "طريقة رسم المماس و حساب الميل", url: "https://www.youtube.com/watch?v=84agBk6NPME&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=35&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
-  { title: "حل تمرين الوحدة الأولى | باك 2017 رياضيات وتقني", url: "https://www.youtube.com/watch?v=rr387VxN3lA&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=36&pp=iAQB", type: "فيديو", part: "p3" },
-
 
   
 
@@ -3569,61 +3529,18 @@ function navHomeClicked(event) {
 // دروس الجزء الثاني
 
 
-  { "title": "الدرس 01 | المدة الزمنية لتحول كيميائي + تمرين", "url": "https://www.youtube.com/watch?v=Cdrn9g3g6_M&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=1&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
-  { "title": "حل الرائز مراجعة للدرس 01", "url": "https://www.youtube.com/watch?v=kGYofuIApas&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=2&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "ملحق │ مراحل البرهان على العلاقات", "url": "https://www.youtube.com/watch?v=pjXZVk3KJOY&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=3&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "تمارين البرهان على العلاقات │ ج01", "url": "https://www.youtube.com/watch?v=6a-K1YRFe7U&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=4&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "تمارين البرهان على العلاقات │ ج02", "url": "https://www.youtube.com/watch?v=gxSdf28YIQo&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=5&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "تمارين البرهان على العلاقات │ ج03", "url": "https://www.youtube.com/watch?v=yfIMvEWUVus&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=6&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "تمارين البرهان على العلاقات │ ج04", "url": "https://www.youtube.com/watch?v=Q2ZB7KoNIeE&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=7&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 01", "url": "https://www.youtube.com/watch?v=iG82Q31jZpQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=8&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 02 │ ج01 │ طرق المتابعة الزمنية", "url": "https://www.youtube.com/watch?v=A2LXvobxhYo&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=9&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 02 │ ج02 │ المتابعة بالناقلية النوعية σ", "url": "https://www.youtube.com/watch?v=4hzadQC7Bsc&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=10&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 02 │ ج02 تابع │ المتابعة بالناقلية G", "url": "https://www.youtube.com/watch?v=5-atFasKQHw&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=11&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 02", "url": "https://www.youtube.com/watch?v=1L994gc-VpU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=12&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 02 │ ج03 │ المتابعة بالمعايرة اللونية", "url": "https://www.youtube.com/watch?v=xt2SzYrh_zg&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=13&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 02 │ ج03 تابع │ أسئلة حول المعايرة اللونية", "url": "https://www.youtube.com/watch?v=58tUSrdlhWg&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=14&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 03", "url": "https://www.youtube.com/watch?v=jH2hjJQQkq4&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=15&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 02 │ ج04 │ المتابعة بقياس حجم غاز", "url": "https://www.youtube.com/watch?v=QJNjIpGLidU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=16&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 04", "url": "https://www.youtube.com/watch?v=ws3k8Iv3QSA&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=17&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 02 │ ج05 │ المتابعة بقياس ضغط غاز", "url": "https://www.youtube.com/watch?v=7eCNk7uA4tQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=18&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 05", "url": "https://www.youtube.com/watch?v=5-50zMLfxC0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=19&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 03 │ ج01 │ سرعة التفاعل، زمن نصف التفاعل", "url": "https://www.youtube.com/watch?v=e_fUTOd0fhU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=20&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 03 │ ج01 تابع │ ملاحظات حول سرعة التفاعل", "url": "https://www.youtube.com/watch?v=39G6gNnnKAc&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=21&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 06", "url": "https://www.youtube.com/watch?v=pBwAZv26XQ0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=22&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 03 │ ج02 │ البرهان على علاقات سرعة التفاعل", "url": "https://www.youtube.com/watch?v=HVReC1Np03Q&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=23&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 03 │ ج02 تابع │ البرهان على علاقات سرعة التفاعل", "url": "https://www.youtube.com/watch?v=7zefAJURoZ0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=24&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 07", "url": "https://www.youtube.com/watch?v=0T9Y_0fJHDM&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=25&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 03 │ ج03 │ البرهان على علاقات زمن نصف التفاعل", "url": "https://www.youtube.com/watch?v=44-HpqgUj1c&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=26&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 08", "url": "https://www.youtube.com/watch?v=D3EObaA4hMY&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=27&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "الدرس 04 │ العوامل الحركية وأهميتها", "url": "https://www.youtube.com/watch?v=Oilr8bSCwS8&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=28&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة البكالوريا التجريبي 09", "url": "https://www.youtube.com/watch?v=NlAI7qtbfag&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=29&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "مناقشة الفرض المحروس 01", "url": "https://www.youtube.com/watch?v=PFMQKLEDAOs&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=30&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "بطاقة │ الماء الأكسجيني + تمرين شامل", "url": "https://www.youtube.com/watch?v=0kJpRoPxXlE&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=31&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "بطاقة │ ماء جافيل + تمرين شامل", "url": "https://www.youtube.com/watch?v=MfTC7BbYKxQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=32&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "تجميعية تمارين │ وحدة المتابعة الزمنية", "url": "https://www.youtube.com/watch?v=NejreABsazs&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=33&pp=iAQB", "type": "فيديو", "part": "p2" },
-  { "title": "العوض ❤️", "url": "https://www.youtube.com/watch?v=YJugMba11B4&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=34&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
-
+  
 
 
   // دروس الجزء الثالث
   
-  { title: "جميع دروس الوحدة الأولى | المتابعة الزمنية من الألف إلى الياء", url: "https://www.youtube.com/watch?v=WJ2e5-13kyI&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=1&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
-  { title: "جميع الأسئلة النظرية للوحدة الأولى | المتابعة الزمنية مع أجوبة", url: "https://www.youtube.com/watch?v=Xdxpprr56zA&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=2&pp=iAQB", type: "فيديو", part: "p3" },
-  { title: "الميزان | 12 تمرينًا في المتابعة الزمنية", url: "https://www.youtube.com/watch?v=y6zAS9Nlms0&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=3&pp=iAQB", type: "فيديو", part: "p3" }
-
+  
 
   
 
 
 ],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على المكتسبات القبلية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم المكتسبات القبلية ',
-                                        fileUrl: '#Math_Physics_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص المكتسبات القبلية ',
@@ -3736,16 +3653,17 @@ function navHomeClicked(event) {
 ],
                                 exercises: [
                                     {
-                                        title: ' تمارين تطبيقية على المتابعة الزمنية ',
+                                        title: ' تمارين المتابعة الزمنية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم المتابعة الزمنية ',
-                                        fileUrl: '#Math_Physics_Unit2_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1H4gOL5h3bBnPGNmjCdeF1TBrq5MFCKbT/preview'
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص المتابعة الزمنية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة المتابعة الزمنية ',
-                                        fileUrl: '#Math_Physics_Unit2_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1dIgq25P4347PBGXunVt63ot94Yu5OalO/preview'
+
                                     }
                                 ]
                             },
@@ -3845,20 +3763,57 @@ function navHomeClicked(event) {
 
 ],
 
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على تطور الجمل الميكانيكية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم تطور الجمل الميكانيكية ',
-                                        fileUrl: '#Math_Physics_Unit3_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
-                                summaries: [
-                                    {
-                                        title: ' ملخص تطور الجمل الميكانيكية ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة تطور الجمل الميكانيكية ',
-                                        fileUrl: '#Math_Physics_Unit3_Summaries' // Placeholder for Math specialization
-                                    }
-                                ]
+                               exercises: [
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين الأقمار',
+    fileUrl: 'https://drive.google.com/file/d/1Z3Yo1wZcj12QqiWhzV3ikntnYsrFVNXp/preview' 
+  },
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين سقوط',
+    fileUrl: 'https://drive.google.com/file/d/196MgzAYnYK1vIB7p9AY7sVajDXF88m_U/preview'
+  },
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين قذيفة',
+    fileUrl: 'https://drive.google.com/file/d/1eJNzXnO_jG4eUx0VX7DCcPZwIA_v_WTa/preview'
+  },
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين مستوي',
+    fileUrl: 'https://drive.google.com/file/d/1hyG7KtLy_vb8YSGokVWQNi0wK65V_8MB/preview'
+  }
+],
+
+summaries: [
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص الأقمار',
+    fileUrl: 'https://drive.google.com/file/d/1ecSUQUTFq5ar87PAAYzY56LMwP6a3FCR/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص السقوط',
+    fileUrl: 'https://drive.google.com/file/d/1IQvI8CFFLtErE3IHaD2pKW2VuW08UJzT/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص القذيفة',
+    fileUrl: 'https://drive.google.com/file/d/1hoxPh8V2kUc9H1LOqzO6CmdIYxnP_FBC/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص المستوي',
+    fileUrl: 'https://drive.google.com/file/d/1Xdn5W9cFN6T8cVY38tQP8Azh0evVLJUz/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص الأسئلة النظرية',
+    fileUrl: 'https://drive.google.com/file/d/1-XTFkdDO8A-6ta7LTT6jnxNeGRqCz2Qe/preview'
+  }
+]
+
                             },
                             {
                                 id: 'physics-4',
@@ -3945,14 +3900,14 @@ function navHomeClicked(event) {
                                     {
                                         title: ' تمارين تطبيقية على الظواهر الكهربائية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الظواهر الكهربائية ',
-                                        fileUrl: '#Math_Physics_Unit4_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1wpA-WUlx_yGu1GDQHdRk7NfqXl3cz_2T/preview' // Placeholder for Science specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الظواهر الكهربائية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الظواهر الكهربائية ',
-                                        fileUrl: '#Math_Physics_Unit4_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1LWVTPY9efi3aUaOTVmfc1qY2T6__Z57Z/preview' // Placeholder for Science specialization
                                     }
                                 ]
                             },
@@ -4004,18 +3959,18 @@ function navHomeClicked(event) {
 
 
 ],
-                                exercises: [
+                               exercises: [
                                     {
                                         title: ' تمارين تطبيقية على الأحماض والأسس ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الأحماض والأسس ',
-                                        fileUrl: '#Math_Physics_Unit5_Exercises' // Placeholder for Math specialization
-                                    }
+                                        fileUrl: 'https://drive.google.com/file/d/1bo2BMBkoB81MDbj-WvlFIwttGQFkVBu3/preview' // Placeholder for Science specialization
+}
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الأحماض والأسس ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الأحماض والأسس ',
-                                        fileUrl: '#Math_Physics_Unit5_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1QsjvFAnm7nQlHmTsyNMbmqpsEcpNAkb0/preview' // Placeholder for Science specialization
                                     }
                                 ]
                             },
@@ -4063,16 +4018,16 @@ function navHomeClicked(event) {
 ],
                                 exercises: [
                                     {
-                                        title:' تمارين تطبيقية على وحدة النووي ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم الأحماض والأسس ',
-                                        fileUrl: '#Math_Physics_Unit5_Exercises' // Placeholder for Math specialization
+                                        title: ' تمارين تطبيقية على الفيزياء النووية ',
+                                        description: ' مجموعة تمارين لتطبيق مفاهيم الفيزياء النووية ',
+                                        fileUrl: 'https://drive.google.com/file/d/1G2B7KBtomnBWreWj_OnpefJlu5rDzObE/preview' // Placeholder for Science specialization
                                     }
                                 ],
                                 summaries: [
                                     {
-                                        title: ' ملخص وحدة النووي',
-                                        description: ' ملخص شامل لأهم نقاط وحدة الأحماض والأسس ',
-                                        fileUrl: '#Math_Physics_Unit5_Summaries' // Placeholder for Math specialization
+                                        title: ' ملخص الفيزياء النووية ',
+                                        description: ' ملخص شامل لأهم نقاط وحدة الفيزياء النووية ',
+                                        fileUrl: 'https://drive.google.com/file/d/16N6oHt4QyfCzEri1JGnbIBB6aB78cOLq/preview' // Placeholder for Science specialization
                                     }
                                 ]
                             },             {
@@ -4107,14 +4062,14 @@ function navHomeClicked(event) {
                                     {
                                         title: ' تمارين تطبيقية على الأسترة ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الأسترة ',
-                                        fileUrl: '#Math_Physics_Unit5_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1X-yNbOhbVFWoAt6EQpiQEnFwc7TGYx22/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الأسترة ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة الأحماض والأسس ',
-                                        fileUrl: '#Math_Physics_Unit5_Summaries' // Placeholder for Math specialization
+                                        description: ' ملخص شامل لأهم نقاط وحدة الاسترة ',
+                                        fileUrl: 'https://drive.google.com/file/d/1__swOiQoBzBYppOzDlvEMFI1Yh4dbe89/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -4144,16 +4099,16 @@ function navHomeClicked(event) {
 ],
                                 exercises: [
                                     {
-                                        title: ' تمارين تطبيقية على الفيزياء النووية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم الفيزياء النووية ',
-                                        fileUrl: '#Math_Physics_Unit6_Exercises' // Placeholder for Math specialization
+                                         title: ' تمارين تطبيقية على الأعمدة',
+                                        description: ' مجموعة تمارين لتطبيق مفاهيم الأعمدة',
+                                        fileUrl: 'https://drive.google.com/file/d/1S0f8NbnIwfCHSW3L-CT3Zhh4i0_u3lk-/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
-                                        title: ' ملخص الفيزياء النووية ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة الفيزياء النووية ',
-                                        fileUrl: '#Math_Physics_Unit6_Summaries' // Placeholder for Math specialization
+                                        title: ' ملخص الأعمدة',
+                                        description: ' ملخص شامل لأهم نقاط وحدة الأعمدة',
+                                        fileUrl: 'https://drive.google.com/file/d/1i7A8bZgavzO5yCJ0TM9uMg0I0D6pFbCa/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             }
@@ -4266,7 +4221,7 @@ function navHomeClicked(event) {
                            
                             {
                                 id: 'science-4',
-                                title: ' الوحدة الرابعة: المناعة ',
+                                title: ' الوحدة الثالثة: المناعة ',
                                 completed: false,
                                 lessons: [
                                     //part 1
@@ -4330,18 +4285,12 @@ function navHomeClicked(event) {
                                 completed: false,
                                 lessons: [{ title: "مكتسبات النهايات", url: "https://www.youtube.com/watch?v=6YIkbIJEvBE&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=1&t=3s&pp=iAQB", type: "فيديو",  },
 ],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على البناء الفكري ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم البناء الفكري ',
-                                        fileUrl: '#Math_Arabic_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص البناء الفكري ',
                                         description: ' ملخص شامل لأهم نقاط وحدة البناء الفكري ',
-                                        fileUrl: '#Math_Arabic_Unit1_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1ncJAdG3Ingsy9vn47srovplq9z7ICAQ5/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -4350,18 +4299,12 @@ function navHomeClicked(event) {
                                 title: ' البناء اللغوي ',
                                 completed: false,
                                 lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على البناء اللغوي ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم البناء اللغوي ',
-                                        fileUrl: '#Math_Arabic_Unit2_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص البناء اللغوي ',
                                         description: ' ملخص شامل لأهم نقاط وحدة البناء اللغوي ',
-                                        fileUrl: '#Math_Arabic_Unit2_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/12wRp0wGK4MyQy5sLBO_XTVaHS_R-xHt6/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             }
@@ -4375,18 +4318,13 @@ function navHomeClicked(event) {
                                 title: ' كل ما يخص الفرنسية ',
                                 completed: false,
                                 lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على اللغة الفرنسية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم اللغة الفرنسية ',
-                                        fileUrl: '#Math_French_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
+                                
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص اللغة الفرنسية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة اللغة الفرنسية ',
-                                        fileUrl: '#Math_French_Unit1_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1Wa6o9wmpf6EUBnPpIcWdKfUj0nyGpkjh/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             }
@@ -4400,18 +4338,12 @@ function navHomeClicked(event) {
                                 title: ' كل ما يخص الإنجليزية ',
                                 completed: false,
                                 lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على اللغة الإنجليزية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم اللغة الإنجليزية ',
-                                        fileUrl: '#Math_English_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص اللغة الإنجليزية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة اللغة الإنجليزية ',
-                                        fileUrl: '#Math_English_Unit1_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/13A5JyCbyZR-H24Zi6EH0SqOWjGfWBQvU/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             }
@@ -4735,7 +4667,7 @@ function navHomeClicked(event) {
                             }
                         ]
                     },
-                    physics: {
+                     physics: {
                         title: ' ⚡   مادة الفيزياء ',
                         units: [
                             {
@@ -4743,24 +4675,115 @@ function navHomeClicked(event) {
                                 title: ' المكتسبات القبلية ',
                                 completed: false,
                                 lessons: [
-                                    {
-                                        title: ' شرح المكتسبات القبلية ',
-                                        url: 'https://youtu.be/6YIkbIJEvBE?si=ZZwsY73Qk6u2aE2W', // Your YouTube link
-                                        type: ' فيديو '
-                                    }
-                                ],
+  // دروس الجزء الأول
+
+
+  { title: "المتابعة الزمنية لتحول كيميائي | طرق المتابعة الزمنية", url: "https://www.youtube.com/watch?v=B8fmXN56KAw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=1&pp=iAQB", type: "فيديو", part: "p4" },
+  { title: "الدرس (01): المدة المستغرقة لتحول كيميائي", url: "https://www.youtube.com/watch?v=xRL0-z0bvDY&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الدرس (02): المعايرة اللونية", url: "https://www.youtube.com/watch?v=UNB0PCXJcVM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=3&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تطبيق (01): المتابعة الزمنية بالمعايرة اللونية", url: "https://www.youtube.com/watch?v=9e9m0LxdIvQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=4&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الدرس (03): قياس الناقلية", url: "https://www.youtube.com/watch?v=erVTEu441KI&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=5&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تطبيق (02): المتابعة الزمنية بقياس الناقلية", url: "https://www.youtube.com/watch?v=K1s99aKucCQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=6&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
+  { title: "الدرس (04): المتابعة بقياس حجم أو ضغط غاز", url: "https://www.youtube.com/watch?v=ElX7H7Km4z8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=7&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تطبيق (03): المتابعة الزمنية عبر ضغط غاز", url: "https://www.youtube.com/watch?v=kZ1vBa1iMM0&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=8&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "البرهان على العلاقات في الوحدة 01", url: "https://www.youtube.com/watch?v=8VZ9XRIUI_g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=9&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الدرس (06): مفهوم سرعة التفاعل", url: "https://www.youtube.com/watch?v=Td24vTWHM5o&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=10&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "اشتقاق عبارة السرعة", url: "https://www.youtube.com/watch?v=qYBcnXAUeLY&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=11&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "استخراج علاقة سرعة التفاعل من بيانات", url: "https://www.youtube.com/watch?v=5Ng63-XZw9A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=12&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "ملخص شامل حول السرعات", url: "https://www.youtube.com/watch?v=FmYHAYX3g6A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=13&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمرين شامل حول سرعة التفاعل", url: "https://www.youtube.com/watch?v=5IQoOQW_MTc&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=14&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمرين تطبيقي شامل سرعة التفاعل", url: "https://www.youtube.com/watch?v=agUL4h9ijAs&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=15&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "زمن نصف التفاعل | البرهان على العلاقات", url: "https://www.youtube.com/watch?v=9pvOmOfNSLM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=16&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "العوامل الحركية", url: "https://www.youtube.com/watch?v=bx15yWTm87g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=17&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمارين | التمرين 1", url: "https://www.youtube.com/watch?v=_nxnQZQaYDo&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=18&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمارين | التمرين 2", url: "https://www.youtube.com/watch?v=2IeeFLFY4Rw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=19&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمارين | باك 2022 | التمرين 3", url: "https://www.youtube.com/watch?v=doTIdx-udqw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=20&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمارين | التمرين 4", url: "https://www.youtube.com/watch?v=uEwVtf2531U&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=21&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمارين | التمرين 5", url: "https://www.youtube.com/watch?v=U6KHUu7DeJ8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=22&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "أصعب تمرين في الوحدة الأولى | باك 2017", url: "https://www.youtube.com/watch?v=ziigBR0bD-A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=23&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "باك 2016 | تمرين شامل", url: "https://www.youtube.com/watch?v=fnVDFn4eWao&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=24&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تمارين | الدرجة الكلورومترية", url: "https://www.youtube.com/watch?v=UyWR1RyXXqQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=25&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "حل تمرين شامل (1)", url: "https://www.youtube.com/watch?v=tyM7vQ4Lt7Y&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=26&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
+  { title: "حل تمرين شامل (2)", url: "https://www.youtube.com/watch?v=51LDWK-IaCU&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=27&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "سلسلة أفكار | التقدم الأعظمي والنهائي", url: "https://www.youtube.com/watch?v=fSKhKl_KE1g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=28&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "سلسلة أفكار | تركيز الشاردة المتفرجة", url: "https://www.youtube.com/watch?v=HBjuUi0FuJw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=29&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "سلسلة أفكار | ضغط و حجم غاز", url: "https://www.youtube.com/watch?v=XOpiihdQbeM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=30&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "سلسلة أفكار | الدرجة الكلورومترية", url: "https://www.youtube.com/watch?v=8W2zDmVBQC8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=31&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
+  { title: "سلسلة أفكار | الماء الأكسجيني", url: "https://www.youtube.com/watch?v=Uoui6TT83Ds&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=32&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "سلسلة أفكار | علاقات الناقلية", url: "https://www.youtube.com/watch?v=QmBmxIAfbRI&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=33&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "تحضير صمغ النشاء", url: "https://www.youtube.com/watch?v=8OaoJBuBk80&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=34&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "طريقة رسم المماس و حساب الميل", url: "https://www.youtube.com/watch?v=84agBk6NPME&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=35&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
+  { title: "حل تمرين الوحدة الأولى | باك 2017 رياضيات وتقني", url: "https://www.youtube.com/watch?v=rr387VxN3lA&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=36&pp=iAQB", type: "فيديو", part: "p3" },
+
+
+  
+
+
+  
+
+// دروس الجزء الثاني
+
+
+  { "title": "الدرس 01 | المدة الزمنية لتحول كيميائي + تمرين", "url": "https://www.youtube.com/watch?v=Cdrn9g3g6_M&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=1&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "حل الرائز مراجعة للدرس 01", "url": "https://www.youtube.com/watch?v=kGYofuIApas&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=2&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "ملحق │ مراحل البرهان على العلاقات", "url": "https://www.youtube.com/watch?v=pjXZVk3KJOY&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=3&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج01", "url": "https://www.youtube.com/watch?v=6a-K1YRFe7U&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=4&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج02", "url": "https://www.youtube.com/watch?v=gxSdf28YIQo&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=5&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج03", "url": "https://www.youtube.com/watch?v=yfIMvEWUVus&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=6&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج04", "url": "https://www.youtube.com/watch?v=Q2ZB7KoNIeE&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=7&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 01", "url": "https://www.youtube.com/watch?v=iG82Q31jZpQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=8&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج01 │ طرق المتابعة الزمنية", "url": "https://www.youtube.com/watch?v=A2LXvobxhYo&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=9&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج02 │ المتابعة بالناقلية النوعية σ", "url": "https://www.youtube.com/watch?v=4hzadQC7Bsc&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=10&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج02 تابع │ المتابعة بالناقلية G", "url": "https://www.youtube.com/watch?v=5-atFasKQHw&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=11&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 02", "url": "https://www.youtube.com/watch?v=1L994gc-VpU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=12&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج03 │ المتابعة بالمعايرة اللونية", "url": "https://www.youtube.com/watch?v=xt2SzYrh_zg&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=13&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج03 تابع │ أسئلة حول المعايرة اللونية", "url": "https://www.youtube.com/watch?v=58tUSrdlhWg&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=14&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 03", "url": "https://www.youtube.com/watch?v=jH2hjJQQkq4&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=15&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج04 │ المتابعة بقياس حجم غاز", "url": "https://www.youtube.com/watch?v=QJNjIpGLidU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=16&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 04", "url": "https://www.youtube.com/watch?v=ws3k8Iv3QSA&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=17&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج05 │ المتابعة بقياس ضغط غاز", "url": "https://www.youtube.com/watch?v=7eCNk7uA4tQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=18&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 05", "url": "https://www.youtube.com/watch?v=5-50zMLfxC0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=19&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج01 │ سرعة التفاعل، زمن نصف التفاعل", "url": "https://www.youtube.com/watch?v=e_fUTOd0fhU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=20&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج01 تابع │ ملاحظات حول سرعة التفاعل", "url": "https://www.youtube.com/watch?v=39G6gNnnKAc&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=21&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 06", "url": "https://www.youtube.com/watch?v=pBwAZv26XQ0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=22&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج02 │ البرهان على علاقات سرعة التفاعل", "url": "https://www.youtube.com/watch?v=HVReC1Np03Q&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=23&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج02 تابع │ البرهان على علاقات سرعة التفاعل", "url": "https://www.youtube.com/watch?v=7zefAJURoZ0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=24&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 07", "url": "https://www.youtube.com/watch?v=0T9Y_0fJHDM&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=25&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج03 │ البرهان على علاقات زمن نصف التفاعل", "url": "https://www.youtube.com/watch?v=44-HpqgUj1c&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=26&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 08", "url": "https://www.youtube.com/watch?v=D3EObaA4hMY&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=27&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 04 │ العوامل الحركية وأهميتها", "url": "https://www.youtube.com/watch?v=Oilr8bSCwS8&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=28&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 09", "url": "https://www.youtube.com/watch?v=NlAI7qtbfag&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=29&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة الفرض المحروس 01", "url": "https://www.youtube.com/watch?v=PFMQKLEDAOs&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=30&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "بطاقة │ الماء الأكسجيني + تمرين شامل", "url": "https://www.youtube.com/watch?v=0kJpRoPxXlE&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=31&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "بطاقة │ ماء جافيل + تمرين شامل", "url": "https://www.youtube.com/watch?v=MfTC7BbYKxQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=32&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تجميعية تمارين │ وحدة المتابعة الزمنية", "url": "https://www.youtube.com/watch?v=NejreABsazs&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=33&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "العوض ❤️", "url": "https://www.youtube.com/watch?v=YJugMba11B4&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=34&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+
+
+
+  // دروس الجزء الثالث
+  
+  { title: "جميع دروس الوحدة الأولى | المتابعة الزمنية من الألف إلى الياء", url: "https://www.youtube.com/watch?v=WJ2e5-13kyI&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=1&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
+  { title: "جميع الأسئلة النظرية للوحدة الأولى | المتابعة الزمنية مع أجوبة", url: "https://www.youtube.com/watch?v=Xdxpprr56zA&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الميزان | 12 تمرينًا في المتابعة الزمنية", url: "https://www.youtube.com/watch?v=y6zAS9Nlms0&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=3&pp=iAQB", type: "فيديو", part: "p3" }
+
+
+  
+
+
+],
                                 exercises: [
                                     {
                                         title: ' تمارين تطبيقية على المكتسبات القبلية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم المكتسبات القبلية ',
-                                        fileUrl: '#Science_Physics_Unit1_Exercises' // Placeholder for Science specialization
+                                        fileUrl: '#Math_Physics_Unit1_Exercises' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص المكتسبات القبلية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة المكتسبات القبلية ',
-                                        fileUrl: '#Science_Physics_Unit1_Summaries' // Placeholder for Science specialization
+                                        fileUrl: '#Math_Physics_Unit1_Summaries' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -4768,25 +4791,117 @@ function navHomeClicked(event) {
                                 id: 'physics-2',
                                 title: ' الوحدة الأولى: المتابعة الزمنية ',
                                 completed: false,
-                                lessons: [
-                                    {
-                                        title: ' الوحدة الأولى: المتابعة الزمنية ',
-                                        url: 'https://youtu.be/6YIkbIJEvBEE', // Your YouTube link
-                                        type: ' فيديو '
-                                    }
-                                ],
+                                 lessons: [
+  // دروس الجزء الأول
+
+{ title: "المتابعة الزمنية لتحول كيميائي | طرق المتابعة الزمنية", url: "https://www.youtube.com/watch?v=B8fmXN56KAw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=1&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "الدرس (01): المدة المستغرقة لتحول كيميائي", url: "https://www.youtube.com/watch?v=xRL0-z0bvDY&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=2&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "الدرس (02): المعايرة اللونية", url: "https://www.youtube.com/watch?v=UNB0PCXJcVM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=3&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تطبيق (01): المتابعة الزمنية بالمعايرة اللونية", url: "https://www.youtube.com/watch?v=9e9m0LxdIvQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=4&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "الدرس (03): قياس الناقلية", url: "https://www.youtube.com/watch?v=erVTEu441KI&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=5&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تطبيق (02): المتابعة الزمنية بقياس الناقلية", url: "https://www.youtube.com/watch?v=K1s99aKucCQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=6&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p1" },
+{ title: "الدرس (04): المتابعة بقياس حجم أو ضغط غاز", url: "https://www.youtube.com/watch?v=ElX7H7Km4z8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=7&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تطبيق (03): المتابعة الزمنية عبر ضغط غاز", url: "https://www.youtube.com/watch?v=kZ1vBa1iMM0&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=8&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "البرهان على العلاقات في الوحدة 01", url: "https://www.youtube.com/watch?v=8VZ9XRIUI_g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=9&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "الدرس (06): مفهوم سرعة التفاعل", url: "https://www.youtube.com/watch?v=Td24vTWHM5o&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=10&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "اشتقاق عبارة السرعة", url: "https://www.youtube.com/watch?v=qYBcnXAUeLY&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=11&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "استخراج علاقة سرعة التفاعل من بيانات", url: "https://www.youtube.com/watch?v=5Ng63-XZw9A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=12&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "ملخص شامل حول السرعات", url: "https://www.youtube.com/watch?v=FmYHAYX3g6A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=13&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمرين شامل حول سرعة التفاعل", url: "https://www.youtube.com/watch?v=5IQoOQW_MTc&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=14&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمرين تطبيقي شامل سرعة التفاعل", url: "https://www.youtube.com/watch?v=agUL4h9ijAs&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=15&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "زمن نصف التفاعل | البرهان على العلاقات", url: "https://www.youtube.com/watch?v=9pvOmOfNSLM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=16&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "العوامل الحركية", url: "https://www.youtube.com/watch?v=bx15yWTm87g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=17&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمارين | التمرين 1", url: "https://www.youtube.com/watch?v=_nxnQZQaYDo&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=18&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمارين | التمرين 2", url: "https://www.youtube.com/watch?v=2IeeFLFY4Rw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=19&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمارين | باك 2022 | التمرين 3", url: "https://www.youtube.com/watch?v=doTIdx-udqw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=20&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمارين | التمرين 4", url: "https://www.youtube.com/watch?v=uEwVtf2531U&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=21&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمارين | التمرين 5", url: "https://www.youtube.com/watch?v=U6KHUu7DeJ8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=22&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "أصعب تمرين في الوحدة الأولى | باك 2017", url: "https://www.youtube.com/watch?v=ziigBR0bD-A&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=23&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "باك 2016 | تمرين شامل", url: "https://www.youtube.com/watch?v=fnVDFn4eWao&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=24&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تمارين | الدرجة الكلورومترية", url: "https://www.youtube.com/watch?v=UyWR1RyXXqQ&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=25&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "حل تمرين شامل (1)", url: "https://www.youtube.com/watch?v=tyM7vQ4Lt7Y&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=26&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p1" },
+{ title: "حل تمرين شامل (2)", url: "https://www.youtube.com/watch?v=51LDWK-IaCU&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=27&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "سلسلة أفكار | التقدم الأعظمي والنهائي", url: "https://www.youtube.com/watch?v=fSKhKl_KE1g&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=28&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "سلسلة أفكار | تركيز الشاردة المتفرجة", url: "https://www.youtube.com/watch?v=HBjuUi0FuJw&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=29&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "سلسلة أفكار | ضغط و حجم غاز", url: "https://www.youtube.com/watch?v=XOpiihdQbeM&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=30&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "سلسلة أفكار | الدرجة الكلورومترية", url: "https://www.youtube.com/watch?v=8W2zDmVBQC8&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=31&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p1" },
+{ title: "سلسلة أفكار | الماء الأكسجيني", url: "https://www.youtube.com/watch?v=Uoui6TT83Ds&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=32&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "سلسلة أفكار | علاقات الناقلية", url: "https://www.youtube.com/watch?v=QmBmxIAfbRI&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=33&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "تحضير صمغ النشاء", url: "https://www.youtube.com/watch?v=8OaoJBuBk80&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=34&pp=iAQB", type: "فيديو", part: "p1" },
+{ title: "طريقة رسم المماس و حساب الميل", url: "https://www.youtube.com/watch?v=84agBk6NPME&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=35&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p1" },
+{ title: "حل تمرين الوحدة الأولى | باك 2017 رياضيات وتقني", url: "https://www.youtube.com/watch?v=rr387VxN3lA&list=PLlkvPioEFgAJYHWorISzD6mTMJniuwfC5&index=36&pp=iAQB", type: "فيديو", part: "p1" },
+
+  
+
+  
+
+
+  
+
+// دروس الجزء الثاني
+
+
+  { "title": "الدرس 01 | المدة الزمنية لتحول كيميائي + تمرين", "url": "https://www.youtube.com/watch?v=Cdrn9g3g6_M&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=1&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "حل الرائز مراجعة للدرس 01", "url": "https://www.youtube.com/watch?v=kGYofuIApas&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=2&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "ملحق │ مراحل البرهان على العلاقات", "url": "https://www.youtube.com/watch?v=pjXZVk3KJOY&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=3&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج01", "url": "https://www.youtube.com/watch?v=6a-K1YRFe7U&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=4&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج02", "url": "https://www.youtube.com/watch?v=gxSdf28YIQo&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=5&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج03", "url": "https://www.youtube.com/watch?v=yfIMvEWUVus&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=6&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تمارين البرهان على العلاقات │ ج04", "url": "https://www.youtube.com/watch?v=Q2ZB7KoNIeE&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=7&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 01", "url": "https://www.youtube.com/watch?v=iG82Q31jZpQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=8&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج01 │ طرق المتابعة الزمنية", "url": "https://www.youtube.com/watch?v=A2LXvobxhYo&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=9&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج02 │ المتابعة بالناقلية النوعية σ", "url": "https://www.youtube.com/watch?v=4hzadQC7Bsc&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=10&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج02 تابع │ المتابعة بالناقلية G", "url": "https://www.youtube.com/watch?v=5-atFasKQHw&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=11&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 02", "url": "https://www.youtube.com/watch?v=1L994gc-VpU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=12&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج03 │ المتابعة بالمعايرة اللونية", "url": "https://www.youtube.com/watch?v=xt2SzYrh_zg&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=13&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج03 تابع │ أسئلة حول المعايرة اللونية", "url": "https://www.youtube.com/watch?v=58tUSrdlhWg&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=14&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 03", "url": "https://www.youtube.com/watch?v=jH2hjJQQkq4&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=15&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج04 │ المتابعة بقياس حجم غاز", "url": "https://www.youtube.com/watch?v=QJNjIpGLidU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=16&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 04", "url": "https://www.youtube.com/watch?v=ws3k8Iv3QSA&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=17&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 02 │ ج05 │ المتابعة بقياس ضغط غاز", "url": "https://www.youtube.com/watch?v=7eCNk7uA4tQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=18&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 05", "url": "https://www.youtube.com/watch?v=5-50zMLfxC0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=19&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج01 │ سرعة التفاعل، زمن نصف التفاعل", "url": "https://www.youtube.com/watch?v=e_fUTOd0fhU&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=20&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج01 تابع │ ملاحظات حول سرعة التفاعل", "url": "https://www.youtube.com/watch?v=39G6gNnnKAc&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=21&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 06", "url": "https://www.youtube.com/watch?v=pBwAZv26XQ0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=22&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج02 │ البرهان على علاقات سرعة التفاعل", "url": "https://www.youtube.com/watch?v=HVReC1Np03Q&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=23&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج02 تابع │ البرهان على علاقات سرعة التفاعل", "url": "https://www.youtube.com/watch?v=7zefAJURoZ0&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=24&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 07", "url": "https://www.youtube.com/watch?v=0T9Y_0fJHDM&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=25&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 03 │ ج03 │ البرهان على علاقات زمن نصف التفاعل", "url": "https://www.youtube.com/watch?v=44-HpqgUj1c&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=26&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 08", "url": "https://www.youtube.com/watch?v=D3EObaA4hMY&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=27&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "الدرس 04 │ العوامل الحركية وأهميتها", "url": "https://www.youtube.com/watch?v=Oilr8bSCwS8&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=28&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة البكالوريا التجريبي 09", "url": "https://www.youtube.com/watch?v=NlAI7qtbfag&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=29&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "مناقشة الفرض المحروس 01", "url": "https://www.youtube.com/watch?v=PFMQKLEDAOs&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=30&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "بطاقة │ الماء الأكسجيني + تمرين شامل", "url": "https://www.youtube.com/watch?v=0kJpRoPxXlE&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=31&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "بطاقة │ ماء جافيل + تمرين شامل", "url": "https://www.youtube.com/watch?v=MfTC7BbYKxQ&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=32&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "تجميعية تمارين │ وحدة المتابعة الزمنية", "url": "https://www.youtube.com/watch?v=NejreABsazs&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=33&pp=iAQB", "type": "فيديو", "part": "p2" },
+  { "title": "العوض ❤️", "url": "https://www.youtube.com/watch?v=YJugMba11B4&list=PL1MiE0blsKDeY59jcwK3z-Db3_SZc1Vel&index=34&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p2" },
+
+
+
+  // دروس الجزء الثالث
+  
+  { title: "جميع دروس الوحدة الأولى | المتابعة الزمنية من الألف إلى الياء", url: "https://www.youtube.com/watch?v=WJ2e5-13kyI&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=1&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p3" },
+  { title: "جميع الأسئلة النظرية للوحدة الأولى | المتابعة الزمنية مع أجوبة", url: "https://www.youtube.com/watch?v=Xdxpprr56zA&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الميزان | 12 تمرينًا في المتابعة الزمنية", url: "https://www.youtube.com/watch?v=y6zAS9Nlms0&list=PLXxiKH763Xt-7L4GwD6Z3qf3zApIByjcI&index=3&pp=iAQB", type: "فيديو", part: "p3" }
+
+
+  
+
+
+],
                                 exercises: [
                                     {
-                                        title: ' تمارين تطبيقية على المتابعة الزمنية ',
+                                        title: ' تمارين المتابعة الزمنية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم المتابعة الزمنية ',
-                                        fileUrl: '#Science_Physics_Unit2_Exercises' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1H4gOL5h3bBnPGNmjCdeF1TBrq5MFCKbT/preview'
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص المتابعة الزمنية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة المتابعة الزمنية ',
-                                        fileUrl: '#Science_Physics_Unit2_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1dIgq25P4347PBGXunVt63ot94Yu5OalO/preview'
+
                                     }
                                 ]
                             },
@@ -4795,50 +4910,242 @@ function navHomeClicked(event) {
                                 title: ' الوحدة الثانية: تطور جملة ميكانيكية ',
                                 completed: false,
                                 lessons: [
-                                    {
-                                        title: ' شرح الوحدة الثانية: تطور جملة ميكانيكية ',
-                                        url: 'https://youtu.be/6YIkbIJEvBE?si=ZZwsY73Qk6u2aE2W', // Your YouTube link
-                                        type: ' فيديو '
-                                    }
-                                ],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على تطور الجمل الميكانيكية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم تطور الجمل الميكانيكية ',
-                                        fileUrl: '#Science_Physics_Unit3_Exercises' // Placeholder for Science specialization
-                                    }
-                                ],
-                                summaries: [
-                                    {
-                                        title: ' ملخص تطور الجمل الميكانيكية ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة تطور الجمل الميكانيكية ',
-                                        fileUrl: '#Science_Physics_Unit3_Summaries' // Placeholder for Science specialization
-                                    }
-                                ]
+  // دروس الجزء الأول
+
+
+  { "title": "تطور جملة ميكانيكية | تقديم الوحدة", "url": "https://www.youtube.com/watch?v=5U5YnxgNJrg&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=1&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تطور جملة ميكانيكية | الموضع - السرعة - التسارع", "url": "https://www.youtube.com/watch?v=uXoxt95D1Dc&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=2&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p1" },
+  { "title": "تطور جملة ميكانيكية | قوانين نيوتن - التحليل", "url": "https://www.youtube.com/watch?v=SSNL4D6B1-c&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=3&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تطور جملة ميكانيكية | الحركة المستقيمة و الدائرية", "url": "https://www.youtube.com/watch?v=zTmqnbmT1zg&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=4&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "حركة كوكب أو قمر اصطناعي | دراسة تطبيقية", "url": "https://www.youtube.com/watch?v=JUcIoNLCGZE&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=5&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | حركة كوكب حول الشمس", "url": "https://www.youtube.com/watch?v=VIc0HFgNmcA&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=6&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | قمر اصطناعي حول الأرض", "url": "https://www.youtube.com/watch?v=Cpss4K6AjLI&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=7&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "قوانين كبلر | مثال تطبيقي", "url": "https://www.youtube.com/watch?v=TimoD1Ctl1M&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=8&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الكواكب | أفكار و بيانات محتملة", "url": "https://www.youtube.com/watch?v=zV5mnsJB_BA&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=9&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الميكانيك 3 ثانوي | السقوط الشاقولي", "url": "https://www.youtube.com/watch?v=DkG927jt6hY&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=10&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "السقوط الشاقولي | الأفكار و المنحنيات", "url": "https://www.youtube.com/watch?v=JHMx-uL2w3g&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=11&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | السقوط الشاقولي", "url": "https://www.youtube.com/watch?v=GaHLVrNz-GU&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=12&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين شامل | السقوط الشاقولي", "url": "https://www.youtube.com/watch?v=9V3hTOGLOms&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=13&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "السقوط الحر لجسم صلب", "url": "https://www.youtube.com/watch?v=VexpAM-rnJQ&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=14&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين شامل | السقوط الحر و الشاقولي", "url": "https://www.youtube.com/watch?v=fR6ML3QnoLA&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=15&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "حركة قذيفة | دراسة", "url": "https://www.youtube.com/watch?v=h6gpkHE1zXU&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=16&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "حركة قذيفة | كل الحالات", "url": "https://www.youtube.com/watch?v=R_a5S1TwOJI&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=17&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين بكالوريا 2010 | القذيفة", "url": "https://www.youtube.com/watch?v=aRO-c8c4Q7g&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=18&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | القذيفة", "url": "https://www.youtube.com/watch?v=95m-qTMNxho&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=19&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين بكالوريا 2008 | القذيفة", "url": "https://www.youtube.com/watch?v=OetTwCQgwBY&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=20&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "القذيفة | المنحنيات البيانية", "url": "https://www.youtube.com/watch?v=xuJAPBjsxYo&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=21&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p1" },
+  { "title": "القذيفة | الدراسة الطاقوية", "url": "https://www.youtube.com/watch?v=iAFAvKm2T7k&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=22&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الحركة في المستوي | الجزء 1", "url": "https://www.youtube.com/watch?v=5uG1PZ0aj-w&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=23&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | الحركة في المستوي (جزء 2)", "url": "https://www.youtube.com/watch?v=O8M4x2IFVQc&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=24&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تطبيق | الحصيلة الطاقوية", "url": "https://www.youtube.com/watch?v=AWTUvBlHdjs&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=25&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين بكالوريا 2017 | الحركة في المستوي", "url": "https://www.youtube.com/watch?v=JkD4RzUkVJk&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=26&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | الحركة في المستوي (بياني)", "url": "https://www.youtube.com/watch?v=x9rGtfBykX0&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=27&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الجمل المركبة | دراسة", "url": "https://www.youtube.com/watch?v=2bJtqkjkw6M&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=28&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الجمل المركبة | تمرين", "url": "https://www.youtube.com/watch?v=VvLIdnL9pXc&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=29&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الحركة في مسار دائري | Bac 2023", "url": "https://www.youtube.com/watch?v=YiQG4BhdWBE&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=30&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "حدود ميكانيك نيوتن | Bac 2023", "url": "https://www.youtube.com/watch?v=7sUi-ftqbxY&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=31&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الأقمار و الكواكب | أسئلة نظرية", "url": "https://www.youtube.com/watch?v=zdwal_7JNEY&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=32&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "السقوط الشاقولي | الاحتكاك و المعادلة التفاضلية", "url": "https://www.youtube.com/watch?v=YDMmpDsa1Vk&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=33&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | الأقمار بكالوريا 2025", "url": "https://www.youtube.com/watch?v=6fqMd8R3FNc&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=34&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "القذيفة | ملخص شامل", "url": "https://www.youtube.com/watch?v=7bzUtCF8tJw&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=35&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p1" },
+  { "title": "مراجعة شاملة | الميكانيك في 30 سؤال", "url": "https://www.youtube.com/watch?v=weJ040RmdAo&list=PLlkvPioEFgAKUf91luz7rKaIkNvfMPILA&index=36&pp=iAQB", "type": "فيديو", "part": "p1" },
+
+
+
+
+
+  
+
+// دروس الجزء الثاني
+
+  { title: "الدرس (01): مقاربة تاريخية لميكانيك نيوتن", url: "https://www.youtube.com/watch?v=RSoyyQSLef8&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=1", type: "فيديو", part: "p2" },
+{ title: "الدرس (02): حركة الكواكب والأقمار الاصطناعية", url: "https://www.youtube.com/watch?v=C-85Gi1vQOU&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=2", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (01) - ج1", url: "https://www.youtube.com/watch?v=fvASXhlFGOA&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=3", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (01) - ج2", url: "https://www.youtube.com/watch?v=tnLixAzIBpg&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=4", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (02)", url: "https://www.youtube.com/watch?v=QUkCVXjJvsY&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=5", type: "فيديو", part: "p2" },
+{ title: "ملحق: مراجعة الحركة المستقيمة", url: "https://www.youtube.com/watch?v=0SxQ7ArfWFU&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=6", type: "فيديو", part: "p2" },
+{ title: "ملحق: تمرين تطبيقي", url: "https://www.youtube.com/watch?v=JcReFFhVtuY&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=7", type: "فيديو", part: "p2" },
+{ title: "ملحق: المعادلات الزمنية للحركة (بالتكامل)", url: "https://www.youtube.com/watch?v=6GprPRhnLV8&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=8", type: "فيديو", part: "p2" },
+{ title: "الدرس (03): السقوط الشاقولي", url: "https://www.youtube.com/watch?v=KBmUgzfvUTU&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=9", type: "فيديو", part: "p2" },
+{ title: "تابع الدرس (03): السقوط الحر", url: "https://www.youtube.com/watch?v=zTiwN1DovEk&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=10", type: "فيديو", part: "p2" },
+{ title: "ملحق: التحليل البعدي في الميكانيك", url: "https://www.youtube.com/watch?v=3mP2axz2Q7A&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=11", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (03)", url: "https://www.youtube.com/watch?v=gklSSApFBIo&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=12", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (04)", url: "https://www.youtube.com/watch?v=BP8C_3M8JhA&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=13", type: "فيديو", part: "p2" },
+{ title: "فكرة هامة: القذف الشاقولي نحو الأعلى", url: "https://www.youtube.com/watch?v=Ic0OBoJePNg&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=14", type: "فيديو", part: "p2" },
+{ title: "ملحق: الميكانيك والطاقة", url: "https://www.youtube.com/watch?v=OWfg40pEz7M&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=15", type: "فيديو", part: "p2" },
+{ title: "الدرس (04): حركة جسم على المستوي الأفقي", url: "https://www.youtube.com/watch?v=CGmr6eUdC00&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=16", type: "فيديو", part: "p2" },
+{ title: "الدرس (04): حركة جسم على المستوي المائل", url: "https://www.youtube.com/watch?v=Hkq8Jd1w3fE&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=17", type: "فيديو", part: "p2" },
+{ title: "الدرس (04): حركة جسم على جمل معقدة", url: "https://www.youtube.com/watch?v=vrbE8v3MOWg&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=18", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (05)", url: "https://www.youtube.com/watch?v=jwUj6lNV06g&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=19", type: "فيديو", part: "p2" },
+{ title: "الدرس (05): حركة القذيفة - ج1 (نظري)", url: "https://www.youtube.com/watch?v=xh6_X84FyjQ&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=20", type: "فيديو", part: "p2" },
+{ title: "الدرس (05): حركة القذيفة - ج2 (بياني)", url: "https://www.youtube.com/watch?v=TBHjBRn3ODw&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=21", type: "فيديو", part: "p2" },
+{ title: "الدرس (05): حركة القذيفة - ج3 (طاقوي)", url: "https://www.youtube.com/watch?v=Qmm54Ro3waM&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=22", type: "فيديو", part: "p2" },
+{ title: "الدرس (05): حركة القذيفة - ج4 (قذف مائل/أفقي)", url: "https://www.youtube.com/watch?v=F_Dj54AWs5E&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=23", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (06)", url: "https://www.youtube.com/watch?v=rUEjEnFK1EQ&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=24", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (07)", url: "https://www.youtube.com/watch?v=-kA39doFucg&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=25", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (08) - ج1", url: "https://www.youtube.com/watch?v=zJX2khu4cxY&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=26", type: "فيديو", part: "p2" },
+{ title: "مناقشة بكالوريا تجريبي (08) - ج2", url: "https://www.youtube.com/watch?v=oc9Ekm1X18c&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=27", type: "فيديو", part: "p2" },
+{ title: "الدرس (06): حدود ميكانيك نيوتن", url: "https://www.youtube.com/watch?v=vrjXEXZqpv0&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=28", type: "فيديو", part: "p2" },
+{ title: "العوض ❤️ (فيديو أخير)", url: "https://www.youtube.com/watch?v=yoLPDb4lj8o&list=PLlkvPioEFgAI_8aUIjK8aZZr8ZSmkKekc&index=29", type: "فيديو", part: "p2" },
+
+
+  // دروس الجزء الثالث
+  
+  { title: "جميع دروس الوحدة الثانية | الميكانيك من الألف إلى الياء", url: "https://www.youtube.com/watch?v=1tMe7mAPyuw&list=PLXxiKH763Xt8MzCPf2xRm4HEVOQjtrYSb&index=1&t=3s&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "جميع الأسئلة النظرية للوحدة الثانية | الميكانيك مع أجوبة مفصلة", url: "https://www.youtube.com/watch?v=sGkcEYeKMvE&list=PLXxiKH763Xt8MzCPf2xRm4HEVOQjtrYSb&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الميزان | 12 تمرينًا في الميكانيك", url: "https://www.youtube.com/watch?v=ITIdlyAwZdE&list=PLXxiKH763Xt8MzCPf2xRm4HEVOQjtrYSb&index=3&pp=iAQB", type: "فيديو", part: "p3" }
+
+
+  
+
+
+],
+
+                               exercises: [
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين الأقمار',
+    fileUrl: 'https://drive.google.com/file/d/1Z3Yo1wZcj12QqiWhzV3ikntnYsrFVNXp/preview' 
+  },
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين سقوط',
+    fileUrl: 'https://drive.google.com/file/d/196MgzAYnYK1vIB7p9AY7sVajDXF88m_U/preview'
+  },
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين قذيفة',
+    fileUrl: 'https://drive.google.com/file/d/1eJNzXnO_jG4eUx0VX7DCcPZwIA_v_WTa/preview'
+  },
+  {
+    title: 'تمارين حول تطور جملة ميكانيكية ',
+    description: 'تمارين مستوي',
+    fileUrl: 'https://drive.google.com/file/d/1hyG7KtLy_vb8YSGokVWQNi0wK65V_8MB/preview'
+  }
+],
+
+summaries: [
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص الأقمار',
+    fileUrl: 'https://drive.google.com/file/d/1ecSUQUTFq5ar87PAAYzY56LMwP6a3FCR/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص السقوط',
+    fileUrl: 'https://drive.google.com/file/d/1IQvI8CFFLtErE3IHaD2pKW2VuW08UJzT/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص القذيفة',
+    fileUrl: 'https://drive.google.com/file/d/1hoxPh8V2kUc9H1LOqzO6CmdIYxnP_FBC/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص المستوي',
+    fileUrl: 'https://drive.google.com/file/d/1Xdn5W9cFN6T8cVY38tQP8Azh0evVLJUz/preview'
+  },
+  {
+    title: 'ملخص تطور الجمل الميكانيكية ',
+    description: 'ملخص الأسئلة النظرية',
+    fileUrl: 'https://drive.google.com/file/d/1-XTFkdDO8A-6ta7LTT6jnxNeGRqCz2Qe/preview'
+  }
+]
+
                             },
                             {
                                 id: 'physics-4',
                                 title: ' الوحدة الثالثة: الظواهر الكهربائية ',
                                 completed: false,
-                                lessons: [
-                                    {
-                                        title: ' شرح الوحدة الثالثة: الظواهر الكهربائية ',
-                                        url: 'https://youtu.be/6YIkbIJEvBE?si=ZZwsY73Qk6u2aE2W', // Your YouTube link
-                                        type: ' فيديو '
-                                    }
-                                ],
+                                                lessons: [
+  // دروس الجزء الأول
+
+  { "title": "تقديم الوحدة 3 | توجيهات و نصائح", "url": "https://www.youtube.com/watch?v=twon0rEayb8&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=1&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الظواهر الكهربائية | أساسيات", "url": "https://www.youtube.com/watch?v=gY3cIRRCsxg&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=2&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الدارة RC | شحن و تفريغ مكثفة", "url": "https://www.youtube.com/watch?v=LFrjOAGy2NE&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=3&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "ثابت الزمن τ | حساب و تحليل بعدي", "url": "https://www.youtube.com/watch?v=jMiRu7ykAz0&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=4&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "طاقة المكثفة | شحن و تفريغ", "url": "https://www.youtube.com/watch?v=W2XPNwp8Yss&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=5&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين: الدارة RC", "url": "https://www.youtube.com/watch?v=5wRarq3shO0&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=6&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الدارة RL | دراسة نظرية", "url": "https://www.youtube.com/watch?v=QBPgIw5VKXU&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=7&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الدارة RL | حالة فتح القاطعة", "url": "https://www.youtube.com/watch?v=j-clT5AJ7LQ&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=8&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "شحن و تفريغ المكثفة RC", "url": "https://www.youtube.com/watch?v=w0FUubel1lk&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=9&pp=iAQB0gcJCcYJAYcqIYzv", "type": "فيديو", "part": "p1" },
+  { "title": "معادلات تفاضلية | شحن مكثفة", "url": "https://www.youtube.com/watch?v=4UkdZGaCcFU&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=10&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين الوحدة 3 | تمرين 1", "url": "https://www.youtube.com/watch?v=H8F_68k8vMw&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=11&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين الوحدة 3 | تمرين 2", "url": "https://www.youtube.com/watch?v=lovssbImD_M&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=12&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين RC | تمرين 3", "url": "https://www.youtube.com/watch?v=gGlO9VhksKE&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=13&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تفريغ مكثفة | تفسير و معادلات", "url": "https://www.youtube.com/watch?v=_YPRD3vfRZk&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=14&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "راسم الاهتزاز المهبطي", "url": "https://www.youtube.com/watch?v=TsLSX9nUH5Y&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=15&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين RL | تمرين 1", "url": "https://www.youtube.com/watch?v=E0laZtb98ws&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=16&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين RL | تمرين 2", "url": "https://www.youtube.com/watch?v=OqGRtqLqo0w&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=17&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين RL | تمرين 3", "url": "https://www.youtube.com/watch?v=O_mB1VTHYzc&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=18&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين شامل | طاقة المكثفة", "url": "https://www.youtube.com/watch?v=TxQNNdkPmsQ&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=19&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | طاقة المكثفة أثناء الشحن", "url": "https://www.youtube.com/watch?v=bVznLp8FOdM&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=20&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين RC | بكالوريا 2016 علوم", "url": "https://www.youtube.com/watch?v=pMj-lzjQDW4&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=21&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين | بكالوريا 2022 تقني", "url": "https://www.youtube.com/watch?v=IrN5eS5wrmo&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=22&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين RL | دراسة المنحنيات", "url": "https://www.youtube.com/watch?v=PdkHdOWONgk&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=23&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين RL | أفكار هامة", "url": "https://www.youtube.com/watch?v=5BM6bJxogHA&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=24&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين شامل | الدارة RL", "url": "https://www.youtube.com/watch?v=00_K6VDAD3I&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=25&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين شامل | RC و RL", "url": "https://www.youtube.com/watch?v=iiSCHb3wTbs&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=26&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمرين RL | حالة فتح القاطعة", "url": "https://www.youtube.com/watch?v=xQnuKmdK1C0&list=PLlkvPioEFgAKyZw_1_9PuDiohc-fvaFGc&index=27&pp=iAQB", "type": "فيديو", "part": "p1" },
+
+
+// دروس الجزء الثاني
+
+  { title: "الدرس 01-ج01│01 | ثنائي القطب RC شحن المكثّفة", url: "https://www.youtube.com/watch?v=ecsmmmttMVU&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=1", type: "فيديو", part: "p2" },
+{ title: "الدرس 01-ج01│02 | ثنائي القطب RC شحن المكثّفة", url: "https://www.youtube.com/watch?v=i-gVdKe04PU&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=2", type: "فيديو", part: "p2" },
+{ title: "الدرس 01-ج01│03 | ثنائي القطب RC شحن المكثّفة", url: "https://www.youtube.com/watch?v=HKJn3gCRrN0&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=3", type: "فيديو", part: "p2" },
+{ title: "الدرس 01-ج01│04 | ثنائي القطب RC شحن المكثّفة", url: "https://www.youtube.com/watch?v=lVL1fc-4HRU&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=4", type: "فيديو", part: "p2" },
+{ title: "مناقشة البكالوريا التجريبي 01", url: "https://www.youtube.com/watch?v=7cBKgfTqey0&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=5", type: "فيديو", part: "p2" },
+{ title: "الدرس 01-ج02│01 | ثنائي القطب RC تفريغ المكثّفة", url: "https://www.youtube.com/watch?v=o88MA49whIY&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=6", type: "فيديو", part: "p2" },
+{ title: "الدرس 01-ج02│02 | ثنائي القطب RC تفريغ المكثّفة", url: "https://www.youtube.com/watch?v=Ybs45S2CDkg&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=7", type: "فيديو", part: "p2" },
+{ title: "الدرس 01-ج02│03 | ثنائي القطب RC تفريغ المكثّفة", url: "https://www.youtube.com/watch?v=HNC0FEB5G5I&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=8", type: "فيديو", part: "p2" },
+{ title: "الدرس 01-ج02│04 | ثنائي القطب RC تفريغ المكثّفة", url: "https://www.youtube.com/watch?v=A6Av7KWqJyQ&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=9", type: "فيديو", part: "p2" },
+{ title: "مناقشة البكالوريا التجريبي 02", url: "https://www.youtube.com/watch?v=cqHiFiAOI00&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=10", type: "فيديو", part: "p2" },
+{ title: "ملحق│التحليل البعدي في الكهرباء τ=RC", url: "https://www.youtube.com/watch?v=gXYeyW6uVWI&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=11", type: "فيديو", part: "p2" },
+{ title: "ملحق│راسم الاهتزاز المهبطي RC", url: "https://www.youtube.com/watch?v=dmK6d--mapw&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=12", type: "فيديو", part: "p2" },
+{ title: "تجميعية أفكار البكالوريات السابقة│ج01 RC", url: "https://www.youtube.com/watch?v=gdkty25cN68&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=13", type: "فيديو", part: "p2" },
+{ title: "تجميعية أفكار البكالوريات السابقة│ج02 RC", url: "https://www.youtube.com/watch?v=UyyItzlAjcA&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=14", type: "فيديو", part: "p2" },
+{ title: "تجميعية تمارين RC", url: "https://www.youtube.com/watch?v=WZ6QzLFoxOI&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=15", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج01│01 | ثنائي القطب RL تطبيق التيار على الوشيعة", url: "https://www.youtube.com/watch?v=BCTooY4xTDI&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=16", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج01│02 | ثنائي القطب RL تطبيق التيار على الوشيعة", url: "https://www.youtube.com/watch?v=8SqBTXeLLL4&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=17", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج01│03 | ثنائي القطب RL تطبيق التيار على الوشيعة", url: "https://www.youtube.com/watch?v=9rIISh_PmMo&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=18", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج01│04 | ثنائي القطب RL تطبيق التيار على الوشيعة", url: "https://www.youtube.com/watch?v=_TychkinPGc&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=19", type: "فيديو", part: "p2" },
+{ title: "مناقشة البكالوريا التجريبي 03", url: "https://www.youtube.com/watch?v=m9Vry_k4_F0&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=20", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج02│01 | ثنائي القطب RL قطع التيار عن الوشيعة", url: "https://www.youtube.com/watch?v=BdeyBjNebxw&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=21", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج02│02 | ثنائي القطب RL قطع التيار عن الوشيعة", url: "https://www.youtube.com/watch?v=YELSRDoGm9E&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=22", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج02│03 | ثنائي القطب RL قطع التيار عن الوشيعة", url: "https://www.youtube.com/watch?v=F01_Eqk04Mg&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=23", type: "فيديو", part: "p2" },
+{ title: "الدرس 02-ج02│04 | ثنائي القطب RL قطع التيار عن الوشيعة", url: "https://www.youtube.com/watch?v=M97acSYgGGY&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=24", type: "فيديو", part: "p2" },
+{ title: "مناقشة البكالوريا التجريبي 04", url: "https://www.youtube.com/watch?v=5JUDkGBk-yE&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=25", type: "فيديو", part: "p2" },
+{ title: "ملحق│التحليل البعدي في الكهرباء τ=L/Rtot", url: "https://www.youtube.com/watch?v=j0nGtqo6wVw&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=26", type: "فيديو", part: "p2" },
+{ title: "ملحق│راسم الاهتزاز المهبطي RL", url: "https://www.youtube.com/watch?v=L_wKyEYnJNc&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=27", type: "فيديو", part: "p2" },
+{ title: "تجميعية أفكار البكالوريات السابقة RL", url: "https://www.youtube.com/watch?v=O5_E4tdCmzM&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=28", type: "فيديو", part: "p2" },
+{ title: "تجميعية تمارين RL", url: "https://www.youtube.com/watch?v=gxVNYRPjH3I&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=29", type: "فيديو", part: "p2" },
+{ title: "العوض ❤️", url: "https://www.youtube.com/watch?v=YJugMba11B4&list=PL1MiE0blsKDejYCjDapAluN6HZj9NwaNG&index=30", type: "فيديو", part: "p2" },
+
+
+  // دروس الجزء الثالث
+  
+  
+  { title: "جميع دروس الوحدة الثالثة | الكهرباء من الألف إلى الياء", url: "https://www.youtube.com/watch?v=YcAWgyK-kI8&list=PLXxiKH763Xt9uBcuv7Brg3weD2A7jIex2&index=1&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "جميع الأسئلة النظرية للوحدة الثالثة | الكهرباء مع أجوبة مفصلة", url: "https://www.youtube.com/watch?v=IV8etd8qNg8&list=PLXxiKH763Xt9uBcuv7Brg3weD2A7jIex2&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الميزان | 13 تمرينًا في الكهرباء", url: "https://www.youtube.com/watch?v=tuBfHXQ2YIc&list=PLXxiKH763Xt9uBcuv7Brg3weD2A7jIex2&index=3&pp=iAQB", type: "فيديو", part: "p3" }
+
+
+
+],                            
+
                                 exercises: [
                                     {
                                         title: ' تمارين تطبيقية على الظواهر الكهربائية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الظواهر الكهربائية ',
-                                        fileUrl: '#Science_Physics_Unit4_Exercises' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1wpA-WUlx_yGu1GDQHdRk7NfqXl3cz_2T/preview' // Placeholder for Science specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الظواهر الكهربائية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الظواهر الكهربائية ',
-                                        fileUrl: '#Science_Physics_Unit4_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1LWVTPY9efi3aUaOTVmfc1qY2T6__Z57Z/preview' // Placeholder for Science specialization
                                     }
                                 ]
                             },
@@ -4846,56 +5153,167 @@ function navHomeClicked(event) {
                                 id: 'physics-5',
                                 title: ' الوحدة الرابعة: الأحماض والأسس ',
                                 completed: false,
-                                lessons: [
-                                    {
-                                        title: ' شرح الوحدة الرابعة: الأحماض والأسس ',
-                                        url: 'https://youtu.be/6YIkbIJEvBE?si=ZZwsY73Qk6u2aE2W', // Your YouTube link
-                                        type: ' فيديو '
-                                    }
-                                ],
-                                exercises: [
+                                                lessons: [
+  // دروس الجزء الأول
+
+
+
+  { "title": "الأحماض و الأسس في 150 دقيقة | الوحدة 4", "url": "https://www.youtube.com/watch?v=LMdidxAJ418&list=PLlkvPioEFgALdKvD64i6E37vb4YFAQijd&index=1&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين شاملة | الوحدة 4", "url": "https://www.youtube.com/watch?v=UJYXc20e1Qg&list=PLlkvPioEFgALdKvD64i6E37vb4YFAQijd&index=2&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين الوحدة 4 | تمرين 2: المعايرة", "url": "https://www.youtube.com/watch?v=dLhFRH8VBxw&list=PLlkvPioEFgALdKvD64i6E37vb4YFAQijd&index=3&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "تمارين الوحدة 4 | تمرين 1: معايرة حمض ضعيف", "url": "https://www.youtube.com/watch?v=C0xDfEYMWxE&list=PLlkvPioEFgALdKvD64i6E37vb4YFAQijd&index=4&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "إثبات جميع علاقات الوحدة 4 | أكثر من 20 علاقة", "url": "https://www.youtube.com/watch?v=DlfUJUvLNKM&list=PLlkvPioEFgALdKvD64i6E37vb4YFAQijd&index=5&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الوحدة 4 | انحلال حمض أو أساس في الماء", "url": "https://www.youtube.com/watch?v=ZE0KfXeJdYM&list=PLlkvPioEFgALdKvD64i6E37vb4YFAQijd&index=6&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "الوحدة 4 | المعايرة pH مترية", "url": "https://www.youtube.com/watch?v=HUPykXOCRmA&list=PLlkvPioEFgALdKvD64i6E37vb4YFAQijd&index=7&pp=iAQB", "type": "فيديو", "part": "p1" },
+
+// دروس الجزء الثاني
+  
+{ title: "الوحدة 04│الدرس 01|تذكير حول الحمض والأساس", url: "https://www.youtube.com/watch?v=tI2PROXOsF8&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=1&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│ملحق خاص│طرق إيجاد التركيز المولي C الحالات الشّائعة", url: "https://www.youtube.com/watch?v=JcroqZdTmRE&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=2&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│الدرس 02|دراسة انحلال حمض AH في الماء", url: "https://www.youtube.com/watch?v=p0BjH2KdGt4&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=3&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│مناقشة البكالوريا التجريبي 01", url: "https://www.youtube.com/watch?v=u0cJV0I7K5g&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=4&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│الدرس 03|دراسة انحلال أساس B في الماء", url: "https://www.youtube.com/watch?v=J96viOjEo1U&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=5&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│مناقشة البكالوريا التجريبي 02", url: "https://www.youtube.com/watch?v=u5HVM3q43-0&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=6&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│الدرس 04|دراسة تفاعل حمض AH مع أساس B", url: "https://www.youtube.com/watch?v=_TFrLMbSi9k&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=7&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│مناقشة البكالوريا التجريبي 03", url: "https://www.youtube.com/watch?v=soNAI3Dhy54&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=8&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│الدرس 05|علاقات هامة (البرهان على العلاقات)", url: "https://www.youtube.com/watch?v=suvwc7rDi4g&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=9&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│مناقشة البكالوريا التجريبي 04", url: "https://www.youtube.com/watch?v=Q7DzclH2Muk&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=10&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│الدرس 06|المعايرة الـpH-مترية", url: "https://www.youtube.com/watch?v=wdPfIWmi96A&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=11&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│التمرين 01│معايرة حمض ضعيف بأساس قوي", url: "https://www.youtube.com/watch?v=nDV31p5EBXc&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=12&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│التمرين 02│معايرة حمض ضعيف بأساس قوي", url: "https://www.youtube.com/watch?v=Hj29QwBmJeU&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=13&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│التمرين 03│معايرة أساس ضعيف بحمض قوي", url: "https://www.youtube.com/watch?v=2R4yPuaKxCA&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=14&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 04│مناقشة البكالوريا التجريبي 05", url: "https://www.youtube.com/watch?v=Fku5yRaaGoI&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=15&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "العوض ❤️", url: "https://www.youtube.com/watch?v=YJugMba11B4&list=PL1MiE0blsKDcXrYUGM-CQyyOsohomK_Mg&index=16&pp=iAQB", type: "فيديو", part: "p2" },
+
+
+  // دروس الجزء الثالث
+  
+  
+  { title: "جميع دروس الوحدة الرابعة | تطور جملة كيميائية نحو حالة التوازن", url: "https://www.youtube.com/watch?v=dbb4N8ODDhE&list=PLXxiKH763Xt9Yz-GetmSeP4INc5-gDavx&index=1&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "جميع الأسئلة النظرية للوحدة الرابعة | الأحماض والأسس مع أجوبة مفصلة", url: "https://www.youtube.com/watch?v=W_RkfsNf2mo&list=PLXxiKH763Xt9Yz-GetmSeP4INc5-gDavx&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الميزان | 12 تمرينًا في الأحماض والأسس | الوحدة الرابعة", url: "https://www.youtube.com/watch?v=QBV69AkzQpY&list=PLXxiKH763Xt9Yz-GetmSeP4INc5-gDavx&index=3&pp=iAQB", type: "فيديو", part: "p3" }
+
+
+
+
+],
+                               exercises: [
                                     {
                                         title: ' تمارين تطبيقية على الأحماض والأسس ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الأحماض والأسس ',
-                                        fileUrl: '#Science_Physics_Unit5_Exercises' // Placeholder for Science specialization
-                                    }
+                                        fileUrl: 'https://drive.google.com/file/d/1bo2BMBkoB81MDbj-WvlFIwttGQFkVBu3/preview' // Placeholder for Science specialization
+}
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الأحماض والأسس ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الأحماض والأسس ',
-                                        fileUrl: '#Science_Physics_Unit5_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1QsjvFAnm7nQlHmTsyNMbmqpsEcpNAkb0/preview' // Placeholder for Science specialization
                                     }
                                 ]
                             },
-                            {
-                                id: 'physics-6',
-                                title: ' الوحدة الخامسة: نووي ',
+                                         {
+                                id: 'physics-5',
+                                title: ' الوحدة الخامسة :النووي',
                                 completed: false,
-                                lessons: [
-                                    {
-                                        title: ' شرح الوحدة الخامسة: نووي ',
-                                        url: 'https://youtu.be/6YIkbIJEvBE?si=ZZwsY73Qk6u2aE2W', // Your YouTube link
-                                        type: ' فيديو '
-                                    }
-                                ],
+                                                lessons: [
+  // دروس الجزء الأول
+
+
+  { "title": "التحولات النووية | التمرين 17 معسكر الإنقاذ", "url": "https://www.youtube.com/watch?v=kKM9Z9vLcQM&list=PLlkvPioEFgAK2vCEk7YMU7fSHssCPEcCt&index=1&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "التحولات النووية | التمرين 16 معسكر الإنقاذ", "url": "https://www.youtube.com/watch?v=OV-u0XIJf4U&list=PLlkvPioEFgAK2vCEk7YMU7fSHssCPEcCt&index=2&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "التحولات النووية المفتعلة | استقرار النواة + أستون + الانشطار + الاندماج", "url": "https://www.youtube.com/watch?v=rSWdNaVnWGU&list=PLlkvPioEFgAK2vCEk7YMU7fSHssCPEcCt&index=3&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "التحولات النووية | التأريخ", "url": "https://www.youtube.com/watch?v=krcCLR8io4M&list=PLlkvPioEFgAK2vCEk7YMU7fSHssCPEcCt&index=4&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "التحولات النووية التلقائية", "url": "https://www.youtube.com/watch?v=XnXl-mv4J8A&list=PLlkvPioEFgAK2vCEk7YMU7fSHssCPEcCt&index=5&pp=iAQB", "type": "فيديو", "part": "p1" },
+  { "title": "التحولات النووية | التناقص الإشعاعي", "url": "https://www.youtube.com/watch?v=QuJqh5KktP8&list=PLlkvPioEFgAK2vCEk7YMU7fSHssCPEcCt&index=6&pp=iAQB", "type": "فيديو", "part": "p1" },
+
+// دروس الجزء الثاني
+{ title: "الوحدة 05│الدرس 01|النشاط الإشعاعي", url: "https://www.youtube.com/watch?v=PHqOks0_oto&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=1&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│حلّ التّدريب 01", url: "https://www.youtube.com/watch?v=_pQBuizmkdA&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=2&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│الدرس 02-ج01|التناقص الإشعاعي", url: "https://www.youtube.com/watch?v=a5wmTnSf8II&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=3&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│حلّ التّدريب 02", url: "https://www.youtube.com/watch?v=pu1RHbQTWL8&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=4&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│الدرس 02-ج02|التناقص الإشعاعي", url: "https://www.youtube.com/watch?v=KGQ9BKFWae0&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=5&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│حلّ التّدريب 03", url: "https://www.youtube.com/watch?v=BZfv5xe06qs&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=6&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05|تجميعية التمارين-ج01", url: "https://www.youtube.com/watch?v=DaT4Bx52f-4&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=7&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│الدرس 03|النقص الكتلي وطاقة الربط للنواة+منحنى أستون", url: "https://www.youtube.com/watch?v=jePhTy5O7NM&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=8&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│الدرس 04│كل مايخصّ الانشطار والاندماج", url: "https://www.youtube.com/watch?v=kzMLQdOqVrs&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=9&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│الدرس 05│دراسة المفاعل النووي", url: "https://www.youtube.com/watch?v=0tfD72aEnC8&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=10&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05│الدرس 06|الحصيلة الطاقوية والحصيلة الكتلية", url: "https://www.youtube.com/watch?v=6-jkKfMMBQo&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=11&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "الوحدة 05|تجميعية التمارين-ج02", url: "https://www.youtube.com/watch?v=hYFxg45ipsI&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=12&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p2" },
+{ title: "العوض ❤️", url: "https://www.youtube.com/watch?v=YJugMba11B4&list=PL1MiE0blsKDfHIijgvZn0U2zNtry1gG4S&index=13&pp=iAQB", type: "فيديو", part: "p2" },
+
+  
+
+  // دروس الجزء الثالث
+  
+  { title: "جميع دروس الوحدة الخامسة | التحولات النووية من الألف إلى الياء", url: "https://www.youtube.com/watch?v=EJh6VqgsPDU&list=PLXxiKH763Xt-jA2TPxKPEBydzHvQnPlJI&index=1&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "جميع الأسئلة النظرية للوحدة الخامسة | التحولات النووية مع أجوبة مفصلة", url: "https://www.youtube.com/watch?v=-EbQqMwEcpM&list=PLXxiKH763Xt-jA2TPxKPEBydzHvQnPlJI&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الميزان | 15 تمرينًا في التحولات النووية | الوحدة الخامسة", url: "https://www.youtube.com/watch?v=7q7Js2w5W0I&list=PLXxiKH763Xt-jA2TPxKPEBydzHvQnPlJI&index=3&pp=iAQB", type: "فيديو", part: "p3" }
+
+
+  
+
+],
                                 exercises: [
                                     {
                                         title: ' تمارين تطبيقية على الفيزياء النووية ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الفيزياء النووية ',
-                                        fileUrl: '#Science_Physics_Unit6_Exercises' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1G2B7KBtomnBWreWj_OnpefJlu5rDzObE/preview' // Placeholder for Science specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الفيزياء النووية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الفيزياء النووية ',
-                                        fileUrl: '#Science_Physics_Unit6_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/16N6oHt4QyfCzEri1JGnbIBB6aB78cOLq/preview' // Placeholder for Science specialization
                                     }
                                 ]
-                            }
+                            },             {
+                                id: 'physics-5',
+                                title: ' الوحدة السادسة :اماهة الاستر ',
+                                completed: false,
+                                                lessons: [
+  // دروس الجزء الأول
+
+  { title: "تفاعلات الأسترة و إماهة الأستر", url: "https://www.youtube.com/watch?v=F5xCSmgbzhE", type: "فيديو", part: "p1" },
+
+
+
+
+// دروس الجزء الثاني
+{ title: "الوحدة 06| دراسة تفاعل الأسترة من الألف إلى الياء + تمارين محلولة", url: "https://www.youtube.com/watch?v=AE2--oQYou8&list=PL1MiE0blsKDeYfx8T3DylEcOb5qutAUny&index=1&pp=iAQB0gcJCcYJAYcqIYzv", type: "فيديو", part: "p2" },
+{ title: "الوحدة 06| دراسة الأعمدة الكهربائية من الألف إلى الياء + تمارين محلولة|خاص بشعبتي رياضيات والتقني", url: "https://www.youtube.com/watch?v=RI_5SickUGg&list=PL1MiE0blsKDeYfx8T3DylEcOb5qutAUny&index=2&pp=iAQB", type: "فيديو", part: "p2" },
+{ title: "العوض ❤️", url: "https://www.youtube.com/watch?v=YJugMba11B4&list=PL1MiE0blsKDeYfx8T3DylEcOb5qutAUny&index=3&pp=iAQB", type: "فيديو", part: "p2" },
+
+  // دروس الجزء الثالث
+  
+  
+  { title: "جميع دروس الوحدة السادسة 🚀 | مراقبة تطور جملة كيميائية (الأسترة)  من الألف إلى الياء | بكالوريا 2025", url: "https://www.youtube.com/watch?v=ZEdxQFFMhBg&list=PLXxiKH763Xt-09PAYO-IkDsbIzY5Osu9q&index=1&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "جميع الأسئلة النظرية للوحدة السادسة| الأسترة | فيزياء بكالوريا 2025 | مع إجابات مفصلة 🎁", url: "https://www.youtube.com/watch?v=P8w4WzcgtAs&list=PLXxiKH763Xt-09PAYO-IkDsbIzY5Osu9q&index=2&pp=iAQB", type: "فيديو", part: "p3" },
+  { title: "الميزان⚖️ | 12 تمريناً في الأسترة والأعمدة | الوحدة السادسة | فيزياء بكالوريا 2025", url: "https://www.youtube.com/watch?v=nxyRxogwPjo&list=PLXxiKH763Xt-09PAYO-IkDsbIzY5Osu9q&index=3&pp=iAQB", type: "فيديو", part: "p3" }
+
+
+
+
+],
+                                exercises: [
+                                    {
+                                        title: ' تمارين تطبيقية على الأسترة ',
+                                        description: ' مجموعة تمارين لتطبيق مفاهيم الأسترة ',
+                                        fileUrl: 'https://drive.google.com/file/d/1X-yNbOhbVFWoAt6EQpiQEnFwc7TGYx22/preview' // Placeholder for Math specialization
+                                    }
+                                ],
+                                summaries: [
+                                    {
+                                        title: ' ملخص الأسترة ',
+                                        description: ' ملخص شامل لأهم نقاط وحدة الاسترة ',
+                                        fileUrl: 'https://drive.google.com/file/d/1__swOiQoBzBYppOzDlvEMFI1Yh4dbe89/preview' // Placeholder for Math specialization
+                                    }
+                                ]
+                        
+                            },
                         ]
-                    },
+                        },
                      science: {
                         title: ' 🧬   مادة علوم الطبيعة والحياة ',
                         units: [
@@ -5524,7 +5942,7 @@ updateTotalProgress();
 
 
         // Show subject detail - now uses specialized data
-   function showSubjectDetail(subjectKey) {
+  function showSubjectDetail(subjectKey) {
     const subjectsData = getSpecializedSubjectsData(); // Get specialized data
     const subject = subjectsData[subjectKey]; // Access subject from specialized data
 
@@ -5735,7 +6153,6 @@ updateTotalProgress();
         unitContent.appendChild(summariesSection);
 
         // ----- زر اكتمال -----
-        // 🟢 الآن نسمح بزر الاكتمال للورد أيضًا
         if (!isCompleted) {
             const completeButton = document.createElement('button');
             completeButton.className = 'btn complete-btn w-100';
@@ -5770,7 +6187,57 @@ updateTotalProgress();
     if (progress.progressPercentage === 100) {
         document.getElementById('subjectCompletionMessage').style.display = 'block';
     }
+
+    // 🟢 تحديث الرابط ليعكس المادة الحالية
+    try {
+        history.pushState(
+            { subject: subjectKey },
+            subject.title,
+            `${window.location.pathname}?subject=${subjectKey}`
+        );
+        document.title = `${subject.title} — موقعك`; // اختياري
+    } catch (e) {
+        console.warn("history.pushState error", e);
+    }
 }
+
+function _updateUrlForSubject(subjectKey, subjectTitle) {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('subject') !== subjectKey) {
+      // أدخل سطرًا في نهاية showSubjectDetail() لاستدعاء هذه الدالة:
+      history.pushState({ subject: subjectKey }, subjectTitle || '', `${window.location.pathname}?subject=${subjectKey}`);
+      // اختياري: غيّر عنوان الصفحة
+      if (subjectTitle) document.title = `${subjectTitle} — موقعي`;
+    }
+  } catch (e) {
+    console.warn('updateUrlForSubject error', e);
+  }
+}
+
+/* 2) استمع لتغيّر التاريخ (back/forward) */
+window.addEventListener('popstate', (ev) => {
+  const state = ev.state;
+  if (state && state.subject) {
+    // إذا كان لدينا حالة subject في التاريخ، عرضها
+    if (typeof showSubjectDetail === 'function') showSubjectDetail(state.subject);
+  } else {
+    // لا حالة = عرض قائمة المواد
+    hideAllSections();
+    const subjects = document.getElementById('subjectsSection');
+    if (subjects) subjects.style.display = 'block';
+  }
+});
+
+/* 3) عند تحميل الصفحة: افحص الرابط إذا فيه ?subject=... */
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const s = params.get('subject');
+  if (s && typeof showSubjectDetail === 'function') {
+    // نستخدم setTimeout قصير للسماح لبقية التهيئة بالانتهاء
+    setTimeout(() => showSubjectDetail(s), 50);
+  }
+});
 
 // ✅ انسخ "وردك اليومي" (القالب) إلى كل فروع التخصص إن كانت فارغة هناك
 (function mergeDailyIntoBranches(){
@@ -6261,12 +6728,42 @@ function hideSoundButton() {
 }
 
         // Back to subjects
-        function backToSubjects() {
-            document.getElementById('subjectDetailSection').style.display = 'none';
-            document.getElementById('subjectsSection').style.display = 'block';
-            // Update all progress bars
-            loadAllProgress();
-        }
+function backToSubjects() {
+    history.pushState(null, '', window.location.pathname); // إزالة ?subject
+    hideAllSections();
+    document.getElementById('subjectsSection').style.display = 'block';
+    if (typeof loadAllProgress === 'function') loadAllProgress();
+
+    // 🟢 إعادة العنوان الافتراضي
+    document.title = "موقعي — الرئيسية";
+}
+
+window.addEventListener('popstate', (ev) => {
+    const state = ev.state;
+    if (state && state.subject) {
+        showSubjectDetail(state.subject);
+    } else {
+        hideAllSections();
+        document.getElementById('subjectsSection').style.display = 'block';
+        // 🟢 إعادة العنوان الافتراضي عند العودة
+        document.title = "موقعي — الرئيسية";
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const s = params.get('subject');
+    if (s) {
+        // 🟢 إذا الرابط فيه مادة → افتحها مباشرة
+        showSubjectDetail(s);
+    } else {
+        // 🟢 إذا مافي subject → اظهر الرئيسية
+        hideAllSections();
+        document.getElementById('subjectsSection').style.display = 'block';
+        document.title = "موقعي — الرئيسية";
+    }
+});
+
+
 
         // Toggle unit content
     function toggleUnit(header){
@@ -8044,30 +8541,82 @@ document.addEventListener('DOMContentLoaded', () => {
 const libraryBooks = [
   {
     id: 'b1',
-    title: 'رياضيات البكالوريا - الجزء 1',
-    author: 'أ. محمد علي',
-    cover: 'assets/books/math1.jpg', // ضع الصورة في هذا المسار
-    description: 'شرح مبسط للوحدات الأساسية مع أمثلة محلولة.',
-    fileUrl: 'assets/books/math1.pdf',
-    category: 'رياضيات',
-    price: 'مجاني'
+    title:'برنامج العلوم الطبيعية كاملا',
+    author: 'محمد تقي الدين',
+    cover: '', // ضع الصورة في هذا المسار
+    description: 'كل مايتعلق بوحدات العلوم',
+    fileUrl: 'https://drive.google.com/file/d/1WQqnjfoKycm2VGKLRJIn4zxCXBcj2QCR/preview',
+    category:'علوم',
   },
   {
     id: 'b2',
-    title: 'فيزياء شاملة',
-    author: 'د. فاطمة خليل',
+    title: 'برنامج اللغة العربية كاملا',
+    author: 'محمد تقي الدين',
+    cover: '',
+    description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
+    fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
+    category: 'لغة عربية',
+  },
+  {
+    id: 'b3',
+    title: 'برنامج اللغة الفرنسية كاملا',
+    author: 'محمد تقي الدين',
+    cover: '',
+    description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
+    fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
+    category:'لغة فرنسية',
+  },
+  {
+    id: 'b4',
+    title: 'برنامج اللغة الانجليزية كاملا',
+    author: 'محمد تقي الدين',
+    cover: '',
+    description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
+    fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
+    category:'لغة انجليزية',
+  },
+  {
+    id: 'b5',
+    title: 'برنامج الرياضيات كامل',
+    author: 'محمد تقي الدين',
     cover: 'assets/books/physics1.jpg',
     description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
-    fileUrl: '#', // placeholder
-    category: 'فيزياء',
-    price: 'مجاني'
+    fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
+    category:'رياضيات',
+  },
+  {
+    id: 'b6',
+    title: 'جميع المقالات حسب البرنامج الدراسي',
+    author: 'محمد تقي الدين',
+    cover: 'assets/books/physics1.jpg',
+    description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
+    fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
+    category:'فلسفة',
+  },
+  {
+    id: 'b7',
+    title: 'برنامج لجميع دروس الاسلامية',
+    author: 'محمد تقي الدين',
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus',
+    description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
+    fileUrl: '', // placeholder
+    category:'التربية الاسلامية',
+  },
+  {
+    id: 'b8',
+    title: 'برنامج التاريخ والجغرافيا حسب المقرر',
+    author: 'محمد تقي الدين',
+    cover: 'mlmsite\\Screenshot 2025-09-11 033129.png',
+    description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
+    fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
+    category:'التاريخ والجغرافيا',
   },
   // أضف مزيدًا من العناصر هنا...
 ];
 
 // ---------- showLibrary ----------
 function showLibrary() {
-  hideAllSections(); // دالتك موجودة في ملفك
+  hideAllSections(); // دالتك موجود ة في ملفك
   const sec = document.getElementById('librarySection');
   if (!sec) { console.error('librarySection غير موجود'); return; }
   sec.style.display = 'block';
@@ -8096,6 +8645,25 @@ function applyFilter(cat) {
   renderLibrary();
 }
 
+// ---------- normalizeCover ----------
+function normalizeCover(raw) {
+  const placeholder = 'assets/books/placeholder-cover.jpg'; // صورة افتراضية
+  if (!raw) return placeholder;
+
+  let cover = String(raw).replace(/\\/g, '/').trim();
+
+  // Google Drive link conversion
+  const driveMatch = cover.match(/\/d\/([^\/?#]+)/);
+  if (driveMatch && driveMatch[1]) {
+    return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+  }
+
+  // إزالة /preview لو موجود
+  cover = cover.replace(/\/preview(\?.*)?$/,'');
+
+  return cover || placeholder;
+}
+
 // ---------- renderLibrary ----------
 function renderLibrary() {
   const grid = document.getElementById('libraryGrid');
@@ -8121,7 +8689,8 @@ function renderLibrary() {
     col.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
     col.innerHTML = `
       <div class="card book-card p-2" role="button" onclick="openBookModal('${book.id}')">
-        <img src="" alt="${book.title}" class="book-cover" loading="lazy">
+        <img src="${normalizeCover(book.cover)}" alt="${book.title}" class="book-cover" loading="lazy"
+             onerror="this.onerror=null; this.src='assets/books/placeholder-cover.jpg';">
         <div class="card-body p-2">
           <h6 style="font-weight:700; margin-bottom:.25rem;">${book.title}</h6>
           <p class="text-muted mb-2" style="font-size:.85rem;">${book.author}</p>
@@ -8138,7 +8707,6 @@ function renderLibrary() {
 // ---------- openPreviewOrPdf ----------
 function openPreviewOrPdf(url) {
   if (!url || url === '#') { showNotification('المعاينة غير متوفرة حالياً', 'warning'); return; }
-  // إذا كان ملف PDF استخدمي الدالة الموجودة openPdf (يوجد في ملفك). وإلا افتحي في نافذة جديدة.
   if (typeof openPdf === 'function' && url.endsWith('.pdf')) {
     openPdf(url);
   } else {
@@ -8147,7 +8715,6 @@ function openPreviewOrPdf(url) {
 }
 
 // ---------- مودال الكتاب ----------
-// فتح المودال (تحسينات: منع التمرير، وضع التركيز)
 function openBookModal(bookId) {
   const book = libraryBooks.find(b => b.id === bookId);
   if (!book) return showNotification('الكتاب غير موجود', 'error');
@@ -8156,7 +8723,10 @@ function openBookModal(bookId) {
 
   details.innerHTML = `
     <div class="book-meta">
-      <div class="meta-left"><img src="${book.cover}" alt="${book.title}" style="width:100%; border-radius:8px; max-height:360px; object-fit:cover;"></div>
+      <div class="meta-left">
+        <img src="${normalizeCover(book.cover)}" alt="${book.title}" style="width:100%; border-radius:8px; max-height:360px; object-fit:cover;"
+             onerror="this.onerror=null; this.src='assets/books/placeholder-cover.jpg';">
+      </div>
       <div class="meta-right">
         <h3>${book.title}</h3>
         <p class="text-muted">بواسطة ${book.author}</p>
@@ -8170,20 +8740,20 @@ function openBookModal(bookId) {
   `;
 
   modal.style.display = 'flex';
-  // منع تمرير الخلفية
   document.body.style.overflow = 'hidden';
-
-  // ضع التركيز على زر الإغلاق لتحسين الوصول
   setTimeout(()=> modal.querySelector('.book-modal-close')?.focus(), 40);
 }
 
-// إغلاق المودال (تحرير التمرير)
+// إغلاق المودال
 function closeBookModal() {
   const modal = document.getElementById('bookModal');
   if (!modal) return;
   modal.style.display = 'none';
   document.body.style.overflow = '';
 }
+
+// إغلاق المودال (تحرير التمرير)
+
 
 
 function downloadBook(url) {
@@ -8281,8 +8851,3 @@ function convertDriveToEmbed(url) {
 
 </body>
 </html>
-
-
-
-
-
