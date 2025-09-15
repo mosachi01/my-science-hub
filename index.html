@@ -6,6 +6,33 @@
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="عع.png" sizes="512x512">
+
+    <!-- ===== early theme boot (ضعه أعلى الـ head قبل أي CSS كبير) ===== -->
+<script>
+  (function(){
+    try {
+      // اذا كان المستخدم سبق فعّل الداكن في التخزين المحلي
+      var dm = localStorage.getItem('darkMode');
+      if (dm === 'enabled') {
+        // 1) أضف نمطًا بسيطًا مبكرًا ليخفي الفلاش (خلفية ونص أساسي)
+        var s = document.createElement('style');
+        s.id = 'early-dark-mode';
+        // قواعد بسيطة كافية لتغطية الفلاش حتى تُطبَّق كامل الأنماط الداكنة
+        s.textContent = 'body{background-color:#121212 !important; color:#e6e6e6 !important}';
+        document.head.appendChild(s);
+
+        // 2) علامة مبكرة (ستتم إضافة الصنف الحقيقي إلى body عند DOMContentLoaded / init)
+        document.documentElement.setAttribute('data-early-dark', 'true');
+      }
+    } catch (e) {
+      // لا مانع إن فشل، نتابع التحميل
+      console.warn('early-dark-mode init failed', e);
+    }
+  })();
+</script>
+<!-- ===== end early theme boot ===== -->
+
     <title>منصة جامعة العلوم</title>
      <!-- تحميل مكتبة Supabase أولاً -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -20,6 +47,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .site-logo {
+  width: 120px;   /* غيّر الرقم حسب رغبتك */
+  height: auto;   /* يحافظ على النسبة */
+  display: block; /* يضمن أنه يتصرف كعنصر بلوك */
+  margin: 0 auto; /* لتمركزه في الوسط */
+}
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -2914,6 +2948,21 @@ function closeJuzModal(){
 </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // ===== APP TITLE helper =====
+const APP_TITLE = "موقعي"; // غيّر إذا أردت اسمًا آخر
+function setAppTitle(partTitle) {
+  const full = partTitle ? `${partTitle} — ${APP_TITLE}` : `${APP_TITLE} — الرئيسية`;
+  document.title = full;
+  try {
+    // ضع العنوان في history.state لتسهيل الاسترجاع عبر popstate
+    const st = history.state || {};
+    const newState = Object.assign({}, st, { title: full });
+    history.replaceState(newState, full, window.location.href);
+  } catch (e) {
+    // ignore
+  }
+}
+
         // --- ADDED: Track Separation Logic ---
         // --- تهيئة المتغيرات العامة ---
 let currentUser = null;
@@ -5941,8 +5990,7 @@ updateSubjectProgress(subjectKey);
 updateTotalProgress();
 
 
-        // Show subject detail - now uses specialized data
-  function showSubjectDetail(subjectKey) {
+function showSubjectDetail(subjectKey, options = {}) {
     const subjectsData = getSpecializedSubjectsData(); // Get specialized data
     const subject = subjectsData[subjectKey]; // Access subject from specialized data
 
@@ -5963,7 +6011,6 @@ updateTotalProgress();
 
     subject.units.forEach((unit, idx) => {
         const isCompleted = progressData[unit.id]?.completed || false;
-        // ❌ ما عاد نستثني daily → نخلي القفل يشتغل عادي
         const isLocked = idx > currentIndex;
 
         const unitItem = document.createElement('div');
@@ -6182,62 +6229,123 @@ updateTotalProgress();
         }
     });
 
-    // 🟢 تحديث التقدم لجميع المواد بما فيها daily
     const progress = updateSubjectProgress(subjectKey);
     if (progress.progressPercentage === 100) {
         document.getElementById('subjectCompletionMessage').style.display = 'block';
     }
 
-    // 🟢 تحديث الرابط ليعكس المادة الحالية
+    // 🟢 تحديث الرابط والعنوان
     try {
-        history.pushState(
-            { subject: subjectKey },
-            subject.title,
-            `${window.location.pathname}?subject=${subjectKey}`
-        );
-        document.title = `${subject.title} — موقعك`; // اختياري
+        if (!options.replaceState) {
+            history.pushState(
+                { subject: subjectKey },
+                subject.title,
+                `${window.location.pathname}?subject=${subjectKey}`
+            );
+        }
+        document.title = `${subject.title} — موقعك`;
     } catch (e) {
         console.warn("history.pushState error", e);
     }
 }
 
-function _updateUrlForSubject(subjectKey, subjectTitle) {
+
+// --- BEGIN: Unified routing for subject pages ---
+// Call this when you open a subject (centralize all uses)
+function navigateToSubject(subjectKey, subjectTitle) {
   try {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('subject') !== subjectKey) {
-      // أدخل سطرًا في نهاية showSubjectDetail() لاستدعاء هذه الدالة:
-      history.pushState({ subject: subjectKey }, subjectTitle || '', `${window.location.pathname}?subject=${subjectKey}`);
-      // اختياري: غيّر عنوان الصفحة
-      if (subjectTitle) document.title = `${subjectTitle} — موقعي`;
+    // تحديث الواجهة
+    if (typeof showSubjectDetail === 'function') {
+      showSubjectDetail(subjectKey);
     }
-  } catch (e) {
-    console.warn('updateUrlForSubject error', e);
+    // ضع حالة في history (query string). نحافظ على pathname فقط.
+   const newUrl = `${window.location.pathname}?subject=${encodeURIComponent(subjectKey)}`;
+// ضع العنوان ضمن state (title) حتى يعيد popstate العنوان بسهولة
+const fullTitle = subjectTitle ? `${subjectTitle} — ${APP_TITLE}` : document.title;
+history.pushState({ subject: subjectKey, title: fullTitle }, subjectTitle || document.title, newUrl);
+// حدّث العنوان بطريقة موحّدة
+setAppTitle(subjectTitle);
+
+  } catch (err) {
+    console.warn('navigateToSubject error', err);
   }
 }
 
-/* 2) استمع لتغيّر التاريخ (back/forward) */
+// عند الضغط على بطاقات المواد استبدل onclick="showSubjectDetail('math')"
+// بـ: onclick="navigateToSubject('math','عنوان المادة')" 
+// أو ضع wrapper بسيط إن أردت:
+function openSubjectFromCard(subjectKey) {
+  const subjectsData = typeof getSpecializedSubjectsData === 'function'
+    ? getSpecializedSubjectsData()
+    : window.specializationData?.experimental?.subjects || {};
+  const title = subjectsData[subjectKey]?.title || subjectKey;
+  navigateToSubject(subjectKey, title);
+}
+
+// عند التعامل مع زر الرجوع (Back to subjects) استخدم:
+function backToSubjects() {
+  try {
+    // امسح أي حالة سابقة من الـ history واجعلها الرئيسية
+    history.replaceState(null, `${APP_TITLE} — الرئيسية`, window.location.pathname);
+  } catch(e){}
+
+  // أخفِ كل الأقسام وأظهر المواد
+  hideAllSections();
+  const s = document.getElementById('subjectsSection');
+  if (s) s.style.display = 'block';
+
+  // إعادة العنوان الافتراضي
+  setAppTitle();
+}
+
+
+
+// --- END: Unified routing for subject pages ---
+// مستمع الرجوع / التقدّم
 window.addEventListener('popstate', (ev) => {
-  const state = ev.state;
-  if (state && state.subject) {
-    // إذا كان لدينا حالة subject في التاريخ، عرضها
-    if (typeof showSubjectDetail === 'function') showSubjectDetail(state.subject);
+  const state = ev.state || {};
+  if (state.subject) {
+    // افتح المادة بدون إضافة إلى التاريخ (replaceState)
+    if (typeof showSubjectDetail === 'function') {
+      showSubjectDetail(state.subject, { replaceState: true });
+    }
+    // أفضل استخدام العنوان الذي خزّنناه داخل state (إن وجد)
+    if (state.title) {
+      // ضع العنوان فورًا — showSubjectDetail قد يغيّره لاحقًا
+      document.title = state.title;
+    } else {
+      // fallback: حاول الحصول على العنوان من بيانات المواد ثم حدّث
+      try {
+        const subjectsData = getSpecializedSubjectsData();
+        const ttl = subjectsData && subjectsData[state.subject] && (subjectsData[state.subject].title);
+        setAppTitle(ttl || state.subject);
+      } catch(e){
+        setAppTitle(state.subject);
+      }
+    }
   } else {
-    // لا حالة = عرض قائمة المواد
+    // الصفحة الرئيسية
     hideAllSections();
     const subjects = document.getElementById('subjectsSection');
     if (subjects) subjects.style.display = 'block';
+    setAppTitle(); // عنوان افتراضي
   }
 });
 
-/* 3) عند تحميل الصفحة: افحص الرابط إذا فيه ?subject=... */
+
 document.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const s = params.get('subject');
-  if (s && typeof showSubjectDetail === 'function') {
-    // نستخدم setTimeout قصير للسماح لبقية التهيئة بالانتهاء
-    setTimeout(() => showSubjectDetail(s), 50);
-  }
+    const params = new URLSearchParams(window.location.search);
+    const s = params.get('subject');
+    if (s) {
+        showSubjectDetail(s);
+    } else {
+        hideAllSections();
+        document.getElementById('subjectsSection').style.display = 'block';
+        document.title = "موقعي — الرئيسية";
+    }
 });
+
+
 
 // ✅ انسخ "وردك اليومي" (القالب) إلى كل فروع التخصص إن كانت فارغة هناك
 (function mergeDailyIntoBranches(){
@@ -6426,17 +6534,16 @@ async function loadUserData() {
                 showBranchSelection();
             }
         } else {
-            // لا يوجد جلسة → نعرض واجهة الدخول فقط
             clearUserData();
             showAuthSection();
         }
     } catch (err) {
         console.error('Error loading user:', err.message);
-        
         clearUserData();
         showAuthSection();
     }
 }
+
 
 
 async function handleLogin(event) {
@@ -6654,20 +6761,29 @@ async function selectBranch(branch) {
 }
 
 // عرض الصفحة الرئيسية
-// عرض الصفحة الرئيسية
 function showHome() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const userBranch = localStorage.getItem('userBranch');
 
-    console.log('showHome called - isLoggedIn:', isLoggedIn, 'userBranch:', userBranch);
+    // إذا كان الرابط يطلب مادة، افتحها بدلاً من إظهار الرئيسية
+    const initialSubject = window.__subjectToOpenOnInit || (new URLSearchParams(window.location.search)).get('subject');
+    if (initialSubject && isLoggedIn === 'true') {
+        showSubjectDetail(initialSubject, { replaceState: true });
+        return;
+    }
 
     if (isLoggedIn === 'true') {
         if (userBranch) {
-            // إظهار قسم المواد
+            // التحقق من حالة التاريخ
+            const state = history.state;
+            if (state && state.subject) {
+                showSubjectDetail(state.subject);
+                return;
+            }
+
             hideAllSections();
             document.getElementById('subjectsSection').style.display = 'block';
-            
-            // تحديث معلومات المستخدم في الشريط العلوي
+
             const userInfo = document.querySelector('.user-info');
             if (userInfo) {
                 userInfo.classList.remove('d-none');
@@ -6680,23 +6796,20 @@ function showHome() {
                     userNameElement.textContent = localStorage.getItem('userName') || '';
                 }
             }
-            loadWatchedVideos();
-            // تحميل التقدم
-            loadAllProgress();
+
+            // حمل التقدّم في الخلفية (لا ننتظر الواجهة)
+            loadAllProgress().catch(e => console.warn('loadAllProgress in showHome failed', e));
         } else {
-            // إظهار اختيار الشعبة
             hideAllSections();
-            document.getElementById('branchSection').display = 'flex';
+            document.getElementById('branchSection').style.display = 'flex';
         }
     } else {
-        // إظهار قسم المصادقة
         hideAllSections();
         document.getElementById('authSection').style.display = 'flex';
     }
 }
-// دالة إظهار زر الصوتيات بعد تسجيل الدخول
-// دالة إظهار زر الصوتيات بعد تسجيل الدخول
-// دالة إظهار زر الصوتيات بعد تسجيل الدخول
+
+// عرض الصفحة الرئيسية
 function showSoundButton() {
   const btn = document.getElementById("soundContainer");
   if (btn) {
@@ -6728,40 +6841,8 @@ function hideSoundButton() {
 }
 
         // Back to subjects
-function backToSubjects() {
-    history.pushState(null, '', window.location.pathname); // إزالة ?subject
-    hideAllSections();
-    document.getElementById('subjectsSection').style.display = 'block';
-    if (typeof loadAllProgress === 'function') loadAllProgress();
 
-    // 🟢 إعادة العنوان الافتراضي
-    document.title = "موقعي — الرئيسية";
-}
 
-window.addEventListener('popstate', (ev) => {
-    const state = ev.state;
-    if (state && state.subject) {
-        showSubjectDetail(state.subject);
-    } else {
-        hideAllSections();
-        document.getElementById('subjectsSection').style.display = 'block';
-        // 🟢 إعادة العنوان الافتراضي عند العودة
-        document.title = "موقعي — الرئيسية";
-    }
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const s = params.get('subject');
-    if (s) {
-        // 🟢 إذا الرابط فيه مادة → افتحها مباشرة
-        showSubjectDetail(s);
-    } else {
-        // 🟢 إذا مافي subject → اظهر الرئيسية
-        hideAllSections();
-        document.getElementById('subjectsSection').style.display = 'block';
-        document.title = "موقعي — الرئيسية";
-    }
-});
 
 
 
@@ -6791,6 +6872,23 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("❌ developerSection غير موجود في DOM");
     }
 }      
+// ===== fast-boot: ضع هذا في أعلى السكربت (قبل المزيد من listeners) =====
+window.__subjectToOpenOnInit = (new URLSearchParams(window.location.search)).get('subject') || null;
+
+// pageshow: عند العودة من bfcache أو عند إعادة التفعيل من تبويب آخر
+window.addEventListener('pageshow', function (ev) {
+  const s = window.__subjectToOpenOnInit || (new URLSearchParams(window.location.search)).get('subject');
+  if (s) {
+    // نستخدم requestAnimationFrame لنعطي DOM فرصة صغيرة للتهيئة إن لزم
+    requestAnimationFrame(() => {
+      try {
+        showSubjectDetail(s, { replaceState: true });
+      } catch (e) {
+        console.warn('pageshow open subject failed', e);
+      }
+    });
+  }
+});
 
         // Hide all sections
       // استبدلي دالتك الحالية بهذه النسخة
@@ -6885,36 +6983,72 @@ document.addEventListener('click', (e) => {
 };
 
         // تهيئة التطبيق عند تحميل الصفحة
+// initApp — نسخة محسّنة: تفتح المادة فوراً إن كانت في الرابط، وتحمّل البيانات الثقيلة في الخلفية
 async function initApp() {
-    // تهيئة الوضع الليلي
+    // تهيئة الوضع الليلي سريعاً
     if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
-        document.getElementById('darkModeToggle').innerHTML = '<i class="bi bi-sun"></i>';
+        // بعد إضافة body.classList.add('dark-mode') في initApp أو window.onload:
+const early = document.getElementById('early-dark-mode');
+if (early) early.remove(); // يضّهر الأنماط الحقيقية ويزيل النمط الاحتياطي
+
+        const dm = document.getElementById('darkModeToggle');
+        if (dm) dm.innerHTML = '<i class="bi bi-sun"></i>';
     }
-    
-    // إعداد مستمع حدث زر الوضع الليلي
-    document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
-    
-    // تحميل بيانات المستخدم
-    await loadUserData();
-    
-    if (localStorage.getItem('isLoggedIn') === 'true') {ù
-        await loadAllProgress(); // ← إضافة هذا السطرلوريات
-  
+
+    // مستمع الزر (لا حاجه لتعديلات هنا عادة)
+    const dmToggle = document.getElementById('darkModeToggle');
+    if (dmToggle) dmToggle.addEventListener('click', toggleDarkMode);
+
+    // نبدأ تحميل بيانات المستخدم، لكن لا ننتظر كل شيء إن كان المطلوب فتح مادة الآن
+    const urlParams = new URLSearchParams(window.location.search);
+    const subjectParam = window.__subjectToOpenOnInit || urlParams.get('subject');
+
+    // ابدأ تحميل بيانات المستخدم (في الخلفية إذا كنا سنعرض المادة فوراً)
+    const userDataPromise = loadUserData();
+
+    if (subjectParam) {
+        // فَتح سريع للمادة (UI فوري) — لا ننتظر loadAllProgress هنا لكي لا نؤخر العرض
+        hideAllSections();
+        const detail = document.getElementById('subjectDetailSection');
+        if (detail) detail.style.display = 'block';
+        const titleEl = document.getElementById('subjectTitle');
+        if (titleEl) titleEl.textContent = '... جارٍ التحميل';
+
+        // افتح المادة واستخدم replaceState حتى لا تضيف مدخلة إضافية في السجل
+        showSubjectDetail(subjectParam, { replaceState: true });
+
+        // أكمل تحميل بيانات المستخدم والتقدّم في الخلفية
+        userDataPromise.then(() => {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                loadAllProgress().catch(e => console.warn('background loadAllProgress failed', e));
+            }
+        }).catch(e => console.warn('loadUserData failed (background)', e));
+    } else {
+        // المسار الاعتيادي: ننتظر معلومات المستخدم والتقدّم قبل عرض الـ home لأنه لا يوجد هدف سريع
+        await userDataPromise;
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            await loadAllProgress();
+        }
+
+        hideAllSections();
+        const subjects = document.getElementById('subjectsSection');
+        if (subjects) subjects.style.display = 'block';
+        document.title = "موقعي — الرئيسية";
     }
-    // مراقبة تغييرات حالة المصادقة
-    // عند تحميل الصفحة أول مرة
 
-
-
-    // إخفاء الشريط العلوي إذا لم يكن المستخدم مسجل دخول
-const navbar = document.querySelector('.navbar');
-if (currentUser) {
-    navbar.style.display = 'block';
-} else {
-    navbar.style.display = 'none';
+    // pageshow تم التعامل معها في بداية السكربت، لكن يمكن التأكيد هنا أيضاً
+    window.addEventListener('pageshow', () => {
+        const s = (new URLSearchParams(window.location.search)).get('subject');
+        if (s) showSubjectDetail(s, { replaceState: true });
+    });
 }
+
+function getCurrentSubjectFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('subject');
 }
+
 
         // Initialize dark mode toggle
         document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
@@ -7810,70 +7944,70 @@ function hideAIButton() {
 
     </script>
     <script>
-async function applyAuthUI() {
-    const { data: { session } } = await supabase.auth.getSession();
-    const logged = !!(session && session.user);
-    currentUser = logged ? session.user : null;
-
-    // إخفاء/إظهار العناصر حسب حالة المصادقة
-    document.querySelectorAll('.requires-auth').forEach(el => el.style.display = logged ? '' : 'none');
-    const userInfo = document.querySelector('.user-info');
-    if (userInfo) userInfo.classList.toggle('d-none', !logged);
-
-    // أزرار الصوت والـ AI
-    const sound = document.getElementById('soundContainer');
-    if (sound) sound.style.display = logged ? 'flex' : 'none';
-    const aiBtn = document.getElementById('chatbot-launcher');
-    if (aiBtn) aiBtn.style.display = logged ? 'flex' : 'none';
-
-    // إدارة الأقسام
-    hideAllSections();
-
-    if (!logged) {
-        // عرض شاشة المصادقة فقط — لا نُظهر قسم المطوّر افتراضياً
-        document.getElementById('authSection').style.display = 'flex';
-        // إذا كنت تُريد إبقاء قسم المطوّر مرئياً ضع هنا شرطًا صريحًا
-        return;
-    }
-
-    // لو المستخدم مسجّل: إظهار الشاشة المناسبة
-    const userBranch = localStorage.getItem('userBranch');
-    if (userBranch) {
-        document.getElementById('subjectsSection').style.display = 'block';
-        await loadAllProgress();
-        await loadWatchedVideos();
-    } else {
-        document.getElementById('branchSection').style.display = 'flex';
-    }
-
-function showNotification(message, type = "info") {
-  let notif = document.getElementById('notification');
-  if (!notif) {
-    notif = document.createElement('div');
-    notif.id = 'notification';
-    notif.className = 'notification';
-    document.body.appendChild(notif);
-  }
-  
-  notif.textContent = message;
-  notif.className = `notification ${type}`;
-  notif.style.display = 'block';
-  
-  setTimeout(() => {
-    notif.style.display = 'none';
-  }, 3000);
-}
 
 // 6. تهيئة النظام عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-  initAudioSystem();
-  
-  // إذا كنت تريد جعل الزر يظهر فقط للمستخدمين المسجلين
-  if (localStorage.getItem('isLoggedIn') === 'true') {
-    document.getElementById('soundContainer').style.display = 'flex';
-  }
-});
+// تعديل applyAuthUI ليحترم طلب فتح مادة من الرابط (fast path) ويمنع الفليكر
+async function applyAuthUI() {
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const logged = !!(session && session.user);
+        currentUser = logged ? session.user : null;
+
+        // تحديث عناصر الواجهة التي تعتمد على الدخول
+        const sound = document.getElementById('soundContainer');
+        if (sound) sound.style.display = logged ? 'flex' : 'none';
+        const aiBtn = document.getElementById('chatbot-launcher');
+        if (aiBtn) aiBtn.style.display = logged ? 'flex' : 'none';
+        const userInfo = document.querySelector('.user-info');
+        if (userInfo) userInfo.classList.toggle('d-none', !logged);
+
+        // هل الرابط يطلب فتح مادة مباشرة؟ (العلم الذي وضعناه أعلى)
+        const initialSubject = window.__subjectToOpenOnInit || (new URLSearchParams(window.location.search)).get('subject');
+
+        // لا نخفي شيء دون فحص: نمنع الفليكر بإظهار المادة مباشرة إن وُجدت
+        hideAllSections();
+
+        if (!logged) {
+            // إن لم يكن المستخدم مسجلاً، أظهر واجهة المصادقة (أو يمكنك تغيير هذا السلوك حسب سياسات الوصول)
+            document.getElementById('authSection').style.display = 'flex';
+            return;
+        }
+
+        // مستخدم مسجّل: لو لدينا subject في الرابط، افتحه فوراً (fast path) وارجع
+        if (initialSubject) {
+            try {
+                document.getElementById('subjectDetailSection').style.display = 'block';
+                // نستخدم replaceState لأن هذه ليست عملية 'نقرة' جديدة وإنما فتح مباشر للـ URL
+                showSubjectDetail(initialSubject, { replaceState: true });
+            } catch (e) {
+                console.warn('applyAuthUI fast subject open failed', e);
+                // fallback: اعرض الرئيسية لو فشل
+                document.getElementById('subjectsSection').style.display = 'block';
+                // حمّل التقدم في الخلفية
+                loadAllProgress().catch(err=>console.warn('loadAllProgress:', err));
+                loadWatchedVideos().catch(err=>console.warn('loadWatchedVideos:', err));
+            }
+            return;
+        }
+
+        // المسار الاعتيادي: عرض قائمة المواد وتحميل التقدم في الخلفية
+        const userBranch = localStorage.getItem('userBranch');
+        if (userBranch) {
+            document.getElementById('subjectsSection').style.display = 'block';
+            // لا ننتظر الوعود — نريد الواجهة سريعة ثم التحديثات تأتي لاحقاً
+            loadAllProgress().catch(e => console.warn('loadAllProgress failed', e));
+            loadWatchedVideos().catch(e => console.warn('loadWatchedVideos failed', e));
+        } else {
+            document.getElementById('branchSection').style.display = 'flex';
+        }
+    } catch (err) {
+        console.error('applyAuthUI error', err);
+        // كخطأ أمان، أظهر واجهة المصادقة
+        hideAllSections();
+        document.getElementById('authSection').style.display = 'flex';
+    }
 }
+
 
 
 
@@ -8848,6 +8982,5 @@ function convertDriveToEmbed(url) {
 }
 
 </script>
-
 </body>
 </html>
