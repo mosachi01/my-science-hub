@@ -39,7 +39,7 @@
     <!-- تهيئة Supabase مباشرة بعد تحميل المكتبة -->
     <script>
         const supabaseUrl = 'https://mvqsgrtvhynxfblvmzxy.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12cXNncnR2aHlueGZibHZtenh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNzM3OTQsImV4cCI6MjA3MTY0OTc5NH0.2HgHjbYEXpSM6vzaEMLmWhPMI3JVC-V09TBvqerWeyU';
+        const supabaseKey = 'sb_publishable_SQ2zoEEtBvRcIHEdLB7SWA_6a8P0mK5';
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
     </script>
     
@@ -47,13 +47,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .site-logo {
-  width: 120px;   /* غيّر الرقم حسب رغبتك */
-  height: auto;   /* يحافظ على النسبة */
-  display: block; /* يضمن أنه يتصرف كعنصر بلوك */
-  margin: 0 auto; /* لتمركزه في الوسط */
-}
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -67,6 +60,7 @@
             min-height: 100vh;
             padding: 20px;
         }
+.requires-auth { display: none; }
 
         /* زر الشات بوت العائم */
         .chatbot-launcher {
@@ -2023,6 +2017,113 @@ body.dark-mode .profile-section .form-control {
 body.dark-mode .profile-section .form-control::placeholder {
   color: #bbbbbb !important;   /* نص الـ placeholder رمادي فاتح */
 }
+/* تحسين مظهر تبويبات السنوات */
+/* ====== البطاقات الرئيسية للباكالوريا ====== */
+
+.bac-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.bac-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.bac-card h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  text-align: center;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* ====== روابط المواضيع والحلول (أزرار) ====== */
+.bac-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.bac-links a {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none !important; /* 🔥 إزالة underline */
+  border: 1px solid #ddd;
+  color: #444;
+  background: #f9f9f9;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+/* hover للمواضيع */
+.bac-links a:hover {
+  background: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.25);
+}
+
+/* تمييز أزرار الحلول بلون ثانوي */
+.bac-links a:nth-child(2n) {
+  background: #f1f3f5;
+  border-color: #ccc;
+}
+.bac-links a:nth-child(2n):hover {
+  background: #28a745;
+  border-color: #28a745;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.25);
+}
+
+/* ====== تحسين موبايل ====== */
+@media (max-width: 768px) {
+  .bac-card {
+    padding: 1rem;
+  }
+  .bac-links {
+    gap: 0.4rem;
+  }
+  .bac-links a {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+}
+/* === Force two columns inside examsContainer (quick fix) === */
+#examsContainer > .col-md-6,
+#examsContainer > .col-lg-4,
+#examsContainer > .col-12 {
+  flex: 0 0 50% !important;
+  max-width: 50% !important;
+}
+
+/* small screens -> full width */
+@media (max-width: 767.98px) {
+  #examsContainer > .col-md-6,
+  #examsContainer > .col-lg-4,
+  #examsContainer > .col-12 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* قم بتعديل مسافة البطاقات إن رغبت */
+#examsContainer .exam-year {
+  margin-bottom: 1.25rem;
+}
+
+
 
     </style>
   
@@ -2115,7 +2216,7 @@ body.dark-mode .profile-section .form-control::placeholder {
         <!-- الرئيسية -->
         <li class="nav-item">
           <a id="navHome" class="nav-link d-flex align-items-center gap-1" href="#" onclick="navHomeClicked(event)">
-            <i class="bi bi-house-door-fill"></i> الرئيسية
+            <i class="bi bi-house-door-fill" ></i> الرئيسية
           </a>
         </li>
 
@@ -2530,7 +2631,15 @@ body.dark-mode .profile-section .form-control::placeholder {
         </div>
 
         <!-- ✅ حاوية الامتحانات -->
-        <div id="examsContainer" class="row">
+       <!-- تبويبات السنوات -->
+<ul class="nav nav-tabs bac-tabs" id="bacYearTabs" role="tablist">
+  <!-- يتم توليد العناصر ديناميكياً بالـ JS -->
+</ul>
+
+<div class="tab-content" id="bacYearContent">
+  <!-- محتوى كل سنة يظهر هنا -->
+</div>
+
             <!-- سيتم ملء هذا القسم ديناميكياً باستخدام JavaScript -->
         </div>
     </div>
@@ -4210,15 +4319,22 @@ summaries: [
                                 exercises: [
                                     {
                                         title: ' تمارين تطبيقية على تركيب البروتين ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم تركيب البروتين ',
-                                        fileUrl: '#Math_Science_Unit1_Exercises' // Placeholder for Math specialization
+                                        description: ' تمارين تركيب البروتين للاستاذة كتفي',
+                                        fileUrl: 'https://drive.google.com/file/d/1jBRR0tZYOw_g8gd1ZswOcfzOzhddVq1m/preview'
+ // Placeholder for Math specialization
+                                    },
+                                    {
+title: ' تمارين تطبيقية على تركيب البروتين ',
+description: ' تمارين تركيب البروتين مع الحل للاستاذ بيوض الحاج',
+fileUrl: 'https://drive.google.com/file/d/1U74jCyLp7AzyZRiAkEriWP54eT-rdQMu/preview' // Placeholder for Math specialization
+
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص تركيب البروتين ',
                                         description: ' ملخص شامل لأهم نقاط وحدة تركيب البروتين ',
-                                        fileUrl: '#Math_Science_Unit1_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1gPppKTq53qaYeIYJAPnjkHJtCbXfeUwC/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -4254,16 +4370,16 @@ summaries: [
                                 ],
                                 exercises: [
                                     {
-                                        title: ' تمارين تطبيقية على بنية ووظيفة البروتين ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم بنية ووظيفة البروتين ',
-                                        fileUrl: '#Math_Science_Unit2_Exercises' // Placeholder for Math specialization
+                                        title: ' تمارين تطبيقية على العلاقة بين  بنية ووظيفة البروتين ',
+                                        description: ' مجموعة تمارين لتطبيق مفاهيم العلاقة بين بنية ووظيفة البروتين ',
+                                        fileUrl: 'https://drive.google.com/file/d/1AqTzIM3h7FUuwxEH1td1PAjjTzB7UYzs/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
-                                        title: ' ملخص بنية ووظيفة البروتين ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة بنية ووظيفة البروتين ',
-                                        fileUrl: '#Math_Science_Unit2_Summaries' // Placeholder for Math specialization
+                                        title: ' ملخص وحدة العلاقة بين بنية ووظيفة البروتين ',
+                                        description: ' ملخص شامل لأهم نقاط وحدة العلاقة بين  بنية ووظيفة البروتين ',
+                                        fileUrl: 'https://drive.google.com/file/d/1djYDN4d7tH5lwUEIkwpGFx98uOjbh78o/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -4307,18 +4423,18 @@ summaries: [
 
 
                             ],
-                                exercises: [
+                               exercises: [
                                     {
                                         title: ' تمارين تطبيقية على المناعة ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم المناعة ',
-                                        fileUrl: '#Math_Science_Unit4_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1Rc_QG6HuqfEqmR9F79akg-jmKpeZW3P6/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص المناعة ',
                                         description: ' ملخص شامل لأهم نقاط وحدة المناعة ',
-                                        fileUrl: '#Math_Science_Unit4_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1Q8NagRuYlXqQnk6YXAhc4sJMqJtZpjym/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -4330,9 +4446,94 @@ summaries: [
                         units: [
                             {
                                 id: 'arabic-1',
-                                title: ' البناء الفكري ',
+                                title: ' كل مايخص اللغة العربية',
                                 completed: false,
-                                lessons: [{ title: "مكتسبات النهايات", url: "https://www.youtube.com/watch?v=6YIkbIJEvBE&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=1&t=3s&pp=iAQB", type: "فيديو",  },
+                                lessons: [
+                                    
+  { title: "الشعر التعليمي", url: "https://youtu.be/ovC9V23oipg?si=sIJlB8JfK8nRmzb3", type: "فيديو" },
+{ title: "الشعر المهجري", url: "https://youtu.be/wAPXwqmXM7M?si=i0Xgn3zpmYmzMuLD", type: "فيديو" },
+{ title: "الشعر السياسي", url: "https://youtu.be/05fnXyoiEco?si=BUWdbzEVK2N1eNY_", type: "فيديو" },
+{ title: "الشعر السياسي الجزء الثاني (الالتزام ومظاهره)", url: "https://youtu.be/j_qER5j9QgY?si=H-a-FyZK_FUkSIsw", type: "فيديو" },
+{ title: "الشعر الاجتماعي", url: "https://youtu.be/j_qER5j9QgY?si=H-a-FyZK_FUkSIsw", type: "فيديو" },
+
+  { title: "النثر العلمي المتادب", url: "https://www.youtube.com/watch?v=_zIogMOeDvs ", type: "فيديو", part:"p2" },
+
+  {
+    title: " اعراب المفردات",
+    url: "https://www.youtube.com/watch?v=1aSU85i8HiY",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "الخبر وأنواعه | شرح وإعراب",
+    url: "https://youtu.be/Bl4dfE8U0qQ?si=7rFJgECiSwIf-a7k",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "البدل - الحال - التمييز )",
+    url: "https://youtu.be/1OiUFhR5JBk?si=236TRYRObgo7n2n6",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "معاني وإعراب لو لو لولا )",
+    url: "https://www.youtube.com/watch?v=v6cEL30Bz30",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "الجمل التي لها محل من الإعراب ",
+    url: "https://www.youtube.com/watch?v=w73TduU_WkU",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "الجمل التي لا محل لها من الإعراب",
+    url: "https://www.youtube.com/watch?v=7COy6oZgE7c",
+    type: "فيديو",
+    part: "p3"
+  },
+
+  {
+    title: "المجاز المرسل بطريقة مميزة",
+    url: "https://youtu.be/73w1aGCU0y8?si=Ih-kn_VJUuXhMImL",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: "التشبيه (أركانه وأنواعه وأثره في المعنى)",
+    url: "https://youtu.be/ALPFF9WZmrg?si=75p_TB4MWOc0kQ3M",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: "  الاستعارة ",
+    url: "https://youtu.be/FZynsBemlI0?si=AjT4QKnIN-9jEnqo",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: " الكناية - (ركز مع الاستاذ وليس قبعته )",
+    url: "https://youtu.be/lhLp_XmERmI?si=q-YeP50jvysPEWFn",
+    type: "فيديو",
+    part: "p4"
+  },
+    {
+    title: "الأسلوب الإنشائي والخبري",
+    url: "https://youtu.be/_tjnDIoXCUs?si=nbkKpJQlk9uFJRfd",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: "المحسنات البديعية",
+    url: "https://youtu.be/TWA5ADaDD6M?si=p-3Ws8IEXhgPwkuC",
+    type: "فيديو",
+    part: "p4"
+  }
+
+
+
 ],
                                 
                                 summaries: [
@@ -4340,23 +4541,16 @@ summaries: [
                                         title: ' ملخص البناء الفكري ',
                                         description: ' ملخص شامل لأهم نقاط وحدة البناء الفكري ',
                                         fileUrl: 'https://drive.google.com/file/d/1ncJAdG3Ingsy9vn47srovplq9z7ICAQ5/preview' // Placeholder for Math specialization
-                                    }
-                                ]
-                            },
-                            {
-                                id: 'arabic-2',
-                                title: ' البناء اللغوي ',
-                                completed: false,
-                                lessons: [],
+                                    },
                                 
-                                summaries: [
                                     {
                                         title: ' ملخص البناء اللغوي ',
                                         description: ' ملخص شامل لأهم نقاط وحدة البناء اللغوي ',
                                         fileUrl: 'https://drive.google.com/file/d/12wRp0wGK4MyQy5sLBO_XTVaHS_R-xHt6/preview' // Placeholder for Math specialization
                                     }
+                                
                                 ]
-                            }
+                            },
                         ]
                     },
                     french: {
@@ -4366,7 +4560,12 @@ summaries: [
                                 id: 'french-1',
                                 title: ' كل ما يخص الفرنسية ',
                                 completed: false,
-                                lessons: [],
+                                lessons: [
+                                    { title: "(le texte d'Histoire) أضخم مراجعة ليلة الرعد 🫵🏻🔥 للوحدة 01 l مهما كان مستواك", url: "https://www.youtube.com/watch?v=pJHmk2AJWak", type: "فيديو" },
+{ title: "أضخم مراجعة ليلة الرعد 🫵🏻🔥  للوحدة 1 (le texte d'Histoire) / مهما كان مستواك (الجزء2", url: "https://www.youtube.com/watch?v=tMbFhlNReoA", type: "فيديو" },
+{ title: "مراجعة الفصل الثاني في الدقيقة 90  (le débat d'idée) / مهما كان مستواك", url: "https://www.youtube.com/watch?v=skr6-UvdMGI", type: "فيديو" },
+{ title: "المراجعة النهائية للنداء في الدقيقة 99 قبل البكالوريا / l'appel مهما كان مستواك", url: "https://www.youtube.com/watch?v=yKCbNEfIN5A", type: "فيديو" }
+                                ],
                                 
                                 
                                 summaries: [
@@ -4386,7 +4585,25 @@ summaries: [
                                 id: 'english-1',
                                 title: ' كل ما يخص الإنجليزية ',
                                 completed: false,
-                                lessons: [],
+                                lessons: [
+                                    { title: "لا تبدأ دروس البكالوريا قبل معرفة هذه الأساسيات في الانجليزية", url: "https://www.youtube.com/watch?v=gAg6HSHC3Pc", type: "فيديو" },
+{ title: "الدرس 1: كيف تعبر عن Criticism باستخدام It's High Time", url: "https://www.youtube.com/watch?v=dmpCamcHY84", type: "فيديو" },
+{ title: "الدرس 2: كيف تعبر عن Advice باستخدام Should /Had better /Ought to - بكالوريا", url: "https://www.youtube.com/watch?v=dD_x4u8Qg1I", type: "فيديو" },
+{ title: "الدرس 3: التعبير عن التمني باستخدام Wish في جميع اشكاله مع الاستاذ عبدالمؤمن - وداعا للخوف من Wish", url: "https://www.youtube.com/watch?v=rklx5XVp8xE", type: "فيديو" },
+{ title: "الدرس 4: شرح تقسيم الكلمات في جدول Prefix - Root - Suffix بسهولة + تطبيق شامل", url: "https://www.youtube.com/watch?v=90obPOMhTTQ", type: "فيديو" },
+{ title: "الدرس 5: Pronunciation of final -ed - تعلم طرق النطق المختلفة لـ -ed", url: "https://www.youtube.com/watch?v=DXmBznLwNvU", type: "فيديو" },
+{ title: "الدرس 6: Pronunciation of final S - تعلم طرق النطق المختلفة لـ S في كلمات الجمع", url: "https://www.youtube.com/watch?v=oHGtfhnRyGo", type: "فيديو" },
+{ title: "الدرس 7: المقاطع الصوتية Syllables شرح جميع حالات تقسيم الكلمات الى مقاطع صوتية مع التطبيق", url: "https://www.youtube.com/watch?v=t22UNZ5DV5U", type: "فيديو" },
+{ title: "المراجعة النهائية - اضخم مراجعة في الانجليزية بكالوريا جميع الشعب رقم 3 - البناء الفكري", url: "https://www.youtube.com/watch?v=QaSmwp33xjw", type: "فيديو" },
+{ title: "الدرس 8: شرح جميع قواعد Passive Voice - كيفية تحويل الجمل من المبني للمعلوم إلى المبني للمجهول بذكاء", url: "https://www.youtube.com/watch?v=rh6cje0tJ5o", type: "فيديو" },
+{ title: "الدرس 9: المقاطع المشددة Stressed Syllables - أسهل طريقة لتحديد الشدة في الإنجليزية", url: "https://www.youtube.com/watch?v=pr13aSYLIUc", type: "فيديو" },
+{ title: "Reported speech - قواعد اللغة الانجليزية للبكالوريا", url: "https://www.youtube.com/watch?v=og3JcmlBQGg", type: "فيديو" },
+{ title: "Reported speech - قواعد اللغة الانجليزية للبكالوريا", url: "https://www.youtube.com/watch?v=VgSOgFZGHq8", type: "فيديو" },
+{ title: "الدرس 11: الخطاب المنقول Reported Speech أهم الأساسيات التي يجب أن تتعلمها لإتقان هذا الدرس", url: "https://www.youtube.com/watch?v=K6l-9HxeZ20", type: "فيديو" },
+{ title: "افضل مقدمة وخاتمة ستوندار لكل وحدات الانجليزية - بكالوريا جميع الشعب", url: "https://www.youtube.com/watch?v=kXnLZqjMOaI", type: "فيديو" },
+{ title: "جميع الدروس المهمة في اللغة الانجليزية بكالوريا 2025 جميع الشعب", url: "https://www.youtube.com/watch?v=56P6Skp07n4", type: "فيديو" },
+{ title: "الدرس 11: Reported Speech تحويل الخطاب من المباشر للغير مباشر الجزء1 Reported Statements", url: "https://www.youtube.com/watch?v=YNzU9j9nPXk", type: "فيديو" }
+                                ],
                                 
                                 summaries: [
                                     {
@@ -4405,21 +4622,68 @@ summaries: [
                                 id: 'islamic-1',
                                 title: ' كل ما يخص التربية الإسلامية ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على التربية الإسلامية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم التربية الإسلامية ',
-                                        fileUrl: '#Math_Islamic_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
+                                lessons: [
+  { "title": "الدرس 1:  العقيدة الإسلامية وأثرها على الفرد والمجتمع", "url": "https://www.youtube.com/watch?v=0uCIXFdqq2Y&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=1&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس2:وسائل القرآن الكريم في تثبيت العقيدة الإسلامية", "url": "https://www.youtube.com/watch?v=yqcvXOXuS68&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=2&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس3:الإسلام والرسالات السماوية", "url": "https://www.youtube.com/watch?v=dnIWslER0ug&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=3&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس4:الإسلام والسلام", "url": "https://www.youtube.com/watch?v=xjR8Paiz5XY&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=4&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس5:الإسلام دين الوسطية", "url": "https://www.youtube.com/watch?v=FtrwhpN8nn8&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=5&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس6:الإسلام والحرية", "url": "https://www.youtube.com/watch?v=UfsDxTSXsnE&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=6&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس7:التكافل الإجتماعي", "url": "https://www.youtube.com/watch?v=4Ctt7plUDhY&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=7&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس8:العمل والإنتاج", "url": "https://www.youtube.com/watch?v=lhLQKfgWcuA&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=8&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس9:الإسلام والفنون", "url": "https://www.youtube.com/watch?v=0e8mVRyOvMI&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=9&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس10:من القيم في القرآن الكريم", "url": "https://www.youtube.com/watch?v=CBRuxrPV2U8&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=10&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس11:من القيم في السنة النبوية", "url": "https://www.youtube.com/watch?v=NgvOjYI6n5c&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=11&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس12:القيم في الفقه الإسلامي", "url": "https://www.youtube.com/watch?v=paaw6h2HKQQ&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=12&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس13:من أخلاق الرسول صلى الله عليه وسلم", "url": "https://www.youtube.com/watch?v=aUBXjsAfGso&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=13&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس14:القدوة الصالحة", "url": "https://www.youtube.com/watch?v=yRANmn00q0s&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=14&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس15:المذاهب الفقهية", "url": "https://www.youtube.com/watch?v=xsZpPWqXYSo&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=15&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس16:الاجتهاد والتجديد", "url": "https://www.youtube.com/watch?v=dpA3A2kMi6U&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=16&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس17:الإسلام والعلوم", "url": "https://www.youtube.com/watch?v=q4XtU6VZSm8&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=17&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس18:الإسلام والبيئة", "url": "https://www.youtube.com/watch?v=5iRfc14dG8Y&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=18&pp=iAQB", "type": "فيديو" },
+  { title: "حساب النهايات", url: "https://www.youtube.com/watch?v=BIV1_Mm-eZI&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=2&pp=iAQB", type: "فيديو", part: "p2" },
+
+],
+                               exercise:[
+{ title: "تمارين درس العقيدة الاسلامية و أثرها على الفرد والمجتمع بكالوريا 2024", url: "https://www.youtube.com/watch?v=GmtiqP1v9Hc", type: "فيديو" },
+{ title: "تمارين الوحدة(2): درس وسائل القرآن الكريم في تثبيت العقيدة الاسلامية بكالوريا 2024", url: "https://www.youtube.com/watch?v=qs6bUTZQWYM", type: "فيديو" },
+{ title: "تمارين الوحدة(3): درس الإسلام و الرسالات السماوية بكالوريا 2024", url: "https://www.youtube.com/watch?v=5CCTnolizyw", type: "فيديو" },
+{ title: "تمارين الوحدة(4): درس العقل في القرآن الكريم بكالوريا 2024", url: "https://www.youtube.com/watch?v=ux5bLiRDQ5M", type: "فيديو" },
+{ title: "تمارين الوحدة(5): درس مقاصد الشريعة الاسلامية بكالوريا 2024", url: "https://www.youtube.com/watch?v=P251Zx-EKUI", type: "فيديو" },
+{ title: "تمارين الوحدة(6): منهج الإسلام في محاربة الانحراف والجريمة بكالوريا 2024", url: "https://www.youtube.com/watch?v=aooxK9DCLtc", type: "فيديو" },
+{ title: "تمارين الوحدة(7): المساواة أمام أحكام الشريعة الإسلامية في العقوبات بكالوريا 2024", url: "https://www.youtube.com/watch?v=gMKOntMRauU", type: "فيديو" },
+{ title: "تمارين الوحدة(8): الصحة النفسية والجسمية في القرآن الكريم بكالوريا 2024", url: "https://www.youtube.com/watch?v=DflGkIPWW7A", type: "فيديو" },
+{ title: "تمارين الوحدة(9): من مصادر التشريع الاسلامي (الإجماع – القياس – المصالح المرسلة) بكالوريا 2024", url: "https://www.youtube.com/watch?v=7013stg9hf0", type: "فيديو" },
+{ title: "تمارين الوحدة(10): القيم في القرآن الكريم بكالوريا 2024", url: "https://www.youtube.com/watch?v=oh4Ju8QMOdI", type: "فيديو" },
+{ title: "تمارين الوحدة(12): مدخل الى علم الميراث بكالوريا 2024", url: "https://www.youtube.com/watch?v=eUggumrZ9gU", type: "فيديو" },
+{ title: "تمارين الوحدة(13): الربا وأحكامه بكالوريا 2024", url: "https://www.youtube.com/watch?v=sCSH2gF8fss", type: "فيديو" },
+{ title: "تمارين الوحدة(14): من المعاملات المالية الجائزة (الصرف -التقسيط - المرابحة) بكالوريا 2024", url: "https://www.youtube.com/watch?v=VFSMwZZqOIQ", type: "فيديو" },
+{ title: "تمارين الوحدة(15): الحرية الشخصية ومدي ارتباطها بحقوق الأخرين بكالوريا 2024", url: "https://www.youtube.com/watch?v=BXo29uJWeiI", type: "فيديو" },
+{ title: "تمارين الوحدة(16): من أحكام الأسرة في الإسلام (النسب – التبني – الكفالة) بكالوريا 2024", url: "https://www.youtube.com/watch?v=nFt-aBR-yrg", type: "فيديو" },
+{ title: "تمارين الوحدة(17): العلاقات الاجتماعية بين المسلمين وغيرهم بكالوريا 2024", url: "https://www.youtube.com/watch?v=9Rwdqlxmpbs", type: "فيديو" },
+{ title: "تمارين الوحدة(18): خطبة الرسول صلى الله عليه وسلم في حجة الوداع بكالوريا 2024", url: "https://www.youtube.com/watch?v=UIscCFShqqA", type: "فيديو" }
+                               ],
                                 summaries: [
-                                    {
-                                        title: ' ملخص التربية الإسلامية ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة التربية الإسلامية ',
-                                        fileUrl: '#Math_Islamic_Unit1_Summaries' // Placeholder for Math specialization
-                                    }
-                                ]
+  { title: "الدرس 01", description: "ملخص شامل لأهم نقاط الدرس 01", fileUrl: "https://drive.google.com/file/d/1z_o_jgiUsk-kkFdiaO3jJK7oYEcD3w5F/preview" },
+  { title: "الدرس 03 الجزء 01", description: "ملخص شامل لأهم نقاط الدرس 03 الجزء 01", fileUrl: "https://drive.google.com/file/d/1dwjROQKVi6wmR3H6oDiSp1Y5D9YBiCBN/preview" },
+  { title: "الدرس 03 الجزء 02", description: "ملخص شامل لأهم نقاط الدرس 03 الجزء 02", fileUrl: "https://drive.google.com/file/d/1CzxijvO2fLcGSSPsUJSUA5DIKIoC4WEG/preview" },
+  { title: "الدرس 03 الجزء 03", description: "ملخص شامل لأهم نقاط الدرس 03 الجزء 03", fileUrl: "https://drive.google.com/file/d/1V9TQngbJ_E54004zqpsdz6fXmp9-1nEi/preview" },
+  { title: "الدرس 04", description: "ملخص شامل لأهم نقاط الدرس 04", fileUrl: "https://drive.google.com/file/d/1Nlg7nP5QT81cjd-NsHRvVb78FSUamSe-/preview" },
+  { title: "الدرس 05", description: "ملخص شامل لأهم نقاط الدرس 05", fileUrl: "https://drive.google.com/file/d/1gTofeihL1ZqSs7PXe22cr6o7qYz80EjN/preview" },
+  { title: "الدرس 06", description: "ملخص شامل لأهم نقاط الدرس 06", fileUrl: "https://drive.google.com/file/d/1PcEflC5V2rK3mgk-B9kC41ZcUZFOQlZD/preview" },
+  { title: "الدرس 07", description: "ملخص شامل لأهم نقاط الدرس 07", fileUrl: "https://drive.google.com/file/d/1fku3Dut5QPUIp3D0uZKeCYXauAKaf6WN/preview" },
+  { title: "الدرس 08", description: "ملخص شامل لأهم نقاط الدرس 08", fileUrl: "https://drive.google.com/file/d/1JSTl0DXvboKZLLX2PghO7C3tH2GweONP/preview" },
+  { title: "الدرس 09", description: "ملخص شامل لأهم نقاط الدرس 09", fileUrl: "https://drive.google.com/file/d/1vCxqWdvr6n80gXv-2ghyrkX6cKBN0-9J/preview" },
+  { title: "الدرس 10", description: "ملخص شامل لأهم نقاط الدرس 10", fileUrl: "https://drive.google.com/file/d/1NDo5M6pqQORE8NY-g1F9pWcC1srf9rrh/preview" },
+  { title: "الدرس 11", description: "ملخص شامل لأهم نقاط الدرس 11", fileUrl: "https://drive.google.com/file/d/1La95TKlBZau2x2qxiJg94PkOIdTQquyN/preview" },
+  { title: "الدرس 12", description: "ملخص شامل لأهم نقاط الدرس 12", fileUrl: "https://drive.google.com/file/d/1lgOt0exJfrWteB20h6n1R8UBhfnOmZlo/preview" },
+  { title: "الدرس 13", description: "ملخص شامل لأهم نقاط الدرس 13", fileUrl: "https://drive.google.com/file/d/1is-33Fa-F9PNjd8Yejejr6W_h-wq7zMu/preview" },
+  { title: "الدرس 14", description: "ملخص شامل لأهم نقاط الدرس 14", fileUrl: "https://drive.google.com/file/d/1Osnl32OcqoLa3QehvJroEGaBh2Y6dpHV/preview" },
+  { title: "الدرس 15", description: "ملخص شامل لأهم نقاط الدرس 15", fileUrl: "https://drive.google.com/file/d/17X4hWWa5bQFDGdSQ6SLsCCh3nuZy_Tq0/preview" }
+]
+
+
+                                
                             }
                         ]
                     },
@@ -4428,69 +4692,53 @@ summaries: [
                         units: [
                             {
                                 id: 'history-1',
-                                title: ' دروس التاريخ ',
+                                title:'كل مايتعلق بالتاريخ و الجغرافيا ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على التاريخ ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم التاريخ ',
-                                        fileUrl: '#Math_History_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
+                                lessons: [
+  { "title": "الدرس الأول تاريخ : بروز الصراع وتشكل العالم ( الحرب الباردة ) بكالوريا 2025 جميع الشعب", "url": "https://www.youtube.com/watch?v=xLNEKURH6h8&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=8&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الأول تاريخ : بروز الصراع وتشكل العالم ( الحرب الباردة ) بكالوريا 2025 جميع الشعب( الجزء2)", "url": "https://www.youtube.com/watch?v=A6O7KEpVbfs&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=7&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الثاني : التعايش السلمي (حركة عدم الانحياز ) بكالوريا 2025 جميع الشعب", "url": "https://www.youtube.com/watch?v=raE5rpA2QOI&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=5&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الثاني : التعايش السلمي (حركة عدم الانحياز ) بكالوريا 2025 جميع الشعب ( الجزء 2 )", "url": "https://www.youtube.com/watch?v=EOqHKnJzCmU&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=4&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الثالث : الأزمات الدولية في ظل الصراع بين المعسكرين", "url": "https://www.youtube.com/watch?v=SCysvZznh-Q&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=3&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الرابع : مساعي الانفراج الدولي", "url": "https://www.youtube.com/watch?v=chZAk-Qx_9Y&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=2&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الخامس : انهيار المعسكر الشيوعي وانعكاساته على العالم", "url": "https://www.youtube.com/watch?v=da34cmcyqXw&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=1&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس السادس : بروز العالم الثالث", "url": "https://www.youtube.com/watch?v=kaOQESYF3lM&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=6&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الأول جغرافيا: اشكالية التقدم والتخلف بكالوريا 2025 (جميع الشعب)", "url": "https://www.youtube.com/watch?v=sDgHKjs7eJ4&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=6&pp=iAQB", "type": "فيديو" ,part:"p2" },
+  { "title": "الدرس الأول جغرافيا: اشكالية التقدم والتخلف بكالوريا 2025 (جميع الشعب) الجزء 2", "url": "https://www.youtube.com/watch?v=x4JY5-C8CS0&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=5&pp=iAQB", "type": "فيديو",part:"p2" },
+  { "title": "درس المبادلات والتنقلات الجغرافيا بكالوريا 2025 جميع الشعب", "url": "https://www.youtube.com/watch?v=lY_jiivM2iY&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=4&pp=iAQB", "type": "فيديو" ,part:"p2"},
+  { "title": "الدرس الثاني جغرافيا: المبادلات والتنقلات الجزء 2", "url": "https://www.youtube.com/watch?v=YXyH8FSJj0E&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=3&pp=iAQB", "type": "فيديو",part:"p2" },
+  { "title": "الدرس الثالث جغرافيا: اقتصاد المعرفة", "url": "https://www.youtube.com/watch?v=4mC-yl1qT0A&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=2&pp=iAQB", "type": "فيديو",part:"p2" },
+  { title: "الدرس الرابع جغرافيا: التحولات الاقتصادية في العالم", url: "https://www.youtube.com/watch?v=htbtGxQm3Ks&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=1&pp=iAQB", type: "فيديو",part:"p2" }
+
+],
+                                
+                            
                                 summaries: [
+                                    {
+                                        title: ' مصطلحات و شخصيات تاريخ ',
+                                        description: 'مصطلحات و شخصيات تاريخ',
+                                        fileUrl: 'https://drive.google.com/file/d/1wWLnl1tz5c0puD3WKg71Os23-yojhymV/preview' // Placeholder for Math specialization
+                                    },
                                     {
                                         title: ' ملخص التاريخ ',
                                         description: ' ملخص شامل لأهم نقاط وحدة التاريخ ',
-                                        fileUrl: '#Math_History_Unit1_Summaries' // Placeholder for Math specialization
-                                    }
-                                ]
-                            },
-                            {
-                                id: 'history-2',
-                                title: ' دروس الجغرافيا ',
-                                completed: false,
-                                lessons: [],
-                                exercises: [
+                                        fileUrl: 'https://drive.google.com/file/d/1EEln7KCxnsvnn_PTojSvdwN-c0Xn-BH9/preview' // Placeholder for Math specialization
+                                    },
+                                    
                                     {
-                                        title: ' تمارين تطبيقية على الجغرافيا ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم الجغرافيا ',
-                                        fileUrl: '#Math_History_Unit2_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
-                                summaries: [
+                                        title: ' مصطلحات جغرافيا ',
+                                        description: ' مصطلحات جغرافيا',
+                                        fileUrl: 'https://drive.google.com/file/d/1EjDiFP7uEISV_ux1puJ5V9U5wxUOrRQK/preview' // Placeholder for Math specialization
+                                    },
                                     {
                                         title: ' ملخص الجغرافيا ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الجغرافيا ',
-                                        fileUrl: '#Math_History_Unit2_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1aLaQ932FI1cec9Buv4FJlaSLxUFgcfvx/preview' // Placeholder for Math specialization
                                     }
                                 ]
-                            }
-                        ]
-                    },
-                    philosophy: {
-                        title: ' 💡   مادة الفلسفة ',
-                        units: [
-                            {
-                                id: 'philosophy-1',
-                                title: ' كل ما يخص الفلسفة ',
-                                completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على الفلسفة ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم الفلسفة ',
-                                        fileUrl: '#Math_Philosophy_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
-                                summaries: [
-                                    {
-                                        title: ' ملخص الفلسفة ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة الفلسفة ',
-                                        fileUrl: '#Math_Philosophy_Unit1_Summaries' // Placeholder for Math specialization
-                                    }
-                                ]
-                            }
+                                
+                                
+                            },
                         ]
                     },
                     philosophy: {
@@ -4500,21 +4748,177 @@ summaries: [
                                 id: 'geohistory',
                                 title: ' كل ما يخص الفلسفة ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على الفلسفة ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم الفلسفة ',
-                                        fileUrl: '#Math_Philosophy_Unit1_Exercises' // Placeholder for Math specialization
-                                    }
-                                ],
-                                summaries: [
-                                    {
-                                        title: ' ملخص الفلسفة ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة الفلسفة ',
-                                        fileUrl: '#Math_Philosophy_Unit1_Summaries' // Placeholder for Math specialization
-                                    }
+                                lessons: [
+
+  {
+    "title": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا",
+    "fileUrl": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا",
+    "fileUrl": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "منهجية 3| طريقة الاستقصاء بالوضع | جميع الشعب",
+    "fileUrl": "منهجية 3| طريقة الاستقصاء بالوضع | جميع الشعب",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "منهجية 4| طريقة تحليل نص | جميع الشعب",
+    "fileUrl": "2023-11-28 00:00:00",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "اصل المفاهيم الرياضية | الشعب العلمية والتقنية والتسيير والرياضيات واللغات",
+    "fileUrl": "اصل المفاهيم الرياضية | الشعب العلمية والتقنية والتسيير والرياضيات واللغات",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "مقال نتائج الرياضيات (اليقين الرياضي)",
+    "fileUrl": "مقال نتائج الرياضيات (اليقين الرياضي) موجه لكل الشعب",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "🧠 مقال المقارنة بين الرياضيات الكلاسيكية والمعاصرة",
+    "fileUrl": "🧠 مقال المقارنة بين الرياضيات الكلاسيكية والمعاصرة في 10 دقائق BAC 2025 - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "مقال الحتمية واللاحتمية تسمى أيضا بنتائج العلم موجه لكل الشعب",
+    "fileUrl": "مقال الحتمية واللاحتمية تسمى أيضا بنتائج العلم موجه لكل الشعب - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا",
+    "fileUrl": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا",
+    "fileUrl": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا",
+    "fileUrl": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    title: 'المنهجيات',
+    fileUrl: 'https://drive.google.com/file/d/1nGLrQ4DrfrIQLzGZ2caz-gzFGVZON6tj/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة المقارنة بين العلم والفلسفة',
+    fileUrl: 'https://drive.google.com/file/d/1nrNnXvO1I_758EUtTRPhZIy50whO1io7/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة اهمية الفلسفة',
+    fileUrl: 'https://drive.google.com/file/d/1BAb1EUlgwXfQeYvBR_EFQR2JGniqJ-89/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'قيمة الفلسفة',
+    fileUrl: 'https://drive.google.com/file/d/1FjWu-BnPI3Xanj03P_X6nbwZmjFGfKlb/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة اصل الرياضيات',
+    fileUrl: 'https://drive.google.com/file/d/1nGLrQ4DrfrIQLzGZ2caz-gzFGVZON6tj/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة اليقين الياضي',
+    fileUrl: 'https://drive.google.com/file/d/1OZe2ZZD2SWyjUXeluewhR7qq9Nf4anAn/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة نتائج الرياضيات',
+    fileUrl: 'https://drive.google.com/file/d/1_4TKwluFrKrcJ9N3AIGmjIB0Rh9j0i8d/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة علم النفس',
+    fileUrl: 'https://drive.google.com/file/d/13KaXfLy6YJ81Xq7hW-DCHdd_sqSfJkRR/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'التجربة معيار العلم',
+    fileUrl: 'https://drive.google.com/file/d/1lW9cQ8irQBeOZ8y4EwzeEjngUlDVrNwU/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'البيولوجيا',
+    fileUrl: 'https://drive.google.com/file/d/1NVU9K9mpaTgq6lp4BlLoR1BSE7WLYCY4/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'العلوم الانسانية',
+    fileUrl: 'https://drive.google.com/file/d/1QUQa7R5SrbW-Iqa-NEpRUvM_1hWevIV4/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'علم التاريخ',
+    fileUrl: 'https://drive.google.com/file/d/1ay-GocnMx3Zdf_IX4qN9YFrh5Ef0EZks/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'الحتمية واللا حتمية',
+    fileUrl: 'https://drive.google.com/file/d/1wIXO683q7WUtwuxLyaDOeQt2eRWkvVWg/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'قيمة الفرضية',
+    fileUrl: 'https://drive.google.com/file/d/1EGGuc4YvywXBQETjJeBtY-Sdy59MsZFB/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'العنف و التسامح',
+    fileUrl: 'https://drive.google.com/file/d/11BiAJpTnG97Aidd-50ZD8A9P88kcGNZQ/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'العلاقة بين الانا و الغير',
+    fileUrl: 'https://drive.google.com/file/d/1h8JvY5QGxr3VCbgaT2tE28tiLtKO8QNr/preview',
+    type: 'pdf',
+    part: 'p2'
+  }
+
+
+      
+
                                 ]
+              
+                                
                             }
                         ]
                     }
@@ -5409,15 +5813,21 @@ summaries: [
                                 exercises: [
                                     {
                                         title: ' تمارين تطبيقية على تركيب البروتين ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم تركيب البروتين ',
-                                        fileUrl: '#Math_Science_Unit1_Exercises' // Placeholder for Math specialization
+                                        description: ' تمارين تركيب البروتين للاستاذة كتفي',
+                                        fileUrl: 'https://drive.google.com/file/d/1jBRR0tZYOw_g8gd1ZswOcfzOzhddVq1m/preview' // Placeholder for Math specialization
+                                    },
+{
+    title: ' تمارين تطبيقية على تركيب البروتين ',
+description: ' تمارين تركيب البروتين مع الحل للاستاذ بيوض الحاج',
+fileUrl: 'https://drive.google.com/file/d/1U74jCyLp7AzyZRiAkEriWP54eT-rdQMu/preview' // Placeholder for Math specialization
+
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص تركيب البروتين ',
                                         description: ' ملخص شامل لأهم نقاط وحدة تركيب البروتين ',
-                                        fileUrl: '#Math_Science_Unit1_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1gPppKTq53qaYeIYJAPnjkHJtCbXfeUwC/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -5453,16 +5863,16 @@ summaries: [
                                 ],
                                 exercises: [
                                     {
-                                        title: ' تمارين تطبيقية على بنية ووظيفة البروتين ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم بنية ووظيفة البروتين ',
-                                        fileUrl: '#Math_Science_Unit2_Exercises' // Placeholder for Math specialization
+                                        title: ' تمارين تطبيقية على العلاقة بين  بنية ووظيفة البروتين ',
+                                        description: ' مجموعة تمارين لتطبيق مفاهيم العلاقة بين بنية ووظيفة البروتين ',
+                                        fileUrl: 'https://drive.google.com/file/d/1AqTzIM3h7FUuwxEH1td1PAjjTzB7UYzs/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
-                                        title: ' ملخص بنية ووظيفة البروتين ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة بنية ووظيفة البروتين ',
-                                        fileUrl: '#Math_Science_Unit2_Summaries' // Placeholder for Math specialization
+                                        title: ' ملخص وحدة العلاقة بين بنية ووظيفة البروتين ',
+                                        description: ' ملخص شامل لأهم نقاط وحدة العلاقة بين  بنية ووظيفة البروتين ',
+                                        fileUrl: 'https://drive.google.com/file/d/1djYDN4d7tH5lwUEIkwpGFx98uOjbh78o/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -5497,14 +5907,14 @@ summaries: [
                                     {
                                         title: ' تمارين تطبيقية على الإنزيمات ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الإنزيمات ',
-                                        fileUrl: '#Math_Science_Unit3_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1t_rxTzTXYpiMpseo6TmcupXYNYFGXF97/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الإنزيمات ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الإنزيمات ',
-                                        fileUrl: '#Math_Science_Unit3_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1x-ZAbosuF9BU1mxCHeuU8atymgHJMVhn/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -5551,14 +5961,14 @@ summaries: [
                                     {
                                         title: ' تمارين تطبيقية على المناعة ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم المناعة ',
-                                        fileUrl: '#Math_Science_Unit4_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1Rc_QG6HuqfEqmR9F79akg-jmKpeZW3P6/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص المناعة ',
                                         description: ' ملخص شامل لأهم نقاط وحدة المناعة ',
-                                        fileUrl: '#Math_Science_Unit4_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1Q8NagRuYlXqQnk6YXAhc4sJMqJtZpjym/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -5588,14 +5998,14 @@ summaries: [
                                     {
                                         title: ' تمارين تطبيقية على الاتصال العصبي ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم الاتصال العصبي ',
-                                        fileUrl: '#Math_Science_Unit5_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1iQLJ_K6XE9gGY0wPvUOvHI_pu0Y5uUmr/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص الاتصال العصبي ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الاتصال العصبي ',
-                                        fileUrl: '#Math_Science_Unit5_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1lTqO4gwgUWeA9ZwX_yzfuNcdiXw1XQkT/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -5626,14 +6036,14 @@ summaries: [
                                     {
                                         title: ' تمارين تطبيقية على التركيب الضوئي ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم التركيب الضوئي ',
-                                        fileUrl: '#Math_Science_Unit6_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1-WxOfsyAZStt-RYhj8HW3Yrim_ZMq1LP/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص التركيب الضوئي ',
                                         description: ' ملخص شامل لأهم نقاط وحدة التركيب الضوئي ',
-                                        fileUrl: '#Math_Science_Unit6_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1QGxXJ_09Av8lOxEPOKQNRYYObzh_mLNc/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             },
@@ -5653,63 +6063,129 @@ summaries: [
                                     {
                                         title: ' تمارين تطبيقية على التنفس والتخمر ',
                                         description: ' مجموعة تمارين لتطبيق مفاهيم التنفس والتخمر ',
-                                        fileUrl: '#Math_Science_Unit7_Exercises' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1CmEXP-LpGNdOxad5C30qNNy8ZfNJK51y/preview' // Placeholder for Math specialization
                                     }
                                 ],
                                 summaries: [
                                     {
                                         title: ' ملخص التنفس والتخمر ',
                                         description: ' ملخص شامل لأهم نقاط وحدة التنفس والتخمر ',
-                                        fileUrl: '#Math_Science_Unit7_Summaries' // Placeholder for Math specialization
+                                        fileUrl: 'https://drive.google.com/file/d/13TLKrtmGs4a65TP--NgzxCka4NPmRM-I/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             }
                         ]
                     },
  
-                    arabic: {
+           arabic: {
                         title: ' 📝   مادة اللغة العربية ',
                         units: [
                             {
                                 id: 'arabic-1',
-                                title: ' البناء الفكري ',
+                                title: ' كل مايخص اللغة العربية',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على البناء الفكري ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم البناء الفكري ',
-                                        fileUrl: '#Science_Arabic_Unit1_Exercises' // Placeholder for Science specialization
-                                    }
-                                ],
+                                lessons: [
+                                    
+  { title: "الشعر التعليمي", url: "https://youtu.be/ovC9V23oipg?si=sIJlB8JfK8nRmzb3", type: "فيديو" },
+{ title: "الشعر المهجري", url: "https://youtu.be/wAPXwqmXM7M?si=i0Xgn3zpmYmzMuLD", type: "فيديو" },
+{ title: "الشعر السياسي", url: "https://youtu.be/05fnXyoiEco?si=BUWdbzEVK2N1eNY_", type: "فيديو" },
+{ title: "الشعر السياسي الجزء الثاني (الالتزام ومظاهره)", url: "https://youtu.be/j_qER5j9QgY?si=H-a-FyZK_FUkSIsw", type: "فيديو" },
+{ title: "الشعر الاجتماعي", url: "https://youtu.be/j_qER5j9QgY?si=H-a-FyZK_FUkSIsw", type: "فيديو" },
+
+  { title: "النثر العلمي المتادب", url: "https://www.youtube.com/watch?v=_zIogMOeDvs ", type: "فيديو", part:"p2" },
+
+  {
+    title: " اعراب المفردات",
+    url: "https://www.youtube.com/watch?v=1aSU85i8HiY",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "الخبر وأنواعه | شرح وإعراب",
+    url: "https://youtu.be/Bl4dfE8U0qQ?si=7rFJgECiSwIf-a7k",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "البدل - الحال - التمييز )",
+    url: "https://youtu.be/1OiUFhR5JBk?si=236TRYRObgo7n2n6",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "معاني وإعراب لو لو لولا )",
+    url: "https://www.youtube.com/watch?v=v6cEL30Bz30",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "الجمل التي لها محل من الإعراب ",
+    url: "https://www.youtube.com/watch?v=w73TduU_WkU",
+    type: "فيديو",
+    part: "p3"
+  },
+  {
+    title: "الجمل التي لا محل لها من الإعراب",
+    url: "https://www.youtube.com/watch?v=7COy6oZgE7c",
+    type: "فيديو",
+    part: "p3"
+  },
+
+  {
+    title: "المجاز المرسل بطريقة مميزة",
+    url: "https://youtu.be/73w1aGCU0y8?si=Ih-kn_VJUuXhMImL",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: "التشبيه (أركانه وأنواعه وأثره في المعنى)",
+    url: "https://youtu.be/ALPFF9WZmrg?si=75p_TB4MWOc0kQ3M",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: "  الاستعارة ",
+    url: "https://youtu.be/FZynsBemlI0?si=AjT4QKnIN-9jEnqo",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: " الكناية - (ركز مع الاستاذ وليس قبعته )",
+    url: "https://youtu.be/lhLp_XmERmI?si=q-YeP50jvysPEWFn",
+    type: "فيديو",
+    part: "p4"
+  },
+    {
+    title: "الأسلوب الإنشائي والخبري",
+    url: "https://youtu.be/_tjnDIoXCUs?si=nbkKpJQlk9uFJRfd",
+    type: "فيديو",
+    part: "p4"
+  },
+  {
+    title: "المحسنات البديعية",
+    url: "https://youtu.be/TWA5ADaDD6M?si=p-3Ws8IEXhgPwkuC",
+    type: "فيديو",
+    part: "p4"
+  }
+
+
+
+],
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص البناء الفكري ',
                                         description: ' ملخص شامل لأهم نقاط وحدة البناء الفكري ',
-                                        fileUrl: '#Science_Arabic_Unit1_Summaries' // Placeholder for Science specialization
-                                    }
-                                ]
-                            },
-                            {
-                                id: 'arabic-2',
-                                title: ' البناء اللغوي ',
-                                completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على البناء اللغوي ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم البناء اللغوي ',
-                                        fileUrl: '#Science_Arabic_Unit2_Exercises' // Placeholder for Science specialization
-                                    }
-                                ],
-                                summaries: [
-                                    {
+                                        fileUrl: 'https://drive.google.com/file/d/1ncJAdG3Ingsy9vn47srovplq9z7ICAQ5/preview' // Placeholder for Math specialization
+                                    },
+                                     {
                                         title: ' ملخص البناء اللغوي ',
                                         description: ' ملخص شامل لأهم نقاط وحدة البناء اللغوي ',
-                                        fileUrl: '#Science_Arabic_Unit2_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/12wRp0wGK4MyQy5sLBO_XTVaHS_R-xHt6/preview' // Placeholder for Math specialization
                                     }
+                                
                                 ]
-                            }
+                            },
                         ]
                     },
                     french: {
@@ -5719,19 +6195,19 @@ summaries: [
                                 id: 'french-1',
                                 title: ' كل ما يخص الفرنسية ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على اللغة الفرنسية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم اللغة الفرنسية ',
-                                        fileUrl: '#Science_French_Unit1_Exercises' // Placeholder for Science specialization
-                                    }
+                                lessons: [
+                                    { title: "(le texte d'Histoire) أضخم مراجعة ليلة الرعد 🫵🏻🔥 للوحدة 01 l مهما كان مستواك", url: "https://www.youtube.com/watch?v=pJHmk2AJWak", type: "فيديو" },
+{ title: "أضخم مراجعة ليلة الرعد 🫵🏻🔥  للوحدة 1 (le texte d'Histoire) / مهما كان مستواك (الجزء2", url: "https://www.youtube.com/watch?v=tMbFhlNReoA", type: "فيديو" },
+{ title: "مراجعة الفصل الثاني في الدقيقة 90  (le débat d'idée) / مهما كان مستواك", url: "https://www.youtube.com/watch?v=skr6-UvdMGI", type: "فيديو" },
+{ title: "المراجعة النهائية للنداء في الدقيقة 99 قبل البكالوريا / l'appel مهما كان مستواك", url: "https://www.youtube.com/watch?v=yKCbNEfIN5A", type: "فيديو" }
                                 ],
+                                
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص اللغة الفرنسية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة اللغة الفرنسية ',
-                                        fileUrl: '#Science_French_Unit1_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1Wa6o9wmpf6EUBnPpIcWdKfUj0nyGpkjh/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             }
@@ -5744,19 +6220,31 @@ summaries: [
                                 id: 'english-1',
                                 title: ' كل ما يخص الإنجليزية ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على اللغة الإنجليزية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم اللغة الإنجليزية ',
-                                        fileUrl: '#Science_English_Unit1_Exercises' // Placeholder for Science specialization
-                                    }
+                                lessons: [
+                                    { title: "لا تبدأ دروس البكالوريا قبل معرفة هذه الأساسيات في الانجليزية", url: "https://www.youtube.com/watch?v=gAg6HSHC3Pc", type: "فيديو" },
+{ title: "الدرس 1: كيف تعبر عن Criticism باستخدام It's High Time", url: "https://www.youtube.com/watch?v=dmpCamcHY84", type: "فيديو" },
+{ title: "الدرس 2: كيف تعبر عن Advice باستخدام Should /Had better /Ought to - بكالوريا", url: "https://www.youtube.com/watch?v=dD_x4u8Qg1I", type: "فيديو" },
+{ title: "الدرس 3: التعبير عن التمني باستخدام Wish في جميع اشكاله مع الاستاذ عبدالمؤمن - وداعا للخوف من Wish", url: "https://www.youtube.com/watch?v=rklx5XVp8xE", type: "فيديو" },
+{ title: "الدرس 4: شرح تقسيم الكلمات في جدول Prefix - Root - Suffix بسهولة + تطبيق شامل", url: "https://www.youtube.com/watch?v=90obPOMhTTQ", type: "فيديو" },
+{ title: "الدرس 5: Pronunciation of final -ed - تعلم طرق النطق المختلفة لـ -ed", url: "https://www.youtube.com/watch?v=DXmBznLwNvU", type: "فيديو" },
+{ title: "الدرس 6: Pronunciation of final S - تعلم طرق النطق المختلفة لـ S في كلمات الجمع", url: "https://www.youtube.com/watch?v=oHGtfhnRyGo", type: "فيديو" },
+{ title: "الدرس 7: المقاطع الصوتية Syllables شرح جميع حالات تقسيم الكلمات الى مقاطع صوتية مع التطبيق", url: "https://www.youtube.com/watch?v=t22UNZ5DV5U", type: "فيديو" },
+{ title: "المراجعة النهائية - اضخم مراجعة في الانجليزية بكالوريا جميع الشعب رقم 3 - البناء الفكري", url: "https://www.youtube.com/watch?v=QaSmwp33xjw", type: "فيديو" },
+{ title: "الدرس 8: شرح جميع قواعد Passive Voice - كيفية تحويل الجمل من المبني للمعلوم إلى المبني للمجهول بذكاء", url: "https://www.youtube.com/watch?v=rh6cje0tJ5o", type: "فيديو" },
+{ title: "الدرس 9: المقاطع المشددة Stressed Syllables - أسهل طريقة لتحديد الشدة في الإنجليزية", url: "https://www.youtube.com/watch?v=pr13aSYLIUc", type: "فيديو" },
+{ title: "Reported speech - قواعد اللغة الانجليزية للبكالوريا", url: "https://www.youtube.com/watch?v=og3JcmlBQGg", type: "فيديو" },
+{ title: "Reported speech - قواعد اللغة الانجليزية للبكالوريا", url: "https://www.youtube.com/watch?v=VgSOgFZGHq8", type: "فيديو" },
+{ title: "الدرس 11: الخطاب المنقول Reported Speech أهم الأساسيات التي يجب أن تتعلمها لإتقان هذا الدرس", url: "https://www.youtube.com/watch?v=K6l-9HxeZ20", type: "فيديو" },
+{ title: "افضل مقدمة وخاتمة ستوندار لكل وحدات الانجليزية - بكالوريا جميع الشعب", url: "https://www.youtube.com/watch?v=kXnLZqjMOaI", type: "فيديو" },
+{ title: "جميع الدروس المهمة في اللغة الانجليزية بكالوريا 2025 جميع الشعب", url: "https://www.youtube.com/watch?v=56P6Skp07n4", type: "فيديو" },
+{ title: "الدرس 11: Reported Speech تحويل الخطاب من المباشر للغير مباشر الجزء1 Reported Statements", url: "https://www.youtube.com/watch?v=YNzU9j9nPXk", type: "فيديو" }
                                 ],
+                                
                                 summaries: [
                                     {
                                         title: ' ملخص اللغة الإنجليزية ',
                                         description: ' ملخص شامل لأهم نقاط وحدة اللغة الإنجليزية ',
-                                        fileUrl: '#Science_English_Unit1_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/13A5JyCbyZR-H24Zi6EH0SqOWjGfWBQvU/preview' // Placeholder for Math specialization
                                     }
                                 ]
                             }
@@ -5769,21 +6257,68 @@ summaries: [
                                 id: 'islamic-1',
                                 title: ' كل ما يخص التربية الإسلامية ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على التربية الإسلامية ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم التربية الإسلامية ',
-                                        fileUrl: '#Science_Islamic_Unit1_Exercises' // Placeholder for Science specialization
-                                    }
-                                ],
+                                lessons: [
+  { "title": "الدرس 1:  العقيدة الإسلامية وأثرها على الفرد والمجتمع", "url": "https://www.youtube.com/watch?v=0uCIXFdqq2Y&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=1&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس2:وسائل القرآن الكريم في تثبيت العقيدة الإسلامية", "url": "https://www.youtube.com/watch?v=yqcvXOXuS68&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=2&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس3:الإسلام والرسالات السماوية", "url": "https://www.youtube.com/watch?v=dnIWslER0ug&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=3&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس4:الإسلام والسلام", "url": "https://www.youtube.com/watch?v=xjR8Paiz5XY&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=4&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس5:الإسلام دين الوسطية", "url": "https://www.youtube.com/watch?v=FtrwhpN8nn8&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=5&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس6:الإسلام والحرية", "url": "https://www.youtube.com/watch?v=UfsDxTSXsnE&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=6&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس7:التكافل الإجتماعي", "url": "https://www.youtube.com/watch?v=4Ctt7plUDhY&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=7&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس8:العمل والإنتاج", "url": "https://www.youtube.com/watch?v=lhLQKfgWcuA&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=8&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس9:الإسلام والفنون", "url": "https://www.youtube.com/watch?v=0e8mVRyOvMI&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=9&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس10:من القيم في القرآن الكريم", "url": "https://www.youtube.com/watch?v=CBRuxrPV2U8&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=10&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس11:من القيم في السنة النبوية", "url": "https://www.youtube.com/watch?v=NgvOjYI6n5c&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=11&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس12:القيم في الفقه الإسلامي", "url": "https://www.youtube.com/watch?v=paaw6h2HKQQ&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=12&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس13:من أخلاق الرسول صلى الله عليه وسلم", "url": "https://www.youtube.com/watch?v=aUBXjsAfGso&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=13&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس14:القدوة الصالحة", "url": "https://www.youtube.com/watch?v=yRANmn00q0s&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=14&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس15:المذاهب الفقهية", "url": "https://www.youtube.com/watch?v=xsZpPWqXYSo&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=15&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس16:الاجتهاد والتجديد", "url": "https://www.youtube.com/watch?v=dpA3A2kMi6U&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=16&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس17:الإسلام والعلوم", "url": "https://www.youtube.com/watch?v=q4XtU6VZSm8&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=17&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس18:الإسلام والبيئة", "url": "https://www.youtube.com/watch?v=5iRfc14dG8Y&list=PLEuKuLdGRSv5-x8LuHD2Uv9NrXSiQ07jg&index=18&pp=iAQB", "type": "فيديو" },
+  { title: "حساب النهايات", url: "https://www.youtube.com/watch?v=BIV1_Mm-eZI&list=PLDx_F4dKxvNKCL8PXWGMdMEPs7kXOXZff&index=2&pp=iAQB", type: "فيديو", part: "p2" },
+
+],
+                               exercise:[
+{ title: "تمارين درس العقيدة الاسلامية و أثرها على الفرد والمجتمع بكالوريا 2024", url: "https://www.youtube.com/watch?v=GmtiqP1v9Hc", type: "فيديو" },
+{ title: "تمارين الوحدة(2): درس وسائل القرآن الكريم في تثبيت العقيدة الاسلامية بكالوريا 2024", url: "https://www.youtube.com/watch?v=qs6bUTZQWYM", type: "فيديو" },
+{ title: "تمارين الوحدة(3): درس الإسلام و الرسالات السماوية بكالوريا 2024", url: "https://www.youtube.com/watch?v=5CCTnolizyw", type: "فيديو" },
+{ title: "تمارين الوحدة(4): درس العقل في القرآن الكريم بكالوريا 2024", url: "https://www.youtube.com/watch?v=ux5bLiRDQ5M", type: "فيديو" },
+{ title: "تمارين الوحدة(5): درس مقاصد الشريعة الاسلامية بكالوريا 2024", url: "https://www.youtube.com/watch?v=P251Zx-EKUI", type: "فيديو" },
+{ title: "تمارين الوحدة(6): منهج الإسلام في محاربة الانحراف والجريمة بكالوريا 2024", url: "https://www.youtube.com/watch?v=aooxK9DCLtc", type: "فيديو" },
+{ title: "تمارين الوحدة(7): المساواة أمام أحكام الشريعة الإسلامية في العقوبات بكالوريا 2024", url: "https://www.youtube.com/watch?v=gMKOntMRauU", type: "فيديو" },
+{ title: "تمارين الوحدة(8): الصحة النفسية والجسمية في القرآن الكريم بكالوريا 2024", url: "https://www.youtube.com/watch?v=DflGkIPWW7A", type: "فيديو" },
+{ title: "تمارين الوحدة(9): من مصادر التشريع الاسلامي (الإجماع – القياس – المصالح المرسلة) بكالوريا 2024", url: "https://www.youtube.com/watch?v=7013stg9hf0", type: "فيديو" },
+{ title: "تمارين الوحدة(10): القيم في القرآن الكريم بكالوريا 2024", url: "https://www.youtube.com/watch?v=oh4Ju8QMOdI", type: "فيديو" },
+{ title: "تمارين الوحدة(12): مدخل الى علم الميراث بكالوريا 2024", url: "https://www.youtube.com/watch?v=eUggumrZ9gU", type: "فيديو" },
+{ title: "تمارين الوحدة(13): الربا وأحكامه بكالوريا 2024", url: "https://www.youtube.com/watch?v=sCSH2gF8fss", type: "فيديو" },
+{ title: "تمارين الوحدة(14): من المعاملات المالية الجائزة (الصرف -التقسيط - المرابحة) بكالوريا 2024", url: "https://www.youtube.com/watch?v=VFSMwZZqOIQ", type: "فيديو" },
+{ title: "تمارين الوحدة(15): الحرية الشخصية ومدي ارتباطها بحقوق الأخرين بكالوريا 2024", url: "https://www.youtube.com/watch?v=BXo29uJWeiI", type: "فيديو" },
+{ title: "تمارين الوحدة(16): من أحكام الأسرة في الإسلام (النسب – التبني – الكفالة) بكالوريا 2024", url: "https://www.youtube.com/watch?v=nFt-aBR-yrg", type: "فيديو" },
+{ title: "تمارين الوحدة(17): العلاقات الاجتماعية بين المسلمين وغيرهم بكالوريا 2024", url: "https://www.youtube.com/watch?v=9Rwdqlxmpbs", type: "فيديو" },
+{ title: "تمارين الوحدة(18): خطبة الرسول صلى الله عليه وسلم في حجة الوداع بكالوريا 2024", url: "https://www.youtube.com/watch?v=UIscCFShqqA", type: "فيديو" }
+                               ],
                                 summaries: [
-                                    {
-                                        title: ' ملخص التربية الإسلامية ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة التربية الإسلامية ',
-                                        fileUrl: '#Science_Islamic_Unit1_Summaries' // Placeholder for Science specialization
-                                    }
-                                ]
+  { title: "الدرس 01", description: "ملخص شامل لأهم نقاط الدرس 01", fileUrl: "https://drive.google.com/file/d/1z_o_jgiUsk-kkFdiaO3jJK7oYEcD3w5F/preview" },
+  { title: "الدرس 03 الجزء 01", description: "ملخص شامل لأهم نقاط الدرس 03 الجزء 01", fileUrl: "https://drive.google.com/file/d/1dwjROQKVi6wmR3H6oDiSp1Y5D9YBiCBN/preview" },
+  { title: "الدرس 03 الجزء 02", description: "ملخص شامل لأهم نقاط الدرس 03 الجزء 02", fileUrl: "https://drive.google.com/file/d/1CzxijvO2fLcGSSPsUJSUA5DIKIoC4WEG/preview" },
+  { title: "الدرس 03 الجزء 03", description: "ملخص شامل لأهم نقاط الدرس 03 الجزء 03", fileUrl: "https://drive.google.com/file/d/1V9TQngbJ_E54004zqpsdz6fXmp9-1nEi/preview" },
+  { title: "الدرس 04", description: "ملخص شامل لأهم نقاط الدرس 04", fileUrl: "https://drive.google.com/file/d/1Nlg7nP5QT81cjd-NsHRvVb78FSUamSe-/preview" },
+  { title: "الدرس 05", description: "ملخص شامل لأهم نقاط الدرس 05", fileUrl: "https://drive.google.com/file/d/1gTofeihL1ZqSs7PXe22cr6o7qYz80EjN/preview" },
+  { title: "الدرس 06", description: "ملخص شامل لأهم نقاط الدرس 06", fileUrl: "https://drive.google.com/file/d/1PcEflC5V2rK3mgk-B9kC41ZcUZFOQlZD/preview" },
+  { title: "الدرس 07", description: "ملخص شامل لأهم نقاط الدرس 07", fileUrl: "https://drive.google.com/file/d/1fku3Dut5QPUIp3D0uZKeCYXauAKaf6WN/preview" },
+  { title: "الدرس 08", description: "ملخص شامل لأهم نقاط الدرس 08", fileUrl: "https://drive.google.com/file/d/1JSTl0DXvboKZLLX2PghO7C3tH2GweONP/preview" },
+  { title: "الدرس 09", description: "ملخص شامل لأهم نقاط الدرس 09", fileUrl: "https://drive.google.com/file/d/1vCxqWdvr6n80gXv-2ghyrkX6cKBN0-9J/preview" },
+  { title: "الدرس 10", description: "ملخص شامل لأهم نقاط الدرس 10", fileUrl: "https://drive.google.com/file/d/1NDo5M6pqQORE8NY-g1F9pWcC1srf9rrh/preview" },
+  { title: "الدرس 11", description: "ملخص شامل لأهم نقاط الدرس 11", fileUrl: "https://drive.google.com/file/d/1La95TKlBZau2x2qxiJg94PkOIdTQquyN/preview" },
+  { title: "الدرس 12", description: "ملخص شامل لأهم نقاط الدرس 12", fileUrl: "https://drive.google.com/file/d/1lgOt0exJfrWteB20h6n1R8UBhfnOmZlo/preview" },
+  { title: "الدرس 13", description: "ملخص شامل لأهم نقاط الدرس 13", fileUrl: "https://drive.google.com/file/d/1is-33Fa-F9PNjd8Yejejr6W_h-wq7zMu/preview" },
+  { title: "الدرس 14", description: "ملخص شامل لأهم نقاط الدرس 14", fileUrl: "https://drive.google.com/file/d/1Osnl32OcqoLa3QehvJroEGaBh2Y6dpHV/preview" },
+  { title: "الدرس 15", description: "ملخص شامل لأهم نقاط الدرس 15", fileUrl: "https://drive.google.com/file/d/17X4hWWa5bQFDGdSQ6SLsCCh3nuZy_Tq0/preview" }
+]
+
+
+                                
                             }
                         ]
                     },
@@ -5792,72 +6327,236 @@ summaries: [
                         units: [
                             {
                                 id: 'history-1',
-                                title: ' دروس التاريخ ',
+                                title:'كل مايتعلق بالتاريخ و الجغرافيا ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على التاريخ ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم التاريخ ',
-                                        fileUrl: '#Science_History_Unit1_Exercises' // Placeholder for Science specialization
-                                    }
-                                ],
+                                lessons: [
+  { "title": "الدرس الأول تاريخ : بروز الصراع وتشكل العالم ( الحرب الباردة ) بكالوريا 2025 جميع الشعب", "url": "https://www.youtube.com/watch?v=xLNEKURH6h8&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=8&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الأول تاريخ : بروز الصراع وتشكل العالم ( الحرب الباردة ) بكالوريا 2025 جميع الشعب( الجزء2)", "url": "https://www.youtube.com/watch?v=A6O7KEpVbfs&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=7&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الثاني : التعايش السلمي (حركة عدم الانحياز ) بكالوريا 2025 جميع الشعب", "url": "https://www.youtube.com/watch?v=raE5rpA2QOI&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=5&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الثاني : التعايش السلمي (حركة عدم الانحياز ) بكالوريا 2025 جميع الشعب ( الجزء 2 )", "url": "https://www.youtube.com/watch?v=EOqHKnJzCmU&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=4&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الثالث : الأزمات الدولية في ظل الصراع بين المعسكرين", "url": "https://www.youtube.com/watch?v=SCysvZznh-Q&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=3&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الرابع : مساعي الانفراج الدولي", "url": "https://www.youtube.com/watch?v=chZAk-Qx_9Y&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=2&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الخامس : انهيار المعسكر الشيوعي وانعكاساته على العالم", "url": "https://www.youtube.com/watch?v=da34cmcyqXw&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=1&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس السادس : بروز العالم الثالث", "url": "https://www.youtube.com/watch?v=kaOQESYF3lM&list=PLvoDc8642ygCLUDiifCQLu1prOAHh910T&index=6&pp=iAQB", "type": "فيديو" },
+  { "title": "الدرس الأول جغرافيا: اشكالية التقدم والتخلف بكالوريا 2025 (جميع الشعب)", "url": "https://www.youtube.com/watch?v=sDgHKjs7eJ4&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=6&pp=iAQB", "type": "فيديو" ,part:"p2" },
+  { "title": "الدرس الأول جغرافيا: اشكالية التقدم والتخلف بكالوريا 2025 (جميع الشعب) الجزء 2", "url": "https://www.youtube.com/watch?v=x4JY5-C8CS0&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=5&pp=iAQB", "type": "فيديو",part:"p2" },
+  { "title": "درس المبادلات والتنقلات الجغرافيا بكالوريا 2025 جميع الشعب", "url": "https://www.youtube.com/watch?v=lY_jiivM2iY&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=4&pp=iAQB", "type": "فيديو" ,part:"p2"},
+  { "title": "الدرس الثاني جغرافيا: المبادلات والتنقلات الجزء 2", "url": "https://www.youtube.com/watch?v=YXyH8FSJj0E&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=3&pp=iAQB", "type": "فيديو",part:"p2" },
+  { "title": "الدرس الثالث جغرافيا: اقتصاد المعرفة", "url": "https://www.youtube.com/watch?v=4mC-yl1qT0A&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=2&pp=iAQB", "type": "فيديو",part:"p2" },
+  { title: "الدرس الرابع جغرافيا: التحولات الاقتصادية في العالم", url: "https://www.youtube.com/watch?v=htbtGxQm3Ks&list=PLvoDc8642ygBRB9_0lKeEKPEnncRsTMxV&index=1&pp=iAQB", type: "فيديو",part:"p2" }
+
+],
+                                
+                            
                                 summaries: [
+                                    {
+                                        title: ' مصطلحات و شخصيات تاريخ ',
+                                        description: 'مصطلحات و شخصيات تاريخ',
+                                        fileUrl: 'https://drive.google.com/file/d/1wWLnl1tz5c0puD3WKg71Os23-yojhymV/preview' // Placeholder for Math specialization
+                                    },
                                     {
                                         title: ' ملخص التاريخ ',
                                         description: ' ملخص شامل لأهم نقاط وحدة التاريخ ',
-                                        fileUrl: '#Science_History_Unit1_Summaries' // Placeholder for Science specialization
-                                    }
-                                ]
-                            },
-                            {
-                                id: 'history-2',
-                                title: ' دروس الجغرافيا ',
-                                completed: false,
-                                lessons: [],
-                                exercises: [
+                                        fileUrl: 'https://drive.google.com/file/d/1EEln7KCxnsvnn_PTojSvdwN-c0Xn-BH9/preview' // Placeholder for Math specialization
+                                    },
+                                    
                                     {
-                                        title: ' تمارين تطبيقية على الجغرافيا ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم الجغرافيا ',
-                                        fileUrl: '#Science_History_Unit2_Exercises' // Placeholder for Science specialization
-                                    }
-                                ],
-                                summaries: [
+                                        title: ' مصطلحات جغرافيا ',
+                                        description: ' مصطلحات جغرافيا',
+                                        fileUrl: 'https://drive.google.com/file/d/1EjDiFP7uEISV_ux1puJ5V9U5wxUOrRQK/preview' // Placeholder for Math specialization
+                                    },
                                     {
                                         title: ' ملخص الجغرافيا ',
                                         description: ' ملخص شامل لأهم نقاط وحدة الجغرافيا ',
-                                        fileUrl: '#Science_History_Unit2_Summaries' // Placeholder for Science specialization
+                                        fileUrl: 'https://drive.google.com/file/d/1aLaQ932FI1cec9Buv4FJlaSLxUFgcfvx/preview' // Placeholder for Math specialization
                                     }
                                 ]
-                            }
+                                
+                                
+                            },
                         ]
                     },
                     philosophy: {
                         title: ' 💡   مادة الفلسفة ',
                         units: [
                             {
-                                id: 'philosophy-1',
+                                id: 'geohistory',
                                 title: ' كل ما يخص الفلسفة ',
                                 completed: false,
-                                lessons: [],
-                                exercises: [
-                                    {
-                                        title: ' تمارين تطبيقية على الفلسفة ',
-                                        description: ' مجموعة تمارين لتطبيق مفاهيم الفلسفة ',
-                                        fileUrl: '#Science_Philosophy_Unit1_Exercises' // Placeholder for Science specialization
-                                    }
+                                lessons: [
+  {
+    "title": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا",
+    "fileUrl": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا",
+    "fileUrl": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "منهجية 3| طريقة الاستقصاء بالوضع | جميع الشعب",
+    "fileUrl": "منهجية 3| طريقة الاستقصاء بالوضع | جميع الشعب",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "منهجية 4| طريقة تحليل نص | جميع الشعب",
+    "fileUrl": "2023-11-28 00:00:00",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "اصل المفاهيم الرياضية | الشعب العلمية والتقنية والتسيير والرياضيات واللغات",
+    "fileUrl": "اصل المفاهيم الرياضية | الشعب العلمية والتقنية والتسيير والرياضيات واللغات",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "مقال نتائج الرياضيات (اليقين الرياضي)",
+    "fileUrl": "مقال نتائج الرياضيات (اليقين الرياضي) موجه لكل الشعب",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "🧠 مقال المقارنة بين الرياضيات الكلاسيكية والمعاصرة",
+    "fileUrl": "🧠 مقال المقارنة بين الرياضيات الكلاسيكية والمعاصرة في 10 دقائق BAC 2025 - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "مقال الحتمية واللاحتمية تسمى أيضا بنتائج العلم موجه لكل الشعب",
+    "fileUrl": "مقال الحتمية واللاحتمية تسمى أيضا بنتائج العلم موجه لكل الشعب - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا",
+    "fileUrl": "شرح طريقة الجدلية بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا",
+    "fileUrl": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوربا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    "title": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا",
+    "fileUrl": "شرح طريقة المقارنة بالتفصيل. مع الأستاذ خليل سعيداني. بكالوريا - YouTube",
+    "type": "فيديو",
+    "part": "p1"
+  },
+  {
+    title: 'المنهجيات',
+    fileUrl: 'https://drive.google.com/file/d/1nGLrQ4DrfrIQLzGZ2caz-gzFGVZON6tj/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة المقارنة بين العلم والفلسفة',
+    fileUrl: 'https://drive.google.com/file/d/1nrNnXvO1I_758EUtTRPhZIy50whO1io7/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة اهمية الفلسفة',
+    fileUrl: 'https://drive.google.com/file/d/1BAb1EUlgwXfQeYvBR_EFQR2JGniqJ-89/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'قيمة الفلسفة',
+    fileUrl: 'https://drive.google.com/file/d/1FjWu-BnPI3Xanj03P_X6nbwZmjFGfKlb/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة اصل الرياضيات',
+    fileUrl: 'https://drive.google.com/file/d/1nGLrQ4DrfrIQLzGZ2caz-gzFGVZON6tj/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة اليقين الياضي',
+    fileUrl: 'https://drive.google.com/file/d/1OZe2ZZD2SWyjUXeluewhR7qq9Nf4anAn/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة نتائج الرياضيات',
+    fileUrl: 'https://drive.google.com/file/d/1_4TKwluFrKrcJ9N3AIGmjIB0Rh9j0i8d/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'مقالة علم النفس',
+    fileUrl: 'https://drive.google.com/file/d/13KaXfLy6YJ81Xq7hW-DCHdd_sqSfJkRR/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'التجربة معيار العلم',
+    fileUrl: 'https://drive.google.com/file/d/1lW9cQ8irQBeOZ8y4EwzeEjngUlDVrNwU/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'البيولوجيا',
+    fileUrl: 'https://drive.google.com/file/d/1NVU9K9mpaTgq6lp4BlLoR1BSE7WLYCY4/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'العلوم الانسانية',
+    fileUrl: 'https://drive.google.com/file/d/1QUQa7R5SrbW-Iqa-NEpRUvM_1hWevIV4/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'علم التاريخ',
+    fileUrl: 'https://drive.google.com/file/d/1ay-GocnMx3Zdf_IX4qN9YFrh5Ef0EZks/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'الحتمية واللا حتمية',
+    fileUrl: 'https://drive.google.com/file/d/1wIXO683q7WUtwuxLyaDOeQt2eRWkvVWg/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'قيمة الفرضية',
+    fileUrl: 'https://drive.google.com/file/d/1EGGuc4YvywXBQETjJeBtY-Sdy59MsZFB/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'العنف و التسامح',
+    fileUrl: 'https://drive.google.com/file/d/11BiAJpTnG97Aidd-50ZD8A9P88kcGNZQ/preview',
+    type: 'pdf',
+    part: 'p2'
+  },
+  {
+    title: 'العلاقة بين الانا و الغير',
+    fileUrl: 'https://drive.google.com/file/d/1h8JvY5QGxr3VCbgaT2tE28tiLtKO8QNr/preview',
+    type: 'pdf',
+    part: 'p2'
+  }
+
+
+
+                                    
                                 ],
-                                summaries: [
-                                    {
-                                        title: ' ملخص الفلسفة ',
-                                        description: ' ملخص شامل لأهم نقاط وحدة الفلسفة ',
-                                        fileUrl: '#Science_Philosophy_Unit1_Summaries' // Placeholder for Science specialization
-                                    }
-                                ]
+              
+                                
                             }
                         ]
                     }
-                }
+                },
             },
              daily: {
             title: '📿 وردك اليومي',
@@ -5894,6 +6593,7 @@ summaries: [
         };
 
         // 2. Helper to get the correct subject data based on specialization
+        
         function getSpecializedSubjectsData() {
             const userBranch = localStorage.getItem('userBranch');
             if (userBranch && specializationData[userBranch]) {
@@ -6044,7 +6744,7 @@ function showSubjectDetail(subjectKey, options = {}) {
         const lessonsSection = document.createElement('div');
         lessonsSection.innerHTML = '<h5><i class="bi bi-book"></i>  الدروس </h5>';
 
-        const segmentedSubjects = new Set(['math','physics','science']);
+        const segmentedSubjects = new Set(['math','physics','science','islamic','history','philosophy','arabic']);
         const defaultLessonBuckets = {
           math: [
             { id: 'p1', title: 'الاستاذ عبد الباسط' },
@@ -6060,9 +6760,90 @@ function showSubjectDetail(subjectKey, options = {}) {
             { id: 'p1', title: 'الاستاذة كتفي شريف زينة ' },
             { id: 'p2', title:  'الاستاذ ياسين'},
             { id: 'p3', title: 'الاستاذ القدير ايوب' }
+          ],
+          islamic: [
+            { id: 'p1', title:'الدروس' },
+            { id: 'p2', title:  'pdf'},
+          ],
+          history:[
+            { id: 'p1', title:'التاريخ' },
+            { id: 'p2', title:  'الجغرافيا'},
+          ],
+          philosophy:[
+            { id: 'p1', title:'شرح المقالات' },
+            { id: 'p2', title:  'pdf'},
+          ],
+          arabic:[
+            { id: 'p1', title:'الشعر' },
+            { id: 'p2', title:'النثر' },
+            { id: 'p3', title:'القواعد'},
+            { id: 'p4', title:'البلاغة و البيان'},
           ]
         };
 
+        // -------------------------
+        // دالة مساعدة لإنشاء روابط الدرس (تم تعديلها لتدعم Google Drive + fileUrl)
+        // -------------------------
+        function createLessonLink(lesson) {
+            const a = document.createElement('a');
+            a.className = 'lesson-link';
+
+            // fallback: lesson.url أو lesson.fileUrl (إذا المستخدم أضاف الملف في fileUrl)
+            const rawHref = lesson.url || lesson.fileUrl || '#';
+            a.href = rawHref;
+
+            const isYoutube = /youtu(be\.com|\.be)/i.test(rawHref);
+            // اعتبر روابط Drive/Docs أيضاً كـ PDF (لكي نفتحها داخل العارض بعد تحويلها)
+            const isPdf = (lesson.type && typeof lesson.type === 'string' && lesson.type.toLowerCase().includes('pdf')) ||
+                          /\.pdf$/i.test(rawHref) ||
+                          (rawHref && (rawHref.includes('/pdfs/') || rawHref.includes('drive.google.com') || rawHref.includes('docs.google.com') || rawHref.includes('drive.googleusercontent.com')));
+            const isVideoType = (lesson.type && lesson.type.includes && lesson.type.includes('فيديو')) || isYoutube;
+
+            const iconClass = isVideoType ? 'bi-play-circle' : 'bi-file-text';
+            a.innerHTML = `<i class="bi ${iconClass}"></i> ${lesson.title}`;
+
+            if (isPdf) {
+                a.href = '#';
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const src = lesson.url || lesson.fileUrl;
+                    if (src && !src.startsWith('#')) {
+                        // لو كان رابط Google Drive أو Docs، نُحوّله أولاً إلى رابط قابل للعرض داخل iframe
+                        if (src.includes('drive.google.com') || src.includes('docs.google.com') || src.includes('drive.googleusercontent.com')) {
+                            try {
+                                openPdf(convertDriveToEmbed(src));
+                            } catch (err) {
+                                // تحمّل الخطأ وجرّب فتح الأصل (fallback)
+                                console.warn('convertDriveToEmbed failed, opening original URL', err);
+                                openPdf(src);
+                            }
+                        } else {
+                            openPdf(src);
+                        }
+                    } else {
+                        showNotification('الملف غير متوفر حالياً', 'warning');
+                    }
+                });
+            } else if (isYoutube || isVideoType) {
+                a.href = '#';
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openVideo(rawHref);
+                    try {
+                        const vid = extractYouTubeID(rawHref);
+                        markVideoWatched(vid, a);
+                    } catch (err) {}
+                });
+            } else {
+                // روابط خارجية عادية تفتح في تبويب جديد
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+            }
+
+            return a;
+        }
+
+        // ----- استخدام createLessonLink في كلا الحالتين (مقسمة / عادية) -----
         if (segmentedSubjects.has(subjectKey)) {
             // 🟢 تقسيم دروس حسب الأساتذة
             const buckets = defaultLessonBuckets[subjectKey];
@@ -6089,14 +6870,7 @@ function showSubjectDetail(subjectKey, options = {}) {
                     return;
                 }
                 arr.forEach(lesson => {
-                    const lessonLink = document.createElement('a');
-                    lessonLink.href = lesson.url;
-                    lessonLink.target = '_blank';
-                    lessonLink.className = 'lesson-link';
-                    lessonLink.innerHTML = `
-                        <i class="bi ${lesson.type === ' فيديو ' ? 'bi-play-circle' : 'bi-file-text'}"></i>
-                        ${lesson.title}
-                    `;
+                    const lessonLink = createLessonLink(lesson);
                     lessonsContainer.appendChild(lessonLink);
                 });
             }
@@ -6121,14 +6895,7 @@ function showSubjectDetail(subjectKey, options = {}) {
             // العرض العادي لباقي المواد + daily
             if (unit.lessons && unit.lessons.length > 0) {
                 unit.lessons.forEach(lesson => {
-                    const lessonLink = document.createElement('a');
-                    lessonLink.href = lesson.url;
-                    lessonLink.target = '_blank';
-                    lessonLink.className = 'lesson-link';
-                    lessonLink.innerHTML = `
-                        <i class="bi ${lesson.type === ' فيديو ' ? 'bi-play-circle' : 'bi-file-text'}"></i>
-                        ${lesson.title}
-                    `;
+                    const lessonLink = createLessonLink(lesson);
                     lessonsSection.appendChild(lessonLink);
                 });
             } else {
@@ -6140,64 +6907,65 @@ function showSubjectDetail(subjectKey, options = {}) {
         // ----- Exercises -----
         const exercisesSection = document.createElement('div');
         exercisesSection.innerHTML = '<h5><i class="bi bi-pencil-square"></i>  التمارين </h5>';
+        // ==== Exercises: only add if exist ====
         if (unit.exercises && unit.exercises.length > 0) {
-            unit.exercises.forEach(exercise => {
-                const exerciseItem = document.createElement('div');
-                exerciseItem.className = 'exercise-item';
-                exerciseItem.innerHTML = `
-                    <h6>${exercise.title}</h6>
-                    <p>${exercise.description}</p>
-                `;
-                const exLink = document.createElement('a');
-                exLink.href = exercise.fileUrl;
-                exLink.className = "exercise-link";
-                exLink.textContent = "📄 عرض التمارين";
-                exLink.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    if (exercise.fileUrl && !exercise.fileUrl.startsWith("#")) {
-                        openPdf(exercise.fileUrl);
-                    } else {
-                        showNotification("الملف غير متوفر حالياً", "warning");
-                    }
-                });
-                exerciseItem.appendChild(exLink);
-                exercisesSection.appendChild(exerciseItem);
-            });
-        } else {
-            exercisesSection.innerHTML += '<div class="exercise-placeholder"> سيتم إضافة التمارين لاحقاً </div>';
+          const exercisesSection = document.createElement('div');
+          exercisesSection.innerHTML = '<h5><i class="bi bi-pencil-square"></i>  التمارين </h5>';
+          unit.exercises.forEach(exercise => {
+            const exerciseItem = document.createElement('div');
+            exerciseItem.className = 'exercise-item';
+            exerciseItem.innerHTML = `<h6>${exercise.title}</h6><p>${exercise.description}</p>`;
+            const exLink = document.createElement('a');
+            exLink.href = exercise.fileUrl || '#';
+            exLink.className = "exercise-link";
+            exLink.textContent = "📄 عرض التمارين";
+            exerciseItem.appendChild(exLink);
+            exercisesSection.appendChild(exerciseItem);
+          });
+          unitContent.appendChild(exercisesSection);
         }
-        unitContent.appendChild(exercisesSection);
+        // else: لا تفعل شيئاً → لا يظهر القسم إطلاقاً
 
         // ----- Summaries -----
         const summariesSection = document.createElement('div');
         summariesSection.innerHTML = '<h5><i class="bi bi-journal-bookmark"></i>  الملخصات </h5>';
-        if (unit.summaries && unit.summaries.length > 0) {
-            unit.summaries.forEach(summary => {
-                const summaryItem = document.createElement('div');
-                summaryItem.className = 'summary-item';
-                summaryItem.innerHTML = `
-                    <h6>${summary.title}</h6>
-                    <p>${summary.description}</p>
-                `;
-                const sumLink = document.createElement('a');
-                sumLink.href = summary.fileUrl;
-                sumLink.className = "summary-link";
-                sumLink.textContent = "📘 عرض الملخص";
-                sumLink.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    if (summary.fileUrl && !summary.fileUrl.startsWith("#")) {
-                        openPdf(summary.fileUrl);
-                    } else {
-                        showNotification("الملف غير متوفر حالياً", "warning");
-                    }
-                });
-                summaryItem.appendChild(sumLink);
-                summariesSection.appendChild(summaryItem);
-            });
-        } else {
-            summariesSection.innerHTML += '<p> لا توجد ملخصات متاحة حالياً </p>';
-        }
-        unitContent.appendChild(summariesSection);
+       // ----- Summaries -----
+// أنشئ وأضف القسم فقط إذا فيه ملخصات
+if (unit.summaries && unit.summaries.length > 0) {
+    const summariesSection = document.createElement('div');
+    summariesSection.innerHTML = '<h5><i class="bi bi-journal-bookmark"></i>  الملخصات </h5>';
+
+    unit.summaries.forEach(summary => {
+        const summaryItem = document.createElement('div');
+        summaryItem.className = 'summary-item';
+        summaryItem.innerHTML = `
+            <h6>${summary.title}</h6>
+            <p>${summary.description || ''}</p>
+        `;
+        const sumLink = document.createElement('a');
+        sumLink.href = summary.fileUrl;
+        sumLink.className = "summary-link";
+        sumLink.textContent = "📘 عرض الملخص";
+        sumLink.addEventListener("click", function(e) {
+            e.preventDefault();
+            if (summary.fileUrl && !summary.fileUrl.startsWith("#")) {
+                if (summary.fileUrl.includes('drive.google.com') || summary.fileUrl.includes('docs.google.com')) {
+                    openPdf(convertDriveToEmbed(summary.fileUrl));
+                } else {
+                    openPdf(summary.fileUrl);
+                }
+            } else {
+                showNotification("الملف غير متوفر حالياً", "warning");
+            }
+        });
+        summaryItem.appendChild(sumLink);
+        summariesSection.appendChild(summaryItem);
+    });
+
+    unitContent.appendChild(summariesSection);
+}
+// else: لا تُظهر قسم الملخصات
+
 
         // ----- زر اكتمال -----
         if (!isCompleted) {
@@ -6972,6 +7740,16 @@ document.addEventListener('click', (e) => {
                 localStorage.setItem('darkMode', 'disabled');
             }
         }
+        
+function enableDarkMode() {
+  document.body.classList.add("dark-mode");
+  localStorage.setItem("darkMode", "enabled");
+}
+
+function disableDarkMode() {
+  document.body.classList.remove("dark-mode");
+  localStorage.setItem("darkMode", "disabled");
+}
 
         // Check if user is logged in on page load
      window.onload = function() {
@@ -7956,10 +8734,37 @@ async function applyAuthUI() {
         // تحديث عناصر الواجهة التي تعتمد على الدخول
         const sound = document.getElementById('soundContainer');
         if (sound) sound.style.display = logged ? 'flex' : 'none';
+
         const aiBtn = document.getElementById('chatbot-launcher');
         if (aiBtn) aiBtn.style.display = logged ? 'flex' : 'none';
+
         const userInfo = document.querySelector('.user-info');
         if (userInfo) userInfo.classList.toggle('d-none', !logged);
+
+        // عرض اسم المستخدم إن وُجد
+        const userNameEl = document.getElementById('userName');
+        if (userNameEl) {
+            userNameEl.textContent = logged
+                ? (localStorage.getItem('userName') || (session.user && session.user.email) || '')
+                : '';
+        }
+
+        // ✅ دعم قديم (حفاظاً على الـ IDs لو أضفتها لاحقاً)
+        const profileMenu = document.getElementById('profileMenu');
+        const bacMenu = document.getElementById('bacMenu');
+        const homeMenu = document.getElementById('homeMenu');
+        const devMenu = document.getElementById('devMenu');
+
+        if (profileMenu) profileMenu.style.display = logged ? 'block' : 'none';
+        if (bacMenu) bacMenu.style.display = logged ? 'block' : 'none';
+        if (homeMenu) homeMenu.style.display = 'block';
+        if (devMenu) devMenu.style.display = 'block';
+
+        // 🔄 عناصر الـ navbar في ملفك تستخدم الصنف .requires-auth
+        const requiresAuthItems = document.querySelectorAll('.requires-auth');
+        requiresAuthItems.forEach(el => {
+            el.style.display = logged ? 'list-item' : 'none';
+        });
 
         // هل الرابط يطلب فتح مادة مباشرة؟ (العلم الذي وضعناه أعلى)
         const initialSubject = window.__subjectToOpenOnInit || (new URLSearchParams(window.location.search)).get('subject');
@@ -8011,6 +8816,9 @@ async function applyAuthUI() {
 
 
 
+
+
+
 // مستمع الحالة: دع Supabase يقود الواجهة
 document.addEventListener('DOMContentLoaded', applyAuthUI);
 supabase.auth.onAuthStateChange((_event, _session) => { applyAuthUI(); });
@@ -8052,100 +8860,572 @@ const bacData = {
       math: {
         name: "الرياضيات", icon: "📘",
         files: {
-          2025: { exam: "https://drive.google.com/file/d/1h8JvY5QGxr3VCbgaT2tE28tiLtKO8QNr/preview", corr: "/pdfs/experimental/2025/math_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/math_exam.pdf", corr: "/pdfs/experimental/2024/math_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/math_exam.pdf", corr: "/pdfs/experimental/2023/math_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/math_exam.pdf", corr: "/pdfs/experimental/2022/math_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/math_exam.pdf", corr: "/pdfs/experimental/2021/math_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/math_exam.pdf", corr: "/pdfs/experimental/2020/math_corr.pdf" }
+          2025: [
+  {
+    exam: "https://drive.google.com/file/d/1JuZYCEkdeGcyMhsXjgfEpjhXyhTQcqAU/preview",
+    corr: "https://drive.google.com/file/d/1Xz_x8fFGylTny1gyUsYJOFNhc7NyeV7o/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1k8AlngwhIwutkCa3m7q1msQJ0MJiLlgp/preview",
+    corr: "https://drive.google.com/file/d/1TYCE13nQGq8SRzbQtEMpg_Yg0aq1IX4i/preview"
+  }
+],
+
+            2024: [
+  {
+    exam: "https://drive.google.com/file/d/1-JUqVCyR-yH8Zp3AY0oJg1mML4bcIrl7/preview",
+    corr: "https://drive.google.com/file/d/1VD35-yCci6PtJDXY4a38fv3XxLNIZJMc/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1F7C2lKibj-qDHmj2FUYuYSWBhRX5tbhQ/preview",
+    corr: "https://drive.google.com/file/d/1BVRaa9QBQzyLj5maD7jMjm0M8pkjp9hS/preview"
+  }
+],
+
+          2023: [
+  {
+    exam: "https://drive.google.com/file/d/11BrM1GnGudySj9LZbeswhzEHDAvhYUTy/preview",
+    corr: "https://drive.google.com/file/d/1vPomG-nfz2JKMQcNXVtRL18pcTBkglwf/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1wvGdetJt3CVz_7Q4i3PR0fUDIGo5Pzch/preview",
+    corr: "https://drive.google.com/file/d/1aQK-TWs8zabyElOZyn4CJHLyVV6x2kbQ/preview"
+  }
+],
+
+          2022: [
+  {
+    exam: "https://drive.google.com/file/d/182nMEH6rtZIdy_JWCONrM3QGqiY1XUKK/preview",
+    corr: "https://drive.google.com/file/d/1PtjsOO4DcX90LU5arekHkNeVXCrRnjee/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1qrHMnuJK0FLyF2bZ-hbqN7gv6WE68Xre/preview",
+    corr: "https://drive.google.com/file/d/1_g0HAQNenhf7kHp3ee0gWZuvfUAJuZXW/preview"  // لم يتم إرسال رابط الحل لهذا الموضوع
+  }
+],
+
+          2021: [
+  {
+    exam: "https://drive.google.com/file/d/1ge-euOgLcVih2dnteR_leAxNGMiH8fdp/preview",
+    corr: "https://drive.google.com/file/d/12Q8_XAv1hX3wrNQeRJPgG1LPhBZ8DcEZ/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1m34GgDHD9lWLSTcDXrVvg2IX9xtJ19i4/preview",
+    corr: "https://drive.google.com/file/d/1hxFuIUdrorJXdLlnk0jvayyy4pP49cWt/preview"
+  }
+],
+
+          2020: [
+  {
+    exam: "https://drive.google.com/file/d/1rBvn9cyX7KtFCNQI_rJ6f3x3AN-xtM8y/preview",
+    corr: "https://drive.google.com/file/d/1ISgQVhqKRK20XIdLv2QrKv8bGz3fm1lm/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1TEAWuoJYC2ICFPFaxBZVCnYrW39SFq2n/preview",
+    corr: "https://drive.google.com/file/d/13tuvSaRpVxrJYyg97Zo9YH17ddRYjRyc/preview"
+  }
+]
+
         }
       },
       physics: {
         name: "الفيزياء", icon: "⚡",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/physics_exam.pdf", corr: "/pdfs/experimental/2025/physics_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/physics_exam.pdf", corr: "/pdfs/experimental/2024/physics_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/physics_exam.pdf", corr: "/pdfs/experimental/2023/physics_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/physics_exam.pdf", corr: "/pdfs/experimental/2022/physics_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/physics_exam.pdf", corr: "/pdfs/experimental/2021/physics_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/physics_exam.pdf", corr: "/pdfs/experimental/2020/physics_corr.pdf" }
+2025: [
+  {
+    exam: "https://drive.google.com/file/d/1t1oMhtkfi5vkAL9kmnOsqVS6tBr21I1d/preview",
+    corr: "https://drive.google.com/file/d/18PrEpBTIlVe2B9X3mPhV-8yLhbCgyxlF/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1SR2GJT0UpHhquBbGNX4tMC0ngl_klsaG/preview",
+    corr: "https://drive.google.com/file/d/1CReE-z1e6jRmZ8oRCqNbrPMgMt07fypa/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1lN653gu_cDzzg6hhsRdUwzGR5HhL240j/preview",
+    corr: "https://drive.google.com/file/d/1Qf0wKHYaTyGRdhSETLNbcKn2hh1k0xLD/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1-iW7Hwy6jU--urEVuFzNP2pcqcsNQhDC/preview",
+    corr: "https://drive.google.com/file/d/1kCKtHUrRPKfmIMUw0ycI5fs6xggygVoJ/view?usp=drive_" // تم استخدام الرابط الأصلي لأنه لا ينتهي بـ "/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1Es3qjsewzLarJnqIShezMmJSf3hDhSv3/preview",
+    corr: "https://drive.google.com/file/d/1LaxuA1ict2Fcw5_khYq0Kn6G54nQ7bmp/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1KC0a99-ssm09j5oCSX3SuErCxohZX3Pc/preview",
+    corr: "https://drive.google.com/file/d/1Noea7fUAWm8yJNjVKgDrs4DSKvVqK6n8/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1C6uem1Hppmbx_oYflUPiKIdqaX1Hqk7y/preview",
+    corr: "https://drive.google.com/file/d/1TNn1Depvh3j6LyXFS9wAXYfISZVqREbX/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1GYiSftBgETj4LfDy4FlcRKAmLil2XFJ4/preview",
+    corr: "https://drive.google.com/file/d/1tXKavEWTcd-M9SQKySPpgJX63gJGFrmH/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1OP5kOvx8aX5lyLE62RHkzd6Ht_wM4l3I/preview",
+    corr: "https://drive.google.com/file/d/1N76kKT964HNOYLDRZb1XlJ_NNW5SZG2s/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1cIlTxL-16KlpdajbsE6eXxYDCs1sMHqR/preview",
+    corr: "https://drive.google.com/file/d/1cze31c-mcLT5gB8pFF65yaegm5gakJwY/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1kSfnJc8dmikOrswasv1ybAyXKsUd3iUn/preview",
+    corr: "https://drive.google.com/file/d/1plYnp3txDWzSY7T6ip10fYP7MfzUnmdY/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1mdPVm8DCjjlKTD4rch8HQO09005aHv-v/preview",
+    corr: "https://drive.google.com/file/d/1hCQC4PO-kpvgIGZTl850h4BloGQmcSaH/preview"
+  }
+],
+
         }
       },
       svt: {
         name: "علوم الطبيعة والحياة", icon: "🧬",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/svt_exam.pdf", corr: "/pdfs/experimental/2025/svt_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/svt_exam.pdf", corr: "/pdfs/experimental/2024/svt_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/svt_exam.pdf", corr: "/pdfs/experimental/2023/svt_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/svt_exam.pdf", corr: "/pdfs/experimental/2022/svt_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/svt_exam.pdf", corr: "/pdfs/experimental/2021/svt_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/svt_exam.pdf", corr: "/pdfs/experimental/2020/svt_corr.pdf" }
+2025: [
+  {
+    exam: "https://drive.google.com/file/d/1BS2ar4dDIV4P2KwRLmDVs-S0nF85K3SZ/preview",
+    corr: "https://drive.google.com/file/d/1OGdZJMxLjShdsy0ozX_OUMqqGnkTypVP/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1hYXCnbPIb3xKBErXJmP3RqUpRpyBR3yD/preview",
+    corr: "https://drive.google.com/file/d/1jX2htBdvq_HJJN4tmB0Lj4iYO5oOKYPV/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1lN653gu_cDzzg6hhsRdUwzGR5HhL240j/preview",
+    corr: "https://drive.google.com/file/d/1Qf0wKHYaTyGRdhSETLNbcKn2hh1k0xLD/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1-iW7Hwy6jU--urEVuFzNP2pcqcsNQhDC/preview",
+    corr: "https://drive.google.com/file/d/1kCKtHUrRPKfmIMUw0ycI5fs6xggygVoJwY/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1Mvs6oZymNjbQaBXWo0SKIekxflsNJjTj/preview",
+    corr: "https://drive.google.com/file/d/19FQVT9joeQjEkwWMxGHA-KDf1pGvjDq-/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1SUOlIxrifbj8A9QpSHMeRmrGGNNyDRcJ/preview",
+    corr: "https://drive.google.com/file/d/1G9FATHYBUT-oMH_YH4aYv16Er-Dsxz6r/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1p2-gCVmb7leLHTNml-hbV_mp6A772AXf/preview",
+    corr: "https://drive.google.com/file/d/1413VyZAm9jbWDStSvpsCQjq1ReuWlteE/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1CiUFPXcpfxmHLigXEOeAcZOpmlFCJLaY/preview",
+    corr: "https://drive.google.com/file/d/1JFy8mNP-fWQ1qpBmftHSB-WvVLZsuA-o/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1zNwTSt8ABi7ZWGLo6SYs0ZD2o-2lnx4v/preview",
+    corr: "https://drive.google.com/file/d/1S_Ik2dVlOsjfDWFUqOhhKi2XydDLglHs/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1NGmgY3y9TXMw8-bCU5rQh6ONVKFMLBKf/preview",
+    corr: "https://drive.google.com/file/d/17RoXno6AMP9MTUV7ttSo3iGj5gyXuzA5/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1Lwkta1IQ6Ywpj6Chk21NKwJq7wYy_38v/preview",
+    corr: "https://drive.google.com/file/d/1LiTI5Nm5gLIxurx7t3oEKfNQKnlryCdE/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1Kqx95bq7RjeHEODr67JTWyMhRe--2xJ4/preview",
+    corr: "https://drive.google.com/file/d/1Jv-S21c8tYWRS2H_JhUESi9M634jQ7bP/preview"
+  }
+],
+
         }
       },
       arabic: {
         name: "اللغة العربية", icon: "📝",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/arabic_exam.pdf", corr: "/pdfs/experimental/2025/arabic_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/arabic_exam.pdf", corr: "/pdfs/experimental/2024/arabic_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/arabic_exam.pdf", corr: "/pdfs/experimental/2023/arabic_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/arabic_exam.pdf", corr: "/pdfs/experimental/2022/arabic_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/arabic_exam.pdf", corr: "/pdfs/experimental/2021/arabic_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/arabic_exam.pdf", corr: "/pdfs/experimental/2020/arabic_corr.pdf" }
+          2025: [
+  {
+    exam: "https://drive.google.com/file/d/1nL4VFrYXVs3hlc0YYKVjyZ7nxPbwAVMn/preview",
+    corr: "https://drive.google.com/file/d/1EvygMRUZUVoFHDqfpFxakL4k0cLHYyrm/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1G3ov15fGZJr4CNivvLdHh5EjmIDJXCZD/preview",
+    corr: "https://drive.google.com/file/d/1ywgyf9h3YjM6JUORmyM9Hj9qIflpLgYe/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1Y--XGS9XmjWTqCJMB7-C58jxKDK1T3Gp/preview",
+    corr: "https://drive.google.com/file/d/1W2bYqmMJL8Fnh1brHcnkpmiivOFEQorF/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1-qZK3cPevYbHuHX2LKaPwpna0wwE2tEJ/preview",
+    corr: "https://drive.google.com/file/d/1WR5Q1TJ7yCjfh_6aqZJhzdMcdoJgdEj5/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/14g-fTAxr74yhj5Cn3aqdfnm0SjsGYDU4/preview",
+    corr: "https://drive.google.com/file/d/1ZSSGIon5DfwDxGqmWmAnmdJWz5VB0CX3/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1lGytZrDrDgL6gkK6SCh9mooFAGGTxXtx/preview",
+    corr: "https://drive.google.com/file/d/1zMpwx8XvFKPOewyRthCDZtmNx1XSN0UO/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1DsmRneDVw7uMObp3_w5Nj2syA3WkTMY_/preview",
+    corr: "https://drive.google.com/file/d/1a-dMwyhMsT1wCTWUkO2Q_gsAyvibvppd/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/16vCfoLnF4TqHRK6MhFsC0E51M60M0_od/preview",
+    corr: "https://drive.google.com/file/d/18aQP_7w9xqWiCCfgH0cBR4b3E3lXJAgA/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1qGOiGYTtPYEFaVqX3FiUaG_2hxNV3BOV/preview",
+    corr: "https://drive.google.com/file/d/1ZhakXVPyRuRWlt-J6_JKMOtu32UkJDGJ/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1BvERpQT_qZ05kBE_X1E1vYVHiUpw3oIx/preview",
+    corr: "https://drive.google.com/file/d/19InrIsbl6FedLOHRj_hnloMRf6xc5IPL/preview"
+  }
+],
+
+          2020:[{ exam:"https://drive.google.com/file/d/1cfC6YjpyvuVFb6y6z_myzOZ45j4znvW4/preview", corr:"https://drive.google.com/file/d/1y6xoaXRs4xpn5jSvZ5s0X0jE3ZeOvRRe/preview" }, {exam:"https://drive.google.com/file/d/1fCKoKZ69vNDMSbd6LtlqNoIBRjtyRK1N/preview",corr:"https://drive.google.com/file/d/1kSkXvHLrEHqE7JOH_ddjeBqesm6Ye7hV/preview" }]
+
         }
       },
       french: {
         name: "اللغة الفرنسية", icon: "🇫🇷",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/french_exam.pdf", corr: "/pdfs/experimental/2025/french_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/french_exam.pdf", corr: "/pdfs/experimental/2024/french_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/french_exam.pdf", corr: "/pdfs/experimental/2023/french_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/french_exam.pdf", corr: "/pdfs/experimental/2022/french_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/french_exam.pdf", corr: "/pdfs/experimental/2021/french_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/french_exam.pdf", corr: "/pdfs/experimental/2020/french_corr.pdf" }
+2025: [
+  {
+    exam: "https://drive.google.com/file/d/10JyENjDcXrd6ylnZW8XUGqR2GDJRTz0l/preview",
+    corr: "https://drive.google.com/file/d/119aL1RT8Vejs2syXnfQtni1K-g7GQo9F/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1oDFitCL-r9A8-HKVjKayO2XQVa6Yxx04/preview",
+    corr: "https://drive.google.com/file/d/1GQjeuDHR-KZzfg7Bf_A4oj4olqkamovg/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1PS6P70tEdGIkO0xOEnPqvntKfTgo3WK7/preview",
+    corr: "https://drive.google.com/file/d/1-_iaF6PL5tP3x_ItCfp093oNSg4GQZtG/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1ELP6x2XC7xR0FgvWFvKutxqtnx-qG_lw/preview",
+    corr: "https://drive.google.com/file/d/1-_iaF6PL5tP3x_ItCfp093oNSg4GQZtG/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1yiayUOMLgifdd2zzar2_fhyAqhF6y9UM/preview",
+    corr: "https://drive.google.com/file/d/1hvNEqjo_Ok0xKHTmoBWtSXWru7y3NSZO/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1MJJZnueihvexUBH6dc_1VBKx4socERaq/preview",
+    corr: "https://drive.google.com/file/d/1qt2wWfsRUK1H1-AUrH8XGqISWDrn3VSr/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/18NpFz1uIX95kX-PNtC4VDEwvtky1WaEJ/preview",
+    corr: "https://drive.google.com/file/d/10X4VWTrdbUaRD6T2zP4IbzGkdHPPipxX/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/199EkDjdskRi9_PC-dQ8WEANfYSVHXGyl/preview",
+    corr: "https://drive.google.com/file/d/15ZKoZt-YQ_JfWgz4BEL35N12j3-FNaYN/view?usp=drive"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1siV_H514On80ryhEEf5lRmh1OE7TVpu5/preview",
+    corr: "https://drive.google.com/file/d/1iWJ360tj0wIanos8oxN6aa4RaZUH-Apu/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1Emo-ZGMKVlhPHhlElnVt7Ngcx9yE7_Ze/preview",
+    corr: "https://drive.google.com/file/d/1sQXc_MFCN0Ml9abAVG-5354GJ87OZ6vB/view?usp=drive"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1dMoHby9I-V6h1lcXY3BxrgQS4DNaevJA/preview",
+    corr: "https://drive.google.com/file/d/1hqQ0jdpqtkOovLp-5YD2OGn4tMo8I3oD/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1v2X0hs97lZKo-WrcGCqlx4DPKoFNjtLU/preview",
+    corr: "https://drive.google.com/file/d/1qeZB-Rk9JO37-wZ3Bjn3y7tgG36INUUX/preview"
+  }
+]
         }
+        
       },
       english: {
         name: "اللغة الإنجليزية", icon: "🇬🇧",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/english_exam.pdf", corr: "/pdfs/experimental/2025/english_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/english_exam.pdf", corr: "/pdfs/experimental/2024/english_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/english_exam.pdf", corr: "/pdfs/experimental/2023/english_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/english_exam.pdf", corr: "/pdfs/experimental/2022/english_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/english_exam.pdf", corr: "/pdfs/experimental/2021/english_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/english_exam.pdf", corr: "/pdfs/experimental/2020/english_corr.pdf" }
+2025: [
+  {
+    exam: "https://drive.google.com/file/d/1o5_IFF6YaCHcHW2R0DVD1naNBQ6mz57c/preview",
+    corr: "https://drive.google.com/file/d/1zrjzKQVbpH0bpKurOHyLnxZPlU3T20oN/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1rgqhXwZbghEAsAkdCIuMpBdwdhAbz89S/preview",
+    corr: "https://drive.google.com/file/d/1zKVTifUz2x81gvRZozIyKHrXEF3fmT_U/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1OESsiFt08yBHuNIhlbmUdk6o3S7XbFW0/preview",
+    corr: "https://drive.google.com/file/d/1Z-NNBymTlu5X10va82RX-ozXffjAfkPU/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1PoARWDwQgXgA4hz9cwkFmKCCmqIB0-4Z/preview",
+    corr: "https://drive.google.com/file/d/1eGWWdTVb-9koE3BLFvF5WpZS8Qr_Xaf1/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1vPJvygr7CjuBbrIfaenSEWgDQrlD8oVY/preview",
+    corr: "https://drive.google.com/file/d/15xWE50DZVXDrRnSjgweMJEXQaicZLnIW/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1TIs0KmSfPUNoMTE1KSqhEHI-THq-LJBs/preview",
+    corr: "https://drive.google.com/file/d/1ux6Z_vj3tUr5R5HSb-RWRTVqSomLCw3z/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/17cvFWeaS24irfcd2lHs97BAD3nihULZz/preview",
+    corr: "https://drive.google.com/file/d/1pmaMgL5avo4MH0zR4tHGPu06wDfwSLfl/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1wKgKXvHXsq0Qw-i8PS6lHsUczg05kJRf/preview",
+    corr: "https://drive.google.com/file/d/1XXHYKNJrZ-mHzQTTEvY5A0xZgzhgNlec/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1okbIMDNsbXg5vD01aNwmJvLrZ9g5r5hD/preview",
+    corr: "https://drive.google.com/file/d/1p4p7wqonWuVN0L0JEknXSO-iYnOtdSz7/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1hxo604huk03hnmk0b9xza03CNr8Pp30B/preview",
+    corr: "https://drive.google.com/file/d/1399kEhXCQ85yzVY0EiY7BTj6oqNoEPNu/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1RocTBecwGz2qRF87OsGAXzxqULfqX6VE/preview",
+    corr: "https://drive.google.com/file/d/1_9XBc05Ib6j1QajzcxEtt2IEGp8ZLD_Z/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1h2gizKf57eOGBVS8acpCR57qPEklI36h/preview",
+    corr: "https://drive.google.com/file/d/1FexOJ17RzDEqJ7GewoGTbye4aNkM9aeW/preview"
+  }
+],
+
         }
       },
       history: {
         name: "التاريخ والجغرافيا", icon: "📖",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/history_exam.pdf", corr: "/pdfs/experimental/2025/history_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/history_exam.pdf", corr: "/pdfs/experimental/2024/history_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/history_exam.pdf", corr: "/pdfs/experimental/2023/history_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/history_exam.pdf", corr: "/pdfs/experimental/2022/history_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/history_exam.pdf", corr: "/pdfs/experimental/2021/history_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/history_exam.pdf", corr: "/pdfs/experimental/2020/history_corr.pdf" }
+         2025: [
+  {
+    exam: "https://drive.google.com/file/d/153GeDcR1lZa7Kfr4BXDEvZkvZ8o1gBYA/preview",
+    corr: "https://drive.google.com/file/d/1VJ2B80azUJPdBiocwjbE_gT3rtcUk4a3/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1OiNxtfCZzLa0FAdE3BUPmVMYpcYcSEwh/preview",
+    corr: "https://drive.google.com/file/d/1M5HRmVkVkw5AFl_u9FgJEN9M0Ss8OjTm/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1AKjKRkSi3Hxcz6HNQTlwxI6NU3ADydQ3/preview",
+    corr: "https://drive.google.com/file/d/1mu9EtJczwhgFqGY40ZpI1iUyuyQtmPGl/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/10FH3dOcFuh9tJXWQaVezznIkG1qa8wMd/preview",
+    corr: "https://drive.google.com/file/d/16AzfFDap10HOWOpL183On_SAKWgVEfXQ/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1SWDyuxMwPCUzgHV__J4rIHQ25SzulW6d/preview",
+    corr: "https://drive.google.com/file/d/1QDzVqiuseYY7YOs-v2y33QDGT6ihAo72/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1ZDC5OFNEwF8sYBm1X7BxyO7x2eyoga9q/preview",
+    corr: "https://drive.google.com/file/d/11lul3-eEigfkEnDy842IJSIbchrHCPl8/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1N95MwdkC6bvZ48hhr9xEEIYfFRBa3V9e/preview",
+    corr: "https://drive.google.com/file/d/1E0xuNNoFqS1neNNDdPBp6cV47r3Jz7ek/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1nTr95rdhve6T8x-LbwncmOSuK0t3cyF2/preview",
+    corr: "https://drive.google.com/file/d/1SVdT73LODZ7MdP7jArEd9SSDpHQ2mhG_/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1xC8QsQojP8UJt37BdMfMdAM3e5dpGSqo/preview",
+    corr: "https://drive.google.com/file/d/1vfDh0_t2KrN5ViQkozeqIjkiX9MYksUz/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1Ow00kne2BvFBV1DjKVMv-HXhKMbPA5vV/preview",
+    corr: "https://drive.google.com/file/d/1m_q5FO8UWa2QAFJxBx92vi9mWjSKgsSI/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1F6mIr5PoKKPtPnDOd1xu9rZjqItimxOB/preview",
+    corr: "https://drive.google.com/file/d/1BbGVMsuvQXFltzOp0bHEfRhH2hZmOXxG/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1zuRA3It1ekyNEr9_XPn4TcyBQRK2m4ec/preview",
+    corr: "https://drive.google.com/file/d/1dHpm2Ka3PKl4Nhten0rO3KhPl_sg233T/preview"
+  }
+],
+
         }
       },
       philosophy: {
         name: "الفلسفة", icon: "💡",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/philosophy_exam.pdf", corr: "/pdfs/experimental/2025/philosophy_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/philosophy_exam.pdf", corr: "/pdfs/experimental/2024/philosophy_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/philosophy_exam.pdf", corr: "/pdfs/experimental/2023/philosophy_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/philosophy_exam.pdf", corr: "/pdfs/experimental/2022/philosophy_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/philosophy_exam.pdf", corr: "/pdfs/experimental/2021/philosophy_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/philosophy_exam.pdf", corr: "/pdfs/experimental/2020/philosophy_corr.pdf" }
+         2025: [
+  {
+    exam: "https://drive.google.com/file/d/1PUGsV7G-AqZbBy6fnkM4Sf9Hk-Holvye/preview",
+    corr: "https://drive.google.com/file/d/1HbkXoHqPRJu2lvaP8JE0Do082pHgWlLl/preview"
+  }
+],
+
+          2024: [
+  {
+    exam: "https://drive.google.com/file/d/1ofAW2zUId9iVlod69v2JPSTav95ZvIj2/preview",
+    corr: "https://drive.google.com/file/d/1hy6ZLN8YiQLqz6G32jnK2iigTv7hr9Hp/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/10nZi3NMUZbE6QQ7tXX74hfvSODlXxFT6/preview",
+    corr: "https://drive.google.com/file/d/1PEDQuUMIS5_aZyCKScIIyaY2cmw5Aa4r/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1y93hmbhZsD-fIc0nre7pDTEHQO9nWO3x/preview",
+    corr: "https://drive.google.com/file/d/12xwoNnu_DaRDi8EQLuz1SJfxZI4iftMg/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1cwtaq_T3DnHJMwOfkgWg_yVGJuChMjEK/preview",
+    corr: "https://drive.google.com/file/d/1XUmo6GmNDaNYZfrPJZ6v6xjiUwXrCdsJ/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/14n-lv7IW2GTFNL7KHnOa0xt4vsK_zasZ/preview",
+    corr: "https://drive.google.com/file/d/1Qx9A0VSiZ6Wk2kqy1Z2ROSASfbpgjNHi/preview"
+  }
+]
         }
       },
       islamic: {
         name: "التربية الإسلامية", icon: "🕌",
         files: {
-          2025: { exam: "/pdfs/experimental/2025/islamic_exam.pdf", corr: "/pdfs/experimental/2025/islamic_corr.pdf" },
-          2024: { exam: "/pdfs/experimental/2024/islamic_exam.pdf", corr: "/pdfs/experimental/2024/islamic_corr.pdf" },
-          2023: { exam: "/pdfs/experimental/2023/islamic_exam.pdf", corr: "/pdfs/experimental/2023/islamic_corr.pdf" },
-          2022: { exam: "/pdfs/experimental/2022/islamic_exam.pdf", corr: "/pdfs/experimental/2022/islamic_corr.pdf" },
-          2021: { exam: "/pdfs/experimental/2021/islamic_exam.pdf", corr: "/pdfs/experimental/2021/islamic_corr.pdf" },
-          2020: { exam: "/pdfs/experimental/2020/islamic_exam.pdf", corr: "/pdfs/experimental/2020/islamic_corr.pdf" }
+          2025: [
+  {
+    exam: "https://drive.google.com/file/d/1otUEoJq4kVt8LS0wWEGgiDPwGelQmIlR/preview",
+    corr: "https://drive.google.com/file/d/1fHxSCePIV2e28PuIw3KO8vnGTeRoXlvg/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1nBCTDOYgLLt2pUudTn_9DtvPO4OfjSD5/preview",
+    corr: "https://drive.google.com/file/d/1tjaYckMwJ8r8zXcFZ5taA4Yc46rrO4tT/preview"
+  }
+],
+
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1TIG1qjCTRC2XhcTQ3uixOjR1mjCZiSuS/preview",
+    corr: "https://drive.google.com/file/d/1olqlMZogFIX_7fHl0VR5JT5_0zTMES35/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1yqRfx2RuStamKUS6AcyoeeHJ-wXpv1Sp/preview",
+    corr: "https://drive.google.com/file/d/1UzD5jY2PNJPeq1xlQDAF1-MgcLJ-0MOw/preview"
+  }
+],
+
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1BMBv70Ctk5tKXeis011ryvl2ZvinPFKt/preview",
+    corr: "https://drive.google.com/file/d/16O1PdTRHp_5D6ZpMmDz8zMsWZU9G__EV/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1vfmt4rVtcV481zzu_qltzaYZRLalSDPf/preview",
+    corr: "https://drive.google.com/file/d/1IF7Vg8YUaV-AlDQFMv0-tXQLIpcjO-U1/preview"
+  }
+],
+
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1J8EaMEMYqlZvNhndFATUM8iQLuXODFYa/preview",
+    corr: "https://drive.google.com/file/d/1CO7MqjeW8mpFeDa-h9gmA-uZNrf8xOCC/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1tPLMoAqhhWUjF9xEOmbjKsdXfuM-qrtR/preview",
+    corr: "https://drive.google.com/file/d/1P64fPCALDex6aoJRVFNmfhUCYSkwtgW9/preview"
+  }
+],
+
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/19ruQESBb6LcvETdNmQrYGVBSMeL6XD19/preview",
+    corr: "https://drive.google.com/file/d/1HsALURHHlGs92jN4QvVgjec-iAQEDUNT/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1l9gwLuJ9VvnrmoFzo_E2cxLH10n8IOEp/preview",
+    corr: "https://drive.google.com/file/d/1zlvhPgxGLkrfQEbR6MVRtA-NHkbNCuKw/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1SyZXmufpF0wifqWmVNi09FV5GHV31BIf/preview",
+    corr: "https://drive.google.com/file/d/1Ev2nbFcoqMGO15AWmaw6QRHxL4W_5py6/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1vOLbr5Rvn5zJITNLtFxZ8d8u2CStMu0h/preview",
+    corr: "https://drive.google.com/file/d/1ZIbwL162JpxqLkwISAgnSGVoXiEfJtli/preview"
+  }
+]
+
         }
       }
     }
@@ -8156,76 +9436,576 @@ const bacData = {
       math: {
         name: "الرياضيات", icon:"📘",
         files:{
-          2025:{ exam:"https://drive.google.com/file/d/1h8JvY5QGxr3VCbgaT2tE28tiLtKO8QNr/preview", corr:"/pdfs/math-stream/2025/math_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/math_exam.pdf", corr:"/pdfs/math-stream/2024/math_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/math_exam.pdf", corr:"/pdfs/math-stream/2023/math_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/math_exam.pdf", corr:"/pdfs/math-stream/2022/math_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/math_exam.pdf", corr:"/pdfs/math-stream/2021/math_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/math_exam.pdf", corr:"/pdfs/math-stream/2020/math_corr.pdf" }
+
+  2025: [
+    {
+      exam: "https://drive.google.com/file/d/1TZsjtN71BUSHrGBE8WZoHBdDQscON5e8/preview",
+      corr: "https://drive.google.com/file/d/1sWj1QEwWIR5cZ-TdakkehTGXyEfJ3Mts/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1KGvvr6IrwvmqMOnVQTF10wDHNmdlTQAX/preview",
+      corr: "https://drive.google.com/file/d/1-ajRdMRS7Fi0NgpuQy5aaVedZp9lrbZ_/preview"
+    }
+  ],
+
+  2024: [
+    {
+      exam: "https://drive.google.com/file/d/19NCuk4xTn3ARGHuCXNHAj_1j9kdBVaYp/preview",
+      corr: "https://drive.google.com/file/d/14Tn_NdQW-AEew6V8n_PMtklPI-a4FD-L/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1kRVhmC_lvUq_3HGz9pMW4pzA4kUBVo8W/preview",
+      corr: "https://drive.google.com/file/d/1AGIN7E-6OX4VHjYVAAFOo0rhMHa-w2rY/preview"
+    }
+  ],
+
+  2023: [
+    {
+      exam: "https://drive.google.com/file/d/1KqI2cnnp1yMcg0rV8yaUcVx2SS9mPcM8/preview",
+      corr: "https://drive.google.com/file/d/1nBG43EcoS9h-qRbmsfHk7bsqpiU8gqXV/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1mXFq11UN7zW2hgJWJV4UDz3tQiXwPvHm/preview",
+      corr: "https://drive.google.com/file/d/1UOTyMXfv9POYpr1Wc1F__NRb67kDj51Z/preview"
+    }
+  ],
+
+  2022: [
+    {
+      exam: "https://drive.google.com/file/d/1I5J-HS51bV0lSwHN62fdP4EV3TizqjCl/preview",
+      corr: "https://drive.google.com/file/d/13BaWLpiwwry56vS_XMx8h7qNqIxhNXgL/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1EYtQgn8C0sleWZcXgUm8Yiz0MfnT29yk/preview",
+      corr: "https://drive.google.com/file/d/1axbQ85OArJx2q_mKvJLKFxFsC_rNdRaV/preview"
+    }
+  ],
+
+  2021: [
+    {
+      exam: "https://drive.google.com/file/d/1Bq1N6ORt2cLFUpwODXcIbefJjEblZa6a/preview",
+      corr: "https://drive.google.com/file/d/1h5Ua4C33v4w_A3M-BID0GK-sQnwEN7cb/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/11TTCyJmqB9gvkxAX0L4EA4_4tdVBDno7/preview",
+      corr: "https://drive.google.com/file/d/1HtQbT4GitgWGXUt8dbiuevirzWo-RfWZ/preview"
+    }
+  ],
+
+  2020: [
+    {
+      exam: "https://drive.google.com/file/d/1BvJU0aL0fJq84K4lyMzjuXfGm7qJY4hd/preview",
+      corr: "https://drive.google.com/file/d/1ezjkc3d2zWtkRaIpa4u27T4i2PIrlicx/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/17k4k5vDLz3RgQY3cGX9MJJamzC6TZ8aS/preview",
+      corr: "https://drive.google.com/file/d/10xpgMOVPEgxkOUvfz2YglTSY6lbhG3vW/preview"
+    }
+  ]
         }
       },
       physics:{
         name:"الفيزياء", icon:"⚡",
         files:{
-          2025:{ exam:"/pdfs/math-stream/2025/physics_exam.pdf", corr:"/pdfs/math-stream/2025/physics_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/physics_exam.pdf", corr:"/pdfs/math-stream/2024/physics_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/physics_exam.pdf", corr:"/pdfs/math-stream/2023/physics_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/physics_exam.pdf", corr:"/pdfs/math-stream/2022/physics_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/physics_exam.pdf", corr:"/pdfs/math-stream/2021/physics_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/physics_exam.pdf", corr:"/pdfs/math-stream/2020/physics_corr.pdf" }
+
+  2025: [
+    {
+      exam: "https://drive.google.com/file/d/1fJ6NOys5rKmqzUtIfv9OXt9e7x7MmzcS/preview",
+      corr: "https://drive.google.com/file/d/1rnNz7MifNoP1AEjK4_XxbNQtSO9Z03h0/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1jb9WPr1KV1dYEmn2JrJpvXD7UQoxUYrG/preview",
+      corr: "https://drive.google.com/file/d/1Cd1CYRArwby5EwlabyXva5BnQAWfnbw0/preview"
+    }
+  ],
+  2024: [
+    {
+      exam: "https://drive.google.com/file/d/18JbA6VMRF6tfPBlS-M-ODw7JXlubfwtl/preview",
+      corr: "https://drive.google.com/file/d/1Jcai9iVnQoTVkrar3ScxcatfCyV3FWr_/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/16LDqga4Al8LYbtCYuygZv_7h93HeVM7a/preview",
+      corr: "https://drive.google.com/file/d/1HVlSdExyQKJgRUqYXcyl-3dEXoKTcZNH/preview"
+    }
+  ],
+  2023: [
+    {
+      exam: "https://drive.google.com/file/d/1wXL2toqXeuMdQboEun8cJmfeGrg52ZKg/preview",
+      corr: "https://drive.google.com/file/d/1iZ_xcQUtL7W8xBmhzGMhDbtPPNApSzSj/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1ZwE8nPhgUkWxFebJeA2Rn30mIap_phlW/preview",
+      corr: "https://drive.google.com/file/d/17aENzVCE4xt0wZfQD_-EukWUXQ3CX5qE/preview"
+    }
+  ],
+  2022: [
+    {
+      exam: "https://drive.google.com/file/d/1Pgo59Jz3btgzuM_OxEypd48aNFNeDwnk/preview",
+      corr: "https://drive.google.com/file/d/1kkjMGlqCC0SAzsfSt-9-wXhkgmMzsCB4/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1YohOpFqXcsNZm7BnzIoaV8McBzcI2ftA/preview",
+      corr: "https://drive.google.com/file/d/1ADUcvpH_OXmZ0bk3kK2aVgsSPzoBGahX/preview"
+    }
+  ],
+  2021: [
+    {
+      exam: "https://drive.google.com/file/d/1AVvlztKD-_PurH-yzR3JQcK1L7sBvO58/preview",
+      corr: "https://drive.google.com/file/d/1r9z55LV73tHTiTgXYpVaKWaUYaDvjheo/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1maw1cqlynSKwI94cwrkxp0hAk4FOe3VG/preview",
+      corr: "https://drive.google.com/file/d/1Ub2GpMJVP8t8AgKi36D_IRoF493WUDFQ/preview"
+    }
+  ],
+  2020: [
+    {
+      exam: "https://drive.google.com/file/d/1_kRH7MYSIy0-yCeTP5n0UyhLWrC2p6oP/preview",
+      corr: "https://drive.google.com/file/d/1Ovx6i-MixGqic3YPIm8NUmeb-qMYdwo1/preview"
+    },
+    {
+      exam: "https://drive.google.com/file/d/1CQ7Pz0Z4iLKyTtAXNhunKJIdH2A6hqVM/preview",
+      corr: "https://drive.google.com/file/d/1WIAdmC5XULpvkZn-xF6-jcZ22FDGSxFF/preview"
+    }
+  ]
+
         }
       },
-      arabic:{ name:"اللغة العربية", icon:"📝", files:{
-          2025:{ exam:"/pdfs/math-stream/2025/arabic_exam.pdf", corr:"/pdfs/math-stream/2025/arabic_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/arabic_exam.pdf", corr:"/pdfs/math-stream/2024/arabic_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/arabic_exam.pdf", corr:"/pdfs/math-stream/2023/arabic_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/arabic_exam.pdf", corr:"/pdfs/math-stream/2022/arabic_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/arabic_exam.pdf", corr:"/pdfs/math-stream/2021/arabic_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/arabic_exam.pdf", corr:"/pdfs/math-stream/2020/arabic_corr.pdf" }
-      }},
-      french:{ name:"اللغة الفرنسية", icon:"🇫🇷", files:{
-          2025:{ exam:"/pdfs/math-stream/2025/french_exam.pdf", corr:"/pdfs/math-stream/2025/french_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/french_exam.pdf", corr:"/pdfs/math-stream/2024/french_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/french_exam.pdf", corr:"/pdfs/math-stream/2023/french_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/french_exam.pdf", corr:"/pdfs/math-stream/2022/french_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/french_exam.pdf", corr:"/pdfs/math-stream/2021/french_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/french_exam.pdf", corr:"/pdfs/math-stream/2020/french_corr.pdf" }
-      }},
-      english:{ name:"اللغة الإنجليزية", icon:"🇬🇧", files:{
-          2025:{ exam:"/pdfs/math-stream/2025/english_exam.pdf", corr:"/pdfs/math-stream/2025/english_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/english_exam.pdf", corr:"/pdfs/math-stream/2024/english_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/english_exam.pdf", corr:"/pdfs/math-stream/2023/english_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/english_exam.pdf", corr:"/pdfs/math-stream/2022/english_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/english_exam.pdf", corr:"/pdfs/math-stream/2021/english_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/english_exam.pdf", corr:"/pdfs/math-stream/2020/english_corr.pdf" }
-      }},
-      history:{ name:"التاريخ والجغرافيا", icon:"📖", files:{
-          2025:{ exam:"/pdfs/math-stream/2025/history_exam.pdf", corr:"/pdfs/math-stream/2025/history_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/history_exam.pdf", corr:"/pdfs/math-stream/2024/history_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/history_exam.pdf", corr:"/pdfs/math-stream/2023/history_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/history_exam.pdf", corr:"/pdfs/math-stream/2022/history_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/history_exam.pdf", corr:"/pdfs/math-stream/2021/history_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/history_exam.pdf", corr:"/pdfs/math-stream/2020/history_corr.pdf" }
-      }},
-      philosophy:{ name:"الفلسفة", icon:"💡", files:{
-          2025:{ exam:"/pdfs/math-stream/2025/philosophy_exam.pdf", corr:"/pdfs/math-stream/2025/philosophy_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/philosophy_exam.pdf", corr:"/pdfs/math-stream/2024/philosophy_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/philosophy_exam.pdf", corr:"/pdfs/math-stream/2023/philosophy_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/philosophy_exam.pdf", corr:"/pdfs/math-stream/2022/philosophy_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/philosophy_exam.pdf", corr:"/pdfs/math-stream/2021/philosophy_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/philosophy_exam.pdf", corr:"/pdfs/math-stream/2020/philosophy_corr.pdf" }
-      }},
-      islamic:{ name:"التربية الإسلامية", icon:"🕌", files:{
-          2025:{ exam:"/pdfs/math-stream/2025/islamic_exam.pdf", corr:"/pdfs/math-stream/2025/islamic_corr.pdf" },
-          2024:{ exam:"/pdfs/math-stream/2024/islamic_exam.pdf", corr:"/pdfs/math-stream/2024/islamic_corr.pdf" },
-          2023:{ exam:"/pdfs/math-stream/2023/islamic_exam.pdf", corr:"/pdfs/math-stream/2023/islamic_corr.pdf" },
-          2022:{ exam:"/pdfs/math-stream/2022/islamic_exam.pdf", corr:"/pdfs/math-stream/2022/islamic_corr.pdf" },
-          2021:{ exam:"/pdfs/math-stream/2021/islamic_exam.pdf", corr:"/pdfs/math-stream/2021/islamic_corr.pdf" },
-          2020:{ exam:"/pdfs/math-stream/2020/islamic_exam.pdf", corr:"/pdfs/math-stream/2020/islamic_corr.pdf" }
-      }}
-    }
+      svt: {
+        name: "علوم الطبيعة والحياة", icon: "🧬",
+        files: {
+          2025: [
+  {
+    exam: "https://drive.google.com/file/d/1XdrnGTuip139tEUw77E3SXFn_DhAvA9s/preview",
+    corr: "https://drive.google.com/file/d/1WD5fEnEFAt3tfTeL9ndQTi-meoBLAAvd/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1-I5-rdwsVbMun1GvDttNWpKJ4KyVMMgk/preview",
+    corr: "https://drive.google.com/file/d/1Ey3Ujw8p-YqR8yCHN3IS5LDUbyfrP7tl/preview"
   }
-};
+],2024: [
+  {
+    exam: "https://drive.google.com/file/d/1-JjL4spK9kFxvnHCiInJrlymszJZ_5Wr/preview",
+    corr: "https://drive.google.com/file/d/13GitqCO2191cUm8E5TsudIvAJyl7t7IM/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1d-LOULqUUMqfJZ-CUW_iIUrnLvLOUbP7/preview",
+    corr: "https://drive.google.com/file/d/1jxVe0_CRLhasxwHIHY_0rB4J4gFdAW3M/preview"
+  }
+], 
+ 2023: [
+  {
+    exam: "https://drive.google.com/file/d/1ipfwIQ-KmdFe0wUBQRuvAwPSj6xi5Ahy/preview",
+    corr: "https://drive.google.com/file/d/1Q6AmpS_b-DniweSjM4FMfEP-THITRH3Q/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1I-TdFNgTYuP0X6WrN0wwsYZan_e8H9To/preview",
+    corr: "https://drive.google.com/file/d/1URaJI4kGYqTwuT0vnmIV589464NTqEx7/preview"
+  }
+], 2022: [
+  {
+    exam: "https://drive.google.com/file/d/1DOR8YLjjbb_o6IrrrLx86h1HDfjvrSbv/preview",
+    corr: "https://drive.google.com/file/d/1rWmd8lir5k1y1uatk06R4UMVGZdvwlC7/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1r5GdGbT5mYjVR4xZP2zWPyh4EPa4X1w8/preview",
+    corr: "https://drive.google.com/file/d/1KCjnpF0HnfgY-qOJAyQMrm1sfmvvmipr/preview"
+  }
+], 
+ 2021: [
+  {
+    exam: "https://drive.google.com/file/d/1uEbn3hjElp9TXRVV1tYQ-y3Aeecnzdo-/preview",
+    corr: "https://drive.google.com/file/d/1-LMGvVZ5cToJt8Bn9GV7VyVIjc8e18yU/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1RNjsuXYCu8YZpGnDZS6mdfbaFbKxYi6i/preview",
+    corr: "https://drive.google.com/file/d/1AsRfB74rWHkbyR3rtsL9tgof5OphGov0/preview"
+  }
+], 2020: [
+  {
+    exam: "https://drive.google.com/file/d/12xYS5gQ56lSJAXWTgy09KBjQ8OXOvnHc/preview",
+    corr: "https://drive.google.com/file/d/1sKQ52lxxI0gU5mSlYvV6BOMSb6mQthJd/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1CAwNyulh8kiNjappnirPushHmz2UelJb/preview",
+    corr: "https://drive.google.com/file/d/1qR-Du48db6Nr8yl8VX7Rkkqb0vjmzk-x/preview"
+  }
+]
+},
+      arabic: {
+        name: "اللغة العربية", icon: "📝",
+        files: {
+          2025: [
+  {
+    exam: "https://drive.google.com/file/d/1nL4VFrYXVs3hlc0YYKVjyZ7nxPbwAVMn/preview",
+    corr: "https://drive.google.com/file/d/1EvygMRUZUVoFHDqfpFxakL4k0cLHYyrm/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1G3ov15fGZJr4CNivvLdHh5EjmIDJXCZD/preview",
+    corr: "https://drive.google.com/file/d/1ywgyf9h3YjM6JUORmyM9Hj9qIflpLgYe/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1Y--XGS9XmjWTqCJMB7-C58jxKDK1T3Gp/preview",
+    corr: "https://drive.google.com/file/d/1W2bYqmMJL8Fnh1brHcnkpmiivOFEQorF/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1-qZK3cPevYbHuHX2LKaPwpna0wwE2tEJ/preview",
+    corr: "https://drive.google.com/file/d/1WR5Q1TJ7yCjfh_6aqZJhzdMcdoJgdEj5/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/14g-fTAxr74yhj5Cn3aqdfnm0SjsGYDU4/preview",
+    corr: "https://drive.google.com/file/d/1ZSSGIon5DfwDxGqmWmAnmdJWz5VB0CX3/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1lGytZrDrDgL6gkK6SCh9mooFAGGTxXtx/preview",
+    corr: "https://drive.google.com/file/d/1zMpwx8XvFKPOewyRthCDZtmNx1XSN0UO/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1DsmRneDVw7uMObp3_w5Nj2syA3WkTMY_/preview",
+    corr: "https://drive.google.com/file/d/1a-dMwyhMsT1wCTWUkO2Q_gsAyvibvppd/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/16vCfoLnF4TqHRK6MhFsC0E51M60M0_od/preview",
+    corr: "https://drive.google.com/file/d/18aQP_7w9xqWiCCfgH0cBR4b3E3lXJAgA/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1qGOiGYTtPYEFaVqX3FiUaG_2hxNV3BOV/preview",
+    corr: "https://drive.google.com/file/d/1ZhakXVPyRuRWlt-J6_JKMOtu32UkJDGJ/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1BvERpQT_qZ05kBE_X1E1vYVHiUpw3oIx/preview",
+    corr: "https://drive.google.com/file/d/19InrIsbl6FedLOHRj_hnloMRf6xc5IPL/preview"
+  }
+],
+
+          2020:[{ exam:"https://drive.google.com/file/d/1cfC6YjpyvuVFb6y6z_myzOZ45j4znvW4/preview", corr:"https://drive.google.com/file/d/1y6xoaXRs4xpn5jSvZ5s0X0jE3ZeOvRRe/preview" }, {exam:"https://drive.google.com/file/d/1fCKoKZ69vNDMSbd6LtlqNoIBRjtyRK1N/preview",corr:"https://drive.google.com/file/d/1kSkXvHLrEHqE7JOH_ddjeBqesm6Ye7hV/preview" }]
+
+        }
+      },
+      french: {
+        name: "اللغة الفرنسية", icon: "🇫🇷",
+        files: {
+2025: [
+  {
+    exam: "https://drive.google.com/file/d/10JyENjDcXrd6ylnZW8XUGqR2GDJRTz0l/preview",
+    corr: "https://drive.google.com/file/d/119aL1RT8Vejs2syXnfQtni1K-g7GQo9F/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1oDFitCL-r9A8-HKVjKayO2XQVa6Yxx04/preview",
+    corr: "https://drive.google.com/file/d/1GQjeuDHR-KZzfg7Bf_A4oj4olqkamovg/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1PS6P70tEdGIkO0xOEnPqvntKfTgo3WK7/preview",
+    corr: "https://drive.google.com/file/d/1-_iaF6PL5tP3x_ItCfp093oNSg4GQZtG/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1ELP6x2XC7xR0FgvWFvKutxqtnx-qG_lw/preview",
+    corr: "https://drive.google.com/file/d/1-_iaF6PL5tP3x_ItCfp093oNSg4GQZtG/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1yiayUOMLgifdd2zzar2_fhyAqhF6y9UM/preview",
+    corr: "https://drive.google.com/file/d/1hvNEqjo_Ok0xKHTmoBWtSXWru7y3NSZO/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1MJJZnueihvexUBH6dc_1VBKx4socERaq/preview",
+    corr: "https://drive.google.com/file/d/1qt2wWfsRUK1H1-AUrH8XGqISWDrn3VSr/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/18NpFz1uIX95kX-PNtC4VDEwvtky1WaEJ/preview",
+    corr: "https://drive.google.com/file/d/10X4VWTrdbUaRD6T2zP4IbzGkdHPPipxX/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/199EkDjdskRi9_PC-dQ8WEANfYSVHXGyl/preview",
+    corr: "https://drive.google.com/file/d/15ZKoZt-YQ_JfWgz4BEL35N12j3-FNaYN/view?usp=drive"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1siV_H514On80ryhEEf5lRmh1OE7TVpu5/preview",
+    corr: "https://drive.google.com/file/d/1iWJ360tj0wIanos8oxN6aa4RaZUH-Apu/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1Emo-ZGMKVlhPHhlElnVt7Ngcx9yE7_Ze/preview",
+    corr: "https://drive.google.com/file/d/1sQXc_MFCN0Ml9abAVG-5354GJ87OZ6vB/view?usp=drive"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1dMoHby9I-V6h1lcXY3BxrgQS4DNaevJA/preview",
+    corr: "https://drive.google.com/file/d/1hqQ0jdpqtkOovLp-5YD2OGn4tMo8I3oD/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1v2X0hs97lZKo-WrcGCqlx4DPKoFNjtLU/preview",
+    corr: "https://drive.google.com/file/d/1qeZB-Rk9JO37-wZ3Bjn3y7tgG36INUUX/preview"
+  }
+]
+        }
+        
+      },
+      english: {
+        name: "اللغة الإنجليزية", icon: "🇬🇧",
+        files: {
+2025: [
+  {
+    exam: "https://drive.google.com/file/d/1o5_IFF6YaCHcHW2R0DVD1naNBQ6mz57c/preview",
+    corr: "https://drive.google.com/file/d/1zrjzKQVbpH0bpKurOHyLnxZPlU3T20oN/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1rgqhXwZbghEAsAkdCIuMpBdwdhAbz89S/preview",
+    corr: "https://drive.google.com/file/d/1zKVTifUz2x81gvRZozIyKHrXEF3fmT_U/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1OESsiFt08yBHuNIhlbmUdk6o3S7XbFW0/preview",
+    corr: "https://drive.google.com/file/d/1Z-NNBymTlu5X10va82RX-ozXffjAfkPU/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1PoARWDwQgXgA4hz9cwkFmKCCmqIB0-4Z/preview",
+    corr: "https://drive.google.com/file/d/1eGWWdTVb-9koE3BLFvF5WpZS8Qr_Xaf1/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1vPJvygr7CjuBbrIfaenSEWgDQrlD8oVY/preview",
+    corr: "https://drive.google.com/file/d/15xWE50DZVXDrRnSjgweMJEXQaicZLnIW/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1TIs0KmSfPUNoMTE1KSqhEHI-THq-LJBs/preview",
+    corr: "https://drive.google.com/file/d/1ux6Z_vj3tUr5R5HSb-RWRTVqSomLCw3z/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/17cvFWeaS24irfcd2lHs97BAD3nihULZz/preview",
+    corr: "https://drive.google.com/file/d/1pmaMgL5avo4MH0zR4tHGPu06wDfwSLfl/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1wKgKXvHXsq0Qw-i8PS6lHsUczg05kJRf/preview",
+    corr: "https://drive.google.com/file/d/1XXHYKNJrZ-mHzQTTEvY5A0xZgzhgNlec/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1okbIMDNsbXg5vD01aNwmJvLrZ9g5r5hD/preview",
+    corr: "https://drive.google.com/file/d/1p4p7wqonWuVN0L0JEknXSO-iYnOtdSz7/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1hxo604huk03hnmk0b9xza03CNr8Pp30B/preview",
+    corr: "https://drive.google.com/file/d/1399kEhXCQ85yzVY0EiY7BTj6oqNoEPNu/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1RocTBecwGz2qRF87OsGAXzxqULfqX6VE/preview",
+    corr: "https://drive.google.com/file/d/1_9XBc05Ib6j1QajzcxEtt2IEGp8ZLD_Z/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1h2gizKf57eOGBVS8acpCR57qPEklI36h/preview",
+    corr: "https://drive.google.com/file/d/1FexOJ17RzDEqJ7GewoGTbye4aNkM9aeW/preview"
+  }
+],
+
+        }
+      },
+      history: {
+        name: "التاريخ والجغرافيا", icon: "📖",
+        files: {
+         2025: [
+  {
+    exam: "https://drive.google.com/file/d/153GeDcR1lZa7Kfr4BXDEvZkvZ8o1gBYA/preview",
+    corr: "https://drive.google.com/file/d/1VJ2B80azUJPdBiocwjbE_gT3rtcUk4a3/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1OiNxtfCZzLa0FAdE3BUPmVMYpcYcSEwh/preview",
+    corr: "https://drive.google.com/file/d/1M5HRmVkVkw5AFl_u9FgJEN9M0Ss8OjTm/preview"
+  }
+],
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1AKjKRkSi3Hxcz6HNQTlwxI6NU3ADydQ3/preview",
+    corr: "https://drive.google.com/file/d/1mu9EtJczwhgFqGY40ZpI1iUyuyQtmPGl/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/10FH3dOcFuh9tJXWQaVezznIkG1qa8wMd/preview",
+    corr: "https://drive.google.com/file/d/16AzfFDap10HOWOpL183On_SAKWgVEfXQ/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1SWDyuxMwPCUzgHV__J4rIHQ25SzulW6d/preview",
+    corr: "https://drive.google.com/file/d/1QDzVqiuseYY7YOs-v2y33QDGT6ihAo72/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1ZDC5OFNEwF8sYBm1X7BxyO7x2eyoga9q/preview",
+    corr: "https://drive.google.com/file/d/11lul3-eEigfkEnDy842IJSIbchrHCPl8/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1N95MwdkC6bvZ48hhr9xEEIYfFRBa3V9e/preview",
+    corr: "https://drive.google.com/file/d/1E0xuNNoFqS1neNNDdPBp6cV47r3Jz7ek/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1nTr95rdhve6T8x-LbwncmOSuK0t3cyF2/preview",
+    corr: "https://drive.google.com/file/d/1SVdT73LODZ7MdP7jArEd9SSDpHQ2mhG_/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1xC8QsQojP8UJt37BdMfMdAM3e5dpGSqo/preview",
+    corr: "https://drive.google.com/file/d/1vfDh0_t2KrN5ViQkozeqIjkiX9MYksUz/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1Ow00kne2BvFBV1DjKVMv-HXhKMbPA5vV/preview",
+    corr: "https://drive.google.com/file/d/1m_q5FO8UWa2QAFJxBx92vi9mWjSKgsSI/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1F6mIr5PoKKPtPnDOd1xu9rZjqItimxOB/preview",
+    corr: "https://drive.google.com/file/d/1BbGVMsuvQXFltzOp0bHEfRhH2hZmOXxG/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1zuRA3It1ekyNEr9_XPn4TcyBQRK2m4ec/preview",
+    corr: "https://drive.google.com/file/d/1dHpm2Ka3PKl4Nhten0rO3KhPl_sg233T/preview"
+  }
+],
+
+        }
+      },
+      philosophy: {
+        name: "الفلسفة", icon: "💡",
+        files: {
+         2025: [
+  {
+    exam: "https://drive.google.com/file/d/1PUGsV7G-AqZbBy6fnkM4Sf9Hk-Holvye/preview",
+    corr: "https://drive.google.com/file/d/1HbkXoHqPRJu2lvaP8JE0Do082pHgWlLl/preview"
+  }
+],
+
+          2024: [
+  {
+    exam: "https://drive.google.com/file/d/1ofAW2zUId9iVlod69v2JPSTav95ZvIj2/preview",
+    corr: "https://drive.google.com/file/d/1hy6ZLN8YiQLqz6G32jnK2iigTv7hr9Hp/preview"
+  }
+],
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/10nZi3NMUZbE6QQ7tXX74hfvSODlXxFT6/preview",
+    corr: "https://drive.google.com/file/d/1PEDQuUMIS5_aZyCKScIIyaY2cmw5Aa4r/preview"
+  }
+],
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1y93hmbhZsD-fIc0nre7pDTEHQO9nWO3x/preview",
+    corr: "https://drive.google.com/file/d/12xwoNnu_DaRDi8EQLuz1SJfxZI4iftMg/preview"
+  }
+],
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/1cwtaq_T3DnHJMwOfkgWg_yVGJuChMjEK/preview",
+    corr: "https://drive.google.com/file/d/1XUmo6GmNDaNYZfrPJZ6v6xjiUwXrCdsJ/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/14n-lv7IW2GTFNL7KHnOa0xt4vsK_zasZ/preview",
+    corr: "https://drive.google.com/file/d/1Qx9A0VSiZ6Wk2kqy1Z2ROSASfbpgjNHi/preview"
+  }
+]
+        }
+      },
+      islamic: {
+        name: "التربية الإسلامية", icon: "🕌",
+        files: {
+          2025: [
+  {
+    exam: "https://drive.google.com/file/d/1otUEoJq4kVt8LS0wWEGgiDPwGelQmIlR/preview",
+    corr: "https://drive.google.com/file/d/1fHxSCePIV2e28PuIw3KO8vnGTeRoXlvg/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1nBCTDOYgLLt2pUudTn_9DtvPO4OfjSD5/preview",
+    corr: "https://drive.google.com/file/d/1tjaYckMwJ8r8zXcFZ5taA4Yc46rrO4tT/preview"
+  }
+],
+
+2024: [
+  {
+    exam: "https://drive.google.com/file/d/1TIG1qjCTRC2XhcTQ3uixOjR1mjCZiSuS/preview",
+    corr: "https://drive.google.com/file/d/1olqlMZogFIX_7fHl0VR5JT5_0zTMES35/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1yqRfx2RuStamKUS6AcyoeeHJ-wXpv1Sp/preview",
+    corr: "https://drive.google.com/file/d/1UzD5jY2PNJPeq1xlQDAF1-MgcLJ-0MOw/preview"
+  }
+],
+
+2023: [
+  {
+    exam: "https://drive.google.com/file/d/1BMBv70Ctk5tKXeis011ryvl2ZvinPFKt/preview",
+    corr: "https://drive.google.com/file/d/16O1PdTRHp_5D6ZpMmDz8zMsWZU9G__EV/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1vfmt4rVtcV481zzu_qltzaYZRLalSDPf/preview",
+    corr: "https://drive.google.com/file/d/1IF7Vg8YUaV-AlDQFMv0-tXQLIpcjO-U1/preview"
+  }
+],
+
+2022: [
+  {
+    exam: "https://drive.google.com/file/d/1J8EaMEMYqlZvNhndFATUM8iQLuXODFYa/preview",
+    corr: "https://drive.google.com/file/d/1CO7MqjeW8mpFeDa-h9gmA-uZNrf8xOCC/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1tPLMoAqhhWUjF9xEOmbjKsdXfuM-qrtR/preview",
+    corr: "https://drive.google.com/file/d/1P64fPCALDex6aoJRVFNmfhUCYSkwtgW9/preview"
+  }
+],
+
+2021: [
+  {
+    exam: "https://drive.google.com/file/d/19ruQESBb6LcvETdNmQrYGVBSMeL6XD19/preview",
+    corr: "https://drive.google.com/file/d/1HsALURHHlGs92jN4QvVgjec-iAQEDUNT/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1l9gwLuJ9VvnrmoFzo_E2cxLH10n8IOEp/preview",
+    corr: "https://drive.google.com/file/d/1zlvhPgxGLkrfQEbR6MVRtA-NHkbNCuKw/preview"
+  }
+],
+2020: [
+  {
+    exam: "https://drive.google.com/file/d/1SyZXmufpF0wifqWmVNi09FV5GHV31BIf/preview",
+    corr: "https://drive.google.com/file/d/1Ev2nbFcoqMGO15AWmaw6QRHxL4W_5py6/preview"
+  },
+  {
+    exam: "https://drive.google.com/file/d/1vOLbr5Rvn5zJITNLtFxZ8d8u2CStMu0h/preview",
+    corr: "https://drive.google.com/file/d/1ZIbwL162JpxqLkwISAgnSGVoXiEfJtli/preview"
+  }
+]
+
+        }
+      }
+    }
+  }, 
+    
+  }
+}
+ 
 
 
 // فتح ملف PDF في عارض عائم
@@ -8248,61 +10028,87 @@ function closePdf() {
 
 // توليد البكالوريا لشعبة معينة (experimental = علوم تجريبية / math = رياضيات)
 function renderBacExams(branch) {
-  // تمييز الأزرار
-  document.getElementById('tab-experimental').classList.toggle('btn-primary', branch==='experimental');
-  document.getElementById('tab-experimental').classList.toggle('btn-outline-primary', branch!=='experimental');
-  document.getElementById('tab-math').classList.toggle('btn-primary', branch==='math');
-  document.getElementById('tab-math').classList.toggle('btn-outline-primary', branch!=='math');
+  const tabs = document.getElementById('bacYearTabs');
+  const content = document.getElementById('bacYearContent');
+  tabs.innerHTML = '';
+  content.innerHTML = '';
 
   const data = bacData[branch];
-  const container = document.getElementById('examsContainer');
-  container.innerHTML = '';
+  if (!data) return;
 
-  data.years.forEach((year) => {
-    const col = document.createElement('div');
-    col.className = 'col-md-6 col-lg-4 mb-4';
+  data.years.forEach((year, idx) => {
+    // زر التبويب
+    const li = document.createElement('li');
+    li.className = 'nav-item';
+    const btn = document.createElement('button');
+    btn.className = 'nav-link' + (idx === 0 ? ' active' : '');
+    btn.id = `tab-${year}`;
+    btn.dataset.bsToggle = 'tab';
+    btn.dataset.bsTarget = `#content-${year}`;
+    btn.type = 'button';
+    btn.role = 'tab';
+    btn.textContent = year;
+    li.appendChild(btn);
+    tabs.appendChild(li);
 
-    const card = document.createElement('div');
-    card.className = 'exam-year';
-    card.innerHTML = `<h3>امتحانات ${year}</h3>`;
+    // المحتوى
+    const tabPane = document.createElement('div');
+    tabPane.className = 'tab-pane fade' + (idx === 0 ? ' show active' : '');
+    tabPane.id = `content-${year}`;
+    tabPane.role = 'tabpanel';
 
-    const list = document.createElement('div');
+    const grid = document.createElement('div');
+    grid.className = 'bac-subjects-grid';
 
-    Object.keys(data.subjects).forEach((key) => {
-      const subj = data.subjects[key];
-      const files = subj.files[year]; // قد يكون غير موجود لبعض السنوات
+    Object.keys(data.subjects).forEach(subjectKey => {
+      const subj = data.subjects[subjectKey];
+      const files = subj.files[year];
+      if (!files) return;
 
-      const div = document.createElement('div');
-      div.className = 'exam-subject';
-      div.innerHTML = `<h5>${subj.icon} ${subj.name}</h5>`;
+      const card = document.createElement('div');
+      card.className = 'bac-card';
+      card.innerHTML = `<h5>${subj.icon || ''} ${subj.name || subjectKey}</h5>`;
 
-      const links = document.createElement('div');
-      links.className = 'exam-links';
+      const topics = Array.isArray(files) ? files : [files];
+      const linksDiv = document.createElement('div');
+      linksDiv.className = 'bac-links';
 
-      // زر الاختبار
-      const btnExam = document.createElement('button');
-      btnExam.className = 'btn btn-sm btn-primary';
-      btnExam.textContent = 'الاختبار';
-      btnExam.disabled = !files?.exam;
-      if (files?.exam) btnExam.onclick = () => openPdf(files.exam);
+      topics.forEach((t, i) => {
+        const label = topics.length > 1 ? `موضوع ${i + 1}` : 'موضوع';
 
-      // زر التصحيح
-      const btnCorr = document.createElement('button');
-      btnCorr.className = 'btn btn-sm btn-secondary';
-      btnCorr.textContent = 'التصحيح';
-      btnCorr.disabled = !files?.corr;
-      if (files?.corr) btnCorr.onclick = () => openPdf(files.corr);
+        const examBtn = document.createElement('a');
+        examBtn.href = '#';
+        examBtn.textContent = `${label}`;
+        examBtn.onclick = (e) => {
+          e.preventDefault();
+          if (t.exam) openPdf(convertDriveToEmbed(t.exam));
+          else showNotification('الملف غير متوفر', 'warning');
+        };
 
-      links.appendChild(btnExam);
-      links.appendChild(btnCorr);
-      div.appendChild(links);
-      list.appendChild(div);
+        const corrBtn = document.createElement('a');
+        corrBtn.href = '#';
+        corrBtn.textContent = `حل ${label}`;
+        corrBtn.onclick = (e) => {
+          e.preventDefault();
+          if (t.corr) openPdf(convertDriveToEmbed(t.corr));
+          else showNotification('الملف غير متوفر', 'warning');
+        };
+
+        linksDiv.appendChild(examBtn);
+        linksDiv.appendChild(corrBtn);
+      });
+
+      card.appendChild(linksDiv);
+      grid.appendChild(card);
     });
 
-    card.appendChild(list);
-    col.appendChild(card);
-    container.appendChild(col);
+    tabPane.appendChild(grid);
+    content.appendChild(tabPane);
   });
+
+  // تفعيل تبويب الشعبة
+  document.getElementById('tab-experimental')?.classList.toggle('active', branch === 'experimental');
+  document.getElementById('tab-math')?.classList.toggle('active', branch === 'math');
 }
 
 // عرض قسم البكالوريا (واجهة عامة)
@@ -8677,7 +10483,7 @@ const libraryBooks = [
     id: 'b1',
     title:'برنامج العلوم الطبيعية كاملا',
     author: 'محمد تقي الدين',
-    cover: '', // ضع الصورة في هذا المسار
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus', // ضع الصورة في هذا المسار
     description: 'كل مايتعلق بوحدات العلوم',
     fileUrl: 'https://drive.google.com/file/d/1WQqnjfoKycm2VGKLRJIn4zxCXBcj2QCR/preview',
     category:'علوم',
@@ -8686,7 +10492,7 @@ const libraryBooks = [
     id: 'b2',
     title: 'برنامج اللغة العربية كاملا',
     author: 'محمد تقي الدين',
-    cover: '',
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus',
     description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
     fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
     category: 'لغة عربية',
@@ -8695,7 +10501,7 @@ const libraryBooks = [
     id: 'b3',
     title: 'برنامج اللغة الفرنسية كاملا',
     author: 'محمد تقي الدين',
-    cover: '',
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus',
     description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
     fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
     category:'لغة فرنسية',
@@ -8704,7 +10510,7 @@ const libraryBooks = [
     id: 'b4',
     title: 'برنامج اللغة الانجليزية كاملا',
     author: 'محمد تقي الدين',
-    cover: '',
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus',
     description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
     fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
     category:'لغة انجليزية',
@@ -8713,7 +10519,7 @@ const libraryBooks = [
     id: 'b5',
     title: 'برنامج الرياضيات كامل',
     author: 'محمد تقي الدين',
-    cover: 'assets/books/physics1.jpg',
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus',
     description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
     fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
     category:'رياضيات',
@@ -8722,7 +10528,7 @@ const libraryBooks = [
     id: 'b6',
     title: 'جميع المقالات حسب البرنامج الدراسي',
     author: 'محمد تقي الدين',
-    cover: 'assets/books/physics1.jpg',
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus',
     description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
     fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
     category:'فلسفة',
@@ -8740,10 +10546,19 @@ const libraryBooks = [
     id: 'b8',
     title: 'برنامج التاريخ والجغرافيا حسب المقرر',
     author: 'محمد تقي الدين',
-    cover: 'mlmsite\\Screenshot 2025-09-11 033129.png',
+    cover: 'https://videos.openai.com/vg-assets/assets%2Ftask_01k51qss61ee1afb5je3h68tev%2F1757774000_img_0.webp?st=2025-09-13T13%3A48%3A36Z&se=2025-09-19T14%3A48%3A36Z&sks=b&skt=2025-09-13T13%3A48%3A36Z&ske=2025-09-19T14%3A48%3A36Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=5e5fc900-07cf-43e7-ab5b-314c0d877bb0&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=632NrXq2quDs4xmQDlZMqwFGpuT9uGUTq66Q1KirhXk%3D&az=oaivgprodscus',
     description: 'ملخص شامل ومخططات لتوضيح المفاهيم الأساسية.',
-    fileUrl: 'https://drive.google.com/file/d/1T9nGayKTAkne_D0P9LI5Ec8IxEpqfbig/preview', // placeholder
+    fileUrl: '', // placeholder
     category:'التاريخ والجغرافيا',
+  },
+  {
+    id: 'b8',
+    title: 'بلانر مساعد من تصميمنا',
+    author: 'محمد تقي الدين',
+    cover: 'mlmsite\Screenshot 2025-09-11 033129.png',
+    description: 'برنامج منظم يساعدك على تنظيم وقتك',
+    fileUrl: '', // placeholder
+    category:'ملفات مساعدة',
   },
   // أضف مزيدًا من العناصر هنا...
 ];
@@ -8781,7 +10596,7 @@ function applyFilter(cat) {
 
 // ---------- normalizeCover ----------
 function normalizeCover(raw) {
-  const placeholder = 'assets/books/placeholder-cover.jpg'; // صورة افتراضية
+  const placeholder = 'mlmsite\ChatGPT Image Sep 15, 2025, 12_52_10 AM.png'; // صورة افتراضية
   if (!raw) return placeholder;
 
   let cover = String(raw).replace(/\\/g, '/').trim();
@@ -8984,5 +10799,3 @@ function convertDriveToEmbed(url) {
 </script>
 </body>
 </html>
-
-
