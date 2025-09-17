@@ -2260,72 +2260,165 @@ body.dark-mode .profile-section .form-control::placeholder {
 
     <!-- Login/Register Section -->
     <div id="authSection" class="auth-container">
-        <div class="auth-card fade-in">
-            <h2 class="auth-title"> تسجيل الدخول </h2>
-            <ul class="nav nav-tabs mb-3" id="authTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"> تسجيل الدخول </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button"> إنشاء حساب </button>
-                </li>
-            </ul>
-            <div class="tab-content" id="authTabsContent">
-                <div class="tab-pane fade show active" id="login" role="tabpanel">
-                    <form onsubmit="handleLogin(event)">
-                        <div class="mb-3">
-                            <label for="loginEmail" class="form-label"> البريد الإلكتروني </label>
-                            <div class="input-group">
-                                <input type="email" class="form-control" id="loginEmail" required>
-                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                            </div>
+    <div class="auth-card fade-in">
+        <h2 class="auth-title"> تسجيل الدخول </h2>
+        
+        <!-- أزرار التبويب -->
+        <ul class="nav nav-tabs mb-3 auth-tabs justify-content-center" id="authTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link active auth-tab-btn" 
+                    id="login-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#login" 
+                    type="button"
+                    data-title="تسجيل الدخول">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    تسجيل الدخول
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button 
+                    class="nav-link auth-tab-btn" 
+                    id="register-tab" 
+                    data-bs-toggle="tab" 
+                    data-bs-target="#register" 
+                    type="button"
+                    data-title="إنشاء حساب">
+                    <i class="bi bi-person-plus"></i>
+                    إنشاء حساب
+                </button>
+            </li>
+        </ul>
+
+        <!-- المحتوى -->
+        <div class="tab-content" id="authTabsContent">
+            <div class="tab-pane fade show active" id="login" role="tabpanel">
+                <form onsubmit="handleLogin(event)">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label"> البريد الإلكتروني </label>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="loginEmail" required>
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                         </div>
-                        <div class="mb-3">
-                            <label for="loginPassword" class="form-label"> كلمة المرور </label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="loginPassword" required>
-                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label"> كلمة المرور </label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="loginPassword" required>
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 mt-3"> دخول </button>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="register" role="tabpanel">
-                    <form onsubmit="handleRegister(event)">
-                        <div class="mb-3">
-                            <label for="registerName" class="form-label"> الاسم الكامل </label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="registerName" required>
-                                <span class="input-group-text"><i class="bi bi-person"></i></span>
-                            </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3"> دخول </button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="register" role="tabpanel">
+                <form onsubmit="handleRegister(event)">
+                    <div class="mb-3">
+                        <label for="registerName" class="form-label"> الاسم الكامل </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="registerName" required>
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
                         </div>
-                        <div class="mb-3">
-                            <label for="registerEmail" class="form-label"> البريد الإلكتروني </label>
-                            <div class="input-group">
-                                <input type="email" class="form-control" id="registerEmail" required>
-                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label"> البريد الإلكتروني </label>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="registerEmail" required>
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                         </div>
-                        <div class="mb-3">
-                            <label for="registerPassword" class="form-label"> كلمة المرور </label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="registerPassword" required>
-                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label"> كلمة المرور </label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="registerPassword" required>
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
                         </div>
-                        <div class="mb-3">
-                            <label for="registerConfirmPassword" class="form-label"> تأكيد كلمة المرور </label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="registerConfirmPassword" required>
-                                <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerConfirmPassword" class="form-label"> تأكيد كلمة المرور </label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="registerConfirmPassword" required>
+                            <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 mt-3"> إنشاء حساب </button>
-                    </form>
-                </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3"> إنشاء حساب </button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<!-- تحسين مظهر الأزرار -->
+<style>
+.auth-tabs .nav-link {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .65rem 1.4rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: .65rem;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  color: #444;
+  transition: all .2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.auth-tabs .nav-link i {
+  font-size: 1.1rem;
+  opacity: .85;
+}
+
+.auth-tabs .nav-link:hover {
+  background: #f5f7fa;
+  color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.auth-tabs .nav-link.active {
+  background: linear-gradient(90deg,var(--gradient-start),var(--gradient-end));
+  color: #fff !important;
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+</style>
+
+<!-- تغيير العنوان عند الضغط -->
+<script>
+(function(){
+  function setAuthTitle(text){
+    const h = document.querySelector('.auth-title');
+    if (!h) return;
+    h.style.transition = 'opacity .12s ease, transform .12s ease';
+    h.style.opacity = '0';
+    h.style.transform = 'translateY(-6px)';
+    setTimeout(()=> {
+      h.textContent = text;
+      h.style.opacity = '1';
+      h.style.transform = 'translateY(0)';
+    }, 120);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // تعيين العنوان عند التحميل
+    const activeBtn = document.querySelector('#authTabs .nav-link.active');
+    if (activeBtn) setAuthTitle(activeBtn.dataset.title || activeBtn.textContent.trim());
+
+    // تحديث العنوان عند تغيير التبويب
+    document.querySelectorAll('#authTabs .auth-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.dataset.title || btn.textContent.trim();
+        setAuthTitle(t);
+      });
+    });
+  });
+})();
+</script>
+
 
     <!-- Branch Selection Section -->
     <div id="branchSection" class="branch-selection" style="display: none;">
@@ -7130,8 +7223,8 @@ function showSubjectDetail(subjectKey, options = {}) {
         const defaultLessonBuckets = {
           math: [
             { id: 'p1', title: 'الاستاذ عبد الباسط' },
-            { id: 'p2', title: 'الاستاذ وليد مرنيز' },
-            { id: 'p3', title: 'الاستاذ انفينيتي' }
+            { id: 'p2', title: 'الاستاذ انفينيتي' },
+            { id: 'p3', title: 'الاستاذ وليد مرنيز' }
           ],
           physics: [
             { id: 'p1', title: 'الاستاذ عبد اللطيف' },
