@@ -2806,14 +2806,16 @@ body.dark-mode .profile-section .form-control::placeholder {
                         <br><br>
                         If you’re looking to build a professional website or improve your online presence, feel free to contact me:
                         <br><br>
-  📧  Email: roumiliwalid856@gmail.com
+  💬  Email: roumiliwalid856@gmail.com
                         <br><br>
-  💬 Telegram: @kiti12345w
-                    </p>
+  💬 Telegram: @kiti12345w                    </p>
                     <div class="social-links">
-                        <a href="https://www.instagram.com/bac_with_mlm?igsh=MWR3ZHV5cmxwOXNlZw=="><i class="bi bi-instagram"></i></a>
-                        <a href="t.me/Walid462"><i class="bi bi-telegram"></i></a>
-                    </div>
+                        <a href="https://www.instagram.com/mosachi_mogi_1664?igsh=Z3Fia253YWw2NTlr" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=roumiliwalid856@gmail.com" class="icon-link" target="_blank" rel="noopener noreferrer">
+  <i class="bi bi-envelope"></i>
+</a>
+
+                      </div>
                 </div>
             </div>
         </div>
@@ -2822,19 +2824,30 @@ body.dark-mode .profile-section .form-control::placeholder {
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026  منصة جامعة العلوم. جميع الحقوق محفوظة .</p>
-            <div class="mt-3">
-                <a href="https://www.instagram.com/bac_with_mlm?igsh=MWR3ZHV5cmxwOXNlZw==" class="text-light mx-2"><i class="bi bi-instagram"></i></a>
-                <a href="https://t.me/Kiti2345w" class="text-light mx-2"><i class="bi bi-telegram"></i></a>
-                    <p>
-      <a href="#privacyPolicy" style="color: #fff; text-decoration: underline;">
-        سياسة الخصوصية
-      </a>
+  <div class="container footer-content">
+    <p class="footer-text">&copy; 2026 منصة جامعة العلوم. جميع الحقوق محفوظة.</p>
+
+    <div class="footer-icons">
+      <a href="https://www.instagram.com/bac_with_mlm?igsh=MWR3ZHV5cmxwOXNlZw==" 
+   class="icon-link" target="_blank" rel="noopener noreferrer">
+  <i class="bi bi-instagram"></i>
+</a>
+
+<a href="https://t.me/mosachi342" 
+   class="icon-link" target="_blank" rel="noopener noreferrer">
+  <i class="bi bi-telegram"></i>
+</a>
+
+    </div>
+
+    <p class="footer-links-inline">
+      <a href="#privacyPolicy" class="footer-link">سياسة الخصوصية</a>
+      <span class="footer-sep" aria-hidden="true">|</span>
+      <a href="#aboutus" class="footer-link">من نحن</a>
     </p>
-            </div>
-        </div>
-    </footer>
+  </div>
+</footer>
+
 <div id="sessionTimer" style="
   position:fixed; bottom:120px; left:20px;
   background: linear-gradient(90deg, #4f46e5, #3b82f6);
@@ -2859,6 +2872,96 @@ body.dark-mode .profile-section .form-control::placeholder {
      =========================== -->
 <style>
 /* privacy modal (scoped classes to avoid collisions) */
+.footer {
+  background: linear-gradient(135deg, #1a237e, #0d47a1); /* تدرج بسيط */
+  color: #fff;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* نص الحقوق */
+.footer-text {
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* أيقونات */
+.footer-icons {
+  display: flex;
+  gap: 14px;
+}
+.footer-icons .icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;      /* زودنا حجمها شوي */
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.3s, transform 0.3s;
+  font-size: 20px;   /* حجم الأيقونة */
+  line-height: 1;    /* يضمن أنها ما تطلع فوق أو تحت */
+}
+.footer-icons .icon-link:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+
+
+/* روابط سياسة الخصوصية ومن نحن */
+.footer-links-inline {
+  margin: 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+.footer-link:hover {
+  color: #ffeb3b; /* أصفر فاتح عند hover */
+}
+.footer-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: #ffeb3b;
+  transition: width 0.3s;
+}
+.footer-link:hover::after {
+  width: 100%;
+}
+
+.footer-sep {
+  color: rgba(255,255,255,0.6);
+}
+
+/* تحسين العرض على الشاشات الصغيرة */
+@media (max-width: 576px) {
+  .footer-content {
+    gap: 16px;
+  }
+  .footer-links-inline {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
 .privacy-modal {
   position: fixed;
   inset: 0;
@@ -2956,7 +3059,282 @@ body.dark-mode .profile-section .form-control::placeholder {
     </p>
   </div>
 </div>
+<style>
+/* about-us modal (scoped classes to avoid collisions) */
+.aboutus-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center ;
+  align-items: center ;
+  background: rgba(0,0,0,0.65);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease;
+}
 
+/* الوضع مفتوح */
+.aboutus-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.aboutus-modal .aboutus-content {
+  background: #fff;
+  width: 100%;
+  max-width: 980px;
+  margin: 48px 20px;
+  border-radius: 10px;
+  padding: 28px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  direction: rtl;
+  position: relative;
+}
+
+/* زر الإغلاق */
+.aboutus-modal .aboutus-close-btn {
+  position: absolute;
+  left: 20px; /* left لأن الصفحة RTL */
+  top: 12px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+}
+
+/* النصوص والعناوين */
+.aboutus-modal h2 { margin-top: 0; color: #1a237e; }
+.aboutus-modal p,
+.aboutus-modal li {
+  color: #000; /* تبقى سوداء حتى في الدارك مود */
+  line-height: 1.7;
+}
+.aboutus-modal ul { padding-inline-start: 1rem; margin-top: .5rem; }
+
+/* ---- تخصيص العرض ---- */
+
+/* على الشاشات الكبيرة (حاسوب) -> وسط الشاشة */
+@media (min-width: 577px) {
+  .aboutus-modal {
+    align-items: center; /* يضعها في منتصف الشاشة عموديًا */
+  }
+}
+
+/* على الهاتف (شاشات صغيرة) -> تبقى من الأعلى */
+@media (max-width: 576px) {
+  .aboutus-modal {
+    align-items: flex-start; /* يرجعها للأعلى */
+  }
+  .aboutus-modal .aboutus-content {
+    margin: 12px;
+    padding: 18px;
+    border-radius: 8px;
+    max-height: calc(100vh - 40px);
+  }
+  .aboutus-modal .aboutus-close-btn {
+    font-size: 26px;
+    left: 12px;
+    top: 8px;
+  }
+}
+
+/* ضمان النصوص تبقى سوداء في الدارك مود */
+@media (prefers-color-scheme: dark) {
+  .aboutus-modal h2,
+  .aboutus-modal p,
+  .aboutus-modal li {
+    color: #000 ;
+  }
+}
+/* ✅ إصلاح تمركز الـ modals على الشاشات الكبيرة */
+@media (min-width: 577px) {
+  .aboutus-modal,
+  .privacy-modal {
+    align-items: center !important; /* وسط الشاشة عمودي */
+    justify-content: center !important; /* وسط الشاشة أفقي */
+  }
+}
+
+/* ✅ توحيد ألوان النصوص والعناوين لتبقى سوداء */
+.aboutus-modal h2,
+.aboutus-modal h3,
+.aboutus-modal h4,
+.aboutus-modal p,
+.aboutus-modal li,
+.privacy-modal h2,
+.privacy-modal h3,
+.privacy-modal h4,
+.privacy-modal p,
+.privacy-modal li {
+  color: #000 !important;   /* أسود دائم */
+}
+
+/* ✅ حتى في الدارك مود (بدون media query) */
+body.dark-mode .aboutus-modal h2,
+body.dark-mode .aboutus-modal h3,
+body.dark-mode .aboutus-modal h4,
+body.dark-mode .aboutus-modal p,
+body.dark-mode .aboutus-modal li,
+body.dark-mode .privacy-modal h2,
+body.dark-mode .privacy-modal h3,
+body.dark-mode .privacy-modal h4,
+body.dark-mode .privacy-modal p,
+body.dark-mode .privacy-modal li {
+  color: #000 !important;
+}
+/* Force centered, card-like modal on desktop for both About & Privacy */
+@media (min-width: 768px) {
+  .aboutus-modal.open .aboutus-content,
+  .privacy-modal.open .privacy-content {
+    width: auto !important;
+    max-width: 880px !important;   /* أكبر من 720px */
+    margin: 0 auto !important;
+    border-radius: 14px !important; /* زاوية أكثر نعومة */
+  }
+  /* تأكد من متمركز الحاوية نفسها */
+  .aboutus-modal,
+  .privacy-modal {
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+/* إن أردت أن تجعل القسم المخفي (#aboutUs) يظهر بنفس ستايل المودال */
+.policy-section#aboutUs {
+  display: none; /* يبقى مخفياً، سيُفتح بواسطة showSection إن احتجت */
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+}
+.policy-section#aboutUs > * {
+  background: #fff;
+  max-width: 880px;   /* نفس الزيادة */
+  width: 100%;
+  margin: 32px;
+  padding: 32px;
+  border-radius: 14px;
+  overflow-y: auto;
+}
+
+</style>
+
+<div id="aboutus" class="aboutus-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="aboutusTitle">
+  <div class="aboutus-content" tabindex="0">
+    <button class="aboutus-close-btn" aria-label="إغلاق نافذة من نحن">&times;</button>
+
+    <h2 id="aboutusTitle" class="text-center">من نحن — منصة جامعة العلوم</h2>
+
+    <p class="text-center">
+      🌸 بسم الله الرحمن الرحيم 🌸 <br>
+      ﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾ [طه: 114]
+    </p>
+
+    <p>
+      مرحبًا بكم في منصّتكم التعليمية ✨<br>
+      يسرّنا أن نوضح لزوارنا الكرام أنّ جميع الفيديوهات المعروضة على موقعنا ليست من إنتاجنا المباشر، 
+      بل هي موجودة أصلًا على منصة يوتيوب، ونحن نوفرها لكم فقط عبر خاصية المشاركة الرسمية لتكون في متناولكم بسهولة.
+    </p>
+
+    <p>
+      أما بالنسبة إلى الملفات التعليمية (الدروس، التمارين، الحلول...) فهي متوفرة مجانًا من قِبل أساتذة أفاضل 
+      وافقوا على نشرها خدمةً للطلاب، ونحن لم نقم بحذف أسمائهم أو تعديل محتواها، 
+      بل اقتصر دورنا على تنظيمها وترتيبها داخل المنصة ليسهُل على التلاميذ الوصول إليها بأبسط طريقة.
+    </p>
+
+    <h4>لمحة عن مؤسس المنصة</h4>
+    <p>
+      أنا وليد رومـيلي، طالب شغوف بالتعلّم الذاتي والبحث المستمر عن المعرفة. 
+      أؤمن بأن العلم هو أعظم استثمار في الحياة، لذلك أسعى من خلال هذه المنصة إلى أن أشارك زملائي الطلاب 
+      ما استطعت جمعه من موارد تعليمية موثوقة، وأسهم في تيسير وصولهم إليها بطريقة منظمة وبسيطة.
+    </p>
+
+    <p>
+      أطمح أن تكون هذه المبادرة لبنة صغيرة في مسيرة بناء جيل واعٍ، متفوق، ومبدع، 
+      وأن تكون منصتنا التعليمية رفيقًا لكم في طريقكم نحو النجاح. ✨
+    </p>
+
+    <p style="margin-top: 18px; text-align:center;">
+      <button class="btn btn-outline-primary" onclick="document.querySelector('#aboutus .aboutus-close-btn').click();">حسناً، إغلاق</button>
+    </p>
+  </div>
+</div>
+
+<script>
+/* Script to open/close aboutus modal and support hash + back-button behavior */
+(function(){
+  const modal = document.getElementById('aboutus');
+  if(!modal) return;
+  const openLinks = document.querySelectorAll('a[href="#aboutus"]');
+  const closeBtn = modal.querySelector('.aboutus-close-btn');
+  let pushedHistory = false;
+
+  function openModal(fromHashChange = false){
+    modal.style.display = 'block';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    const content = modal.querySelector('.aboutus-content');
+    if (content) content.focus();
+    if (!fromHashChange && location.hash !== '#aboutus') {
+      history.pushState({aboutus:true}, '', '#aboutus');
+      pushedHistory = true;
+    }
+  }
+
+  function closeModal(fromHashChange = false){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+    if (pushedHistory) {
+      pushedHistory = false;
+      history.back();
+    } else if (location.hash === '#aboutus' && !fromHashChange) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }
+
+  // intercept footer (or any) links to #aboutus
+  openLinks.forEach(a => a.addEventListener('click', function(e){
+    e.preventDefault();
+    openModal(false);
+  }));
+
+  // close button
+  if (closeBtn) closeBtn.addEventListener('click', function(){ closeModal(false); });
+
+  // click outside content closes modal
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) closeModal(false);
+  });
+
+  // open/close when hash changes (back/forward behavior)
+  window.addEventListener('hashchange', function(){
+    if (location.hash === '#aboutus') openModal(true);
+    else if (modal.classList.contains('open')) closeModal(true);
+  });
+
+  // ESC key closes
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(false);
+  });
+
+  // open on page load if URL contains the hash already
+  if (location.hash === '#aboutus') {
+    setTimeout(() => openModal(true), 50);
+  }
+})();
+</script>
+<!-- ========================= END aboutus modal =========================== -->
 <script>
 /* Script to open/close modal and support hash + back-button behavior */
 (function(){
@@ -3082,12 +3460,14 @@ let isLoggingIn = false; // ← فلاغ لمنع إظهار اختيار الش
 // تحميل بيانات المستخدم
      // تحميل بيانات المستخدم
 function navHomeClicked(event) {
-  event.preventDefault();
+  if (event) event.preventDefault();
   const logged = localStorage.getItem('isLoggedIn') === 'true';
 
   if (logged) {
     // إذا المستخدم مسجّل → اذهب إلى الرئيسية الحقيقية (المواد/الداشبورد)
-    try { showHome(); } catch (e) {
+    try { 
+      showHome(); 
+    } catch (e) {
       // إذا لم توجد showHome لأي سبب، نعرض profile كخطة بديلة
       console.warn('showHome failed:', e);
       hideAllSections();
@@ -3100,11 +3480,16 @@ function navHomeClicked(event) {
     const auth = document.getElementById('authSection');
     if (auth) auth.style.display = 'flex';
     // لا تُجبِر عرض المطور هنا — لأن المستخدم يريد العودة لشاشة التسجيل
-    // إن أردت إبقاء المطوّر مرئياً مع المصادقة أزل السطر التالي:
     const dev = document.getElementById('developerSection');
     if (dev) dev.style.display = 'none';
   }
+
+  // ✅ التعديل الجديد: امسح بارامترات ?bac و ?year من الرابط عند الرجوع للرئيسية
+  const url = new URL(window.location);
+  url.search = ''; // يمسح أي استعلامات (?bac=...&year=...)
+  history.replaceState({}, '', url);
 }
+
         // 1. Define specialization-specific content structures
         const specializationData = {
             math: { // ماتيلام
@@ -8726,6 +9111,28 @@ function hideAIButton() {
 // 6. تهيئة النظام عند تحميل الصفحة
 // تعديل applyAuthUI ليحترم طلب فتح مادة من الرابط (fast path) ويمنع الفليكر
 async function applyAuthUI() {
+  // ضع هذا في applyAuthUI() مباشرة بعد جلب URLSearchParams أو في initApp قبل العرض الافتراضي
+const params = new URLSearchParams(window.location.search);
+const bacParam = params.get('bac');
+
+if (bacParam) {
+  // أعد عرض واجهة البكالوريا مباشرة (لا ننتظر تحميل كل البيانات)
+  hideAllSections();
+  const sec = document.getElementById('bacExamsSection');
+  if (sec) sec.style.display = 'block';
+  // استدعاء renderBacExams مع replaceState=false لأننا عرضنا الرابط كما هو
+  renderBacExams(bacParam, { /* اختياري: اضف flags لو أردت */ });
+  // إذا كان هناك hash (مثلاً #bac-experimental-2023) نحاول النزول إليه
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    if (target) {
+      // استخدم setTimeout لضمان أن DOM جاهز للتمرير
+      setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 120);
+    }
+  }
+  return; // أنهِ applyAuthUI لأننا فتحنا الـ bac مباشرة
+}
+
     try {
         const { data: { session } } = await supabase.auth.getSession();
         const logged = !!(session && session.user);
@@ -9631,7 +10038,8 @@ const bacData = {
     corr: "https://drive.google.com/file/d/1qR-Du48db6Nr8yl8VX7Rkkqb0vjmzk-x/preview"
   }
 ]
-},
+}
+   },
       arabic: {
         name: "اللغة العربية", icon: "📝",
         files: {
@@ -10001,11 +10409,22 @@ const bacData = {
         }
       }
     }
-  }, 
-    
-  }
+  },
 }
- 
+      
+// حفظ موضع التمرير عند الخروج من الصفحة
+window.addEventListener('beforeunload', () => {
+  sessionStorage.setItem('bac-scroll', String(window.scrollY || 0));
+});
+
+// عند العودة/إعادة التحميل
+window.addEventListener('pageshow', () => {
+  const s = sessionStorage.getItem('bac-scroll');
+  if (s) {
+    setTimeout(() => window.scrollTo({ top: Number(s), behavior: 'instant' }), 80);
+    sessionStorage.removeItem('bac-scroll');
+  }
+});
 
 
 // فتح ملف PDF في عارض عائم
@@ -10036,24 +10455,38 @@ function renderBacExams(branch) {
   const data = bacData[branch];
   if (!data) return;
 
-  data.years.forEach((year, idx) => {
+  // 🟢 نقرأ السنة من الـ URL (bac_year) أو نختار أول سنة افتراضياً
+  const params = new URLSearchParams(window.location.search);
+  let selectedYear = params.get('bac_year') || data.years[0];
+
+  data.years.forEach((year) => {
     // زر التبويب
     const li = document.createElement('li');
     li.className = 'nav-item';
     const btn = document.createElement('button');
-    btn.className = 'nav-link' + (idx === 0 ? ' active' : '');
+    btn.className = 'nav-link' + (year == selectedYear ? ' active' : '');
     btn.id = `tab-${year}`;
     btn.dataset.bsToggle = 'tab';
     btn.dataset.bsTarget = `#content-${year}`;
     btn.type = 'button';
     btn.role = 'tab';
     btn.textContent = year;
+
+    // 🟢 تحديث URL عند الضغط
+    btn.onclick = () => {
+      const url = new URL(window.location);
+      url.searchParams.set('bac_branch', branch);
+      url.searchParams.set('bac_year', year);
+      history.pushState({ page: 'bac', branch, year }, `بكالوريا ${year}`, url.toString());
+      renderBacExams(branch); // إعادة الرسم للسنة المختارة
+    };
+
     li.appendChild(btn);
     tabs.appendChild(li);
 
     // المحتوى
     const tabPane = document.createElement('div');
-    tabPane.className = 'tab-pane fade' + (idx === 0 ? ' show active' : '');
+    tabPane.className = 'tab-pane fade' + (year == selectedYear ? ' show active' : '');
     tabPane.id = `content-${year}`;
     tabPane.role = 'tabpanel';
 
@@ -10109,6 +10542,45 @@ function renderBacExams(branch) {
   // تفعيل تبويب الشعبة
   document.getElementById('tab-experimental')?.classList.toggle('active', branch === 'experimental');
   document.getElementById('tab-math')?.classList.toggle('active', branch === 'math');
+}
+
+// 🟢 التعامل مع الرجوع/التقدم في المتصفح
+window.addEventListener('popstate', () => {
+  const params = new URLSearchParams(window.location.search);
+  const branch = params.get('bac_branch') || 'experimental';
+  renderBacExams(branch);
+});
+// ضع هذا في نهاية renderBacExams(branch) بعد ملء container
+try {
+  // احفظ الشعبة (مفيد إذا لم تكن محفوظة مسبقاً)
+  localStorage.setItem('userBranch', branch);
+
+  // امنح كل بطاقة سنة id قابلاً للـ hash لسهولة الإشارة
+  const cards = document.querySelectorAll('#examsContainer .exam-year');
+  cards.forEach(card => {
+    const yearMatch = (card.querySelector('h3')?.textContent || '').match(/\d{4}/);
+    if (yearMatch) card.id = `bac-${branch}-${yearMatch[0]}`; // مثال id = "bac-experimental-2023"
+    // اجعل عنوان السنة قابل للنقر لعمل anchor
+    const h3 = card.querySelector('h3');
+    if (h3) {
+      h3.style.cursor = 'pointer';
+      h3.onclick = () => {
+        // عند النقر على عنوان سنة، نضع الـ hash ليبقى موضع الصفحة عند إعادة تحميل
+        location.hash = `#${card.id}`;
+      };
+    }
+  });
+
+  // حدّث الـ URL (نستخدم pushState لأن المستخدم نقر على تبويب)
+  const url = new URL(window.location);
+  const params = url.searchParams;
+  params.set('bac', branch);          // ?bac=experimental
+  // إن أردت إزالة أي subject قديمة عند دخوله على الباك => uncomment السطر التالي
+  // params.delete('subject');
+  const newUrl = `${url.pathname}?${params.toString()}`;
+  history.pushState({ bac: branch }, document.title, newUrl);
+} catch (err) {
+  console.warn('update bac url failed', err);
 }
 
 // عرض قسم البكالوريا (واجهة عامة)
@@ -10755,6 +11227,15 @@ function backFromLibrary() {
   }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.has('bac')) {
+    const branch = params.get('bac');
+    const year = params.get('year') || null;
+    showBacExams(branch, year); // يفتح مباشرة نفس الشعبة والسنة
+  }
+});
 
 </script>
 
